@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Theme.P8_Vitesse" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Base application theme -->
+    <style name="Theme.P8_Vitesse" parent="android:Theme.Material.Light.NoActionBar"/>
+    <!-- Primary brand color. -->
+    <item name="colorPrimary" type="color">@color/colorPrimary</item>
+    <item name="colorPrimaryVariant" type="color">@color/colorPrimaryVariant</item>
+    <item name="colorOnPrimary" type="color">@color/colorOnPrimary</item>
+    <!-- Secondary brand color. -->
+    <item name="colorSecondary" type="color">@color/colorSecondary</item>
+    <item name="colorSecondaryVariant" type="color">@color/colorSecondaryVariant</item>
+    <item name="colorOnSecondary" type="color">@color/colorOnSecondary</item>
+    <!-- Customize your theme here. -->
 </resources>
