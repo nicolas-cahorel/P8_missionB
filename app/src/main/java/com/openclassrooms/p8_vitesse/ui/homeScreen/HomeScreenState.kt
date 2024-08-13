@@ -10,15 +10,19 @@ sealed interface HomeScreenState {
      */
     data object Loading : HomeScreenState
 
+    // TODO : progressbar display
+
+
     /**
      * Represents a success state of the Home Screen data loading success.
      */
     data object Success : HomeScreenState
 
     /**
-     * Represents an empty state of the empty Home Screen.
+     * Represents an empty state of the empty Home Screen with a dedicated message.
      */
-    data object Empty : HomeScreenState
+    data class Empty(val message: String) : HomeScreenState
+    // TODO : add expected message (Aucun candidat/no candidate)
 
     /**
      * Represents an error state with a message describing the failure.
