@@ -20,6 +20,8 @@ sealed interface HomeScreenState {
 
     /**
      * Represents an empty state of the empty Home Screen with a dedicated message.
+     *
+     * @property message The message describing the empty result.
      */
     data class Empty(val message: String) : HomeScreenState
     // TODO : add expected message (Aucun candidat/no candidate)
