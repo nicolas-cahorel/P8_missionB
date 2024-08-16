@@ -65,21 +65,25 @@ class HomeScreenFragment : Fragment() {
                         // Show loading state
                         is HomeScreenState.Loading -> {
                             binding.pbHomeScreenLoading.visibility = View.VISIBLE
+                            binding.tvHomeScreenMessage.visibility = View.GONE
                         }
 
                         // Show success state
                         is HomeScreenState.Success -> {
                             binding.pbHomeScreenLoading.visibility = View.GONE
+                            binding.tvHomeScreenMessage.visibility = View.GONE
                         }
 
                         // Show empty state
                         is HomeScreenState.Empty -> {
                             binding.pbHomeScreenLoading.visibility = View.GONE
+                            binding.tvHomeScreenMessage.visibility = View.VISIBLE
                         }
 
                         // Show error state
                         is HomeScreenState.Error -> {
                             binding.pbHomeScreenLoading.visibility = View.GONE
+                            binding.tvHomeScreenMessage.visibility = View.VISIBLE
                         }
                     }
                 }

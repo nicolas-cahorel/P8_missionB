@@ -1,7 +1,10 @@
 package com.openclassrooms.p8_vitesse.ui.homeScreen
 
+import android.content.Context
+import android.provider.Settings.Global.getString
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.openclassrooms.p8_vitesse.R
 import com.openclassrooms.p8_vitesse.data.repository.HomeScreenRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,7 +13,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class HomeScreenViewModel (
-    private val homeScreenRepository: HomeScreenRepository
+    private val homeScreenRepository: HomeScreenRepository,
+    private val context: Context
 ): ViewModel() {
 
     // MutableStateFlow representing the state
@@ -24,9 +28,11 @@ class HomeScreenViewModel (
     init {
         // Simulate loading data
         viewModelScope.launch {
+            _homeScreenState.value = HomeScreenState.Loading
             // Simulate a delay
             kotlinx.coroutines.delay(2000)
-            _homeScreenState.value = HomeScreenState.Success
+            val homeScreenMessage: String = context.getString(R.string.home_screen_message)
+            _homeScreenState.value = HomeScreenState.Empty(homeScreenMessage)
         }
     }
 }
