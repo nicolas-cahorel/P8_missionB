@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">P8_Vitesse</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="home_screen_message">No candidate</string>
-    <string name="home_screen_search_hint">Search for a candidate</string>
+    <string name="hello_blank_fragment">Bonjour blank fragment</string>
+    <string name="home_screen_message">Aucun candidat</string>
+    <string name="home_screen_search_hint">Rechercher des candidats</string>
     <string name="search_icon">Retour</string>
 
     <!-- Titres des onglets -->
-    <string name="tab_title_all">All</string>
+    <string name="tab_title_all">Tous</string>
     <string name="tab_title_favorites">Favorites</string>
-    <string name="home_screen_tab_all">All</string>
+    <string name="home_screen_tab_all">Tous</string>
     <string name="home_screen_all_tab_indicator">All tab indicator</string>
     <string name="home_screen_tab_favorite">Favorites</string>
     <string name="home_screen_favorite_tab_indicator">Favorites tab indicator</string>

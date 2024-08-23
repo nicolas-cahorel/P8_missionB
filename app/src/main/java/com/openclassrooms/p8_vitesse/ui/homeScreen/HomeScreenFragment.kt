@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.openclassrooms.p8_vitesse.R
 import com.openclassrooms.p8_vitesse.databinding.FragmentHomeScreenBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -56,6 +57,25 @@ class HomeScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Setup TabLayout with custom tabs
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(getString(R.string.tab_title_all)))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(getString(R.string.tab_title_favorites)))
+
+//        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+//            override fun onTabSelected(tab: TabLayout.Tab?) {
+//               // filtrer la liste de ce qui va etre afficher en utilisant un bollean isfavorite = true
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab?) {
+//                // Optional: Handle tab unselected
+//            }
+//
+//            override fun onTabReselected(tab: TabLayout.Tab?) {
+//                // Optional: Handle tab reselected
+//            }
+//        })
+
+
         // Observe the state flow
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -64,26 +84,26 @@ class HomeScreenFragment : Fragment() {
 
                         // Show loading state
                         is HomeScreenState.Loading -> {
-                            binding.pbHomeScreenLoading.visibility = View.VISIBLE
-                            binding.tvHomeScreenMessage.visibility = View.GONE
+                            binding.homeScreenLoadingProgressBar.visibility = View.VISIBLE
+                            binding.homeScreenMessageTextView.visibility = View.GONE
                         }
 
                         // Show success state
-                        is HomeScreenState.Success -> {
-                            binding.pbHomeScreenLoading.visibility = View.GONE
-                            binding.tvHomeScreenMessage.visibility = View.GONE
+                        is HomeScreenState.DisplayAllCandidates -> {
+                            binding.homeScreenLoadingProgressBar.visibility = View.GONE
+                            binding.homeScreenMessageTextView.visibility = View.GONE
                         }
 
                         // Show empty state
                         is HomeScreenState.Empty -> {
-                            binding.pbHomeScreenLoading.visibility = View.GONE
-                            binding.tvHomeScreenMessage.visibility = View.VISIBLE
+                            binding.homeScreenLoadingProgressBar.visibility = View.GONE
+                            binding.homeScreenMessageTextView.visibility = View.VISIBLE
                         }
 
                         // Show error state
                         is HomeScreenState.Error -> {
-                            binding.pbHomeScreenLoading.visibility = View.GONE
-                            binding.tvHomeScreenMessage.visibility = View.VISIBLE
+                            binding.homeScreenLoadingProgressBar.visibility = View.GONE
+                            binding.homeScreenMessageTextView.visibility = View.VISIBLE
                         }
                     }
                 }

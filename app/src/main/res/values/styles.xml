@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Définit un style avec des coins arrondis -->
+    <style name="ShapeAppearanceOverlay.App.CornerLarge" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item> <!-- Ajustez la taille du coin ici -->
+    </style>
+    <style name="NoUnderlineEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">8dp</item>
+        <!-- Ajoutez d'autres attributs si nécessaire -->
+    </style>
+
+</resources>

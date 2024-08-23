@@ -1,6 +1,8 @@
 [versions]
 agp = "8.5.2"
 constraintlayout = "2.1.4"
+fragment = "1.8.2"
+googleMaterial = "1.9.0"
 koinAndroid = "2.1.6"
 koinAndroidxViewmodel = "2.1.6"
 koinCore = "2.1.6"
@@ -11,10 +13,14 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.4"
 appcompat = "1.7.0"
+material = "1.12.0"
+viewpager = "1.0.0"
 
 [libraries]
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "fragment" }
+androidx-viewpager = { module = "androidx.viewpager:viewpager", version.ref = "viewpager" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -23,6 +29,8 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 koin-androidx-viewmodel = { module = "io.insert-koin:koin-androidx-viewmodel", version.ref = "koinAndroidxViewmodel" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+material-v190 = { module = "com.google.android.material:material", version.ref = "googleMaterial" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

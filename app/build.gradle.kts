@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -56,6 +57,10 @@ dependencies {
     implementation (libs.androidx.constraintlayout)
     implementation (libs.androidx.appcompat)
     implementation (libs.androidx.core.ktx)
+    implementation (libs.material)
+    implementation (libs.androidx.viewpager)
+    implementation (libs.androidx.fragment)
+
 
     // DI Koin
     implementation(libs.koin.android)
