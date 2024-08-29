@@ -5,7 +5,7 @@
     <!-- HOME SCREEN UI -->
     <string name="home_screen_message">Aucun candidat</string>
     <string name="home_screen_search_hint">Rechercher un candidat</string>
-    <string name="search_icon">Icone de recherche</string>
+    <string name="icon_search_content_description">Icone de recherche</string>
     <string name="tab_title_all">Tous</string>
     <string name="tab_title_favorites">Favoris</string>
     <string name="candidate_avatar_description">Photo du candidat</string>

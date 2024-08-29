@@ -17,7 +17,7 @@
             android:id="@+id/candidate_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/candidate_avatar_rounded_background"
+            android:background="@drawable/background_candidate_avatar_rounded"
             android:contentDescription="@string/candidate_avatar_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -10,5 +10,9 @@
         <item name="android:padding">8dp</item>
         <!-- Ajoutez d'autres attributs si nécessaire -->
     </style>
+    <style name="Rounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
 
 </resources>
