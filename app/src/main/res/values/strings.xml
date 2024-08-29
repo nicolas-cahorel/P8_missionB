@@ -1,17 +1,14 @@
 <resources>
     <string name="app_name">P8_Vitesse</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="home_screen_message">No candidate</string>
-    <string name="home_screen_search_hint">Search for a candidate</string>
-    <string name="search_icon">Retour</string>
 
-    <!-- Titres des onglets -->
+    <!-- HOME SCREEN UI -->
+    <string name="home_screen_message">No candidate</string>
+    <string name="home_screen_search_hint">Search</string>
+    <string name="search_icon">Search icon</string>
     <string name="tab_title_all">All</string>
     <string name="tab_title_favorites">Favorites</string>
-    <string name="home_screen_tab_all">All</string>
-    <string name="home_screen_all_tab_indicator">All tab indicator</string>
-    <string name="home_screen_tab_favorite">Favorites</string>
-    <string name="home_screen_favorite_tab_indicator">Favorites tab indicator</string>
-    <string name="candidate_avatar_description">Candidate avatar</string>
+    <string name="candidate_avatar_description">Candidate Photo</string>
+    <string name="home_screen_error_message">An error has occured, please try again</string>
+    <string name="home_screen_add_button_description">Add candidate</string>
 </resources>

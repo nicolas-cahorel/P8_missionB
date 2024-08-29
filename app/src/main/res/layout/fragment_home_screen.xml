@@ -8,7 +8,7 @@
     tools:context=".ui.homeScreen.HomeScreenFragment">
 
     <ProgressBar
-        android:id="@+id/homeScreenLoadingProgressBar"
+        android:id="@+id/homeScreenLoadingStateProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/homeScreenMessageTextView"
+        android:id="@+id/homeScreenEmptyStateMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/home_screen_message"
@@ -56,7 +56,7 @@
             android:inputType="text" />
 
         <ImageView
-            android:id="@+id/HomeScreenSearchButton"
+            android:id="@+id/homeScreenSearchButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -70,24 +70,45 @@
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+        android:id="@+id/homeScreenTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/homeScreenSearchComponent"
         android:layout_marginTop="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/candidate_recyclerview"
+        android:id="@+id/homeScreenRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        app:layout_constraintTop_toBottomOf="@id/homeScreenTabLayout"
         app:layout_constraintBottom_toBottomOf="parent"
         android:clipToPadding="false"
         tools:listitem="@layout/item_candidate" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardElevation="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="@color/OpenClassroomsClearPurple"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent">
+
+    <ImageButton
+        android:id="@+id/homeScreenAddButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/home_screen_add_button_description"
+        android:background="@null"
+        android:src="@drawable/add_icon"
+        app:tint="@color/OpenClassroomsDarkPurple" />
+</androidx.cardview.widget.CardView>
 
 
 

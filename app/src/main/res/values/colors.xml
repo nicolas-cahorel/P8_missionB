@@ -5,6 +5,7 @@
     <color name="softBlue">#749FB8</color>
     <color name="pureWhite">#FFFFFF</color>
     <color name="softYellow">#E8B952</color>
-    <color name="searchBarBackground">#ECE6F0</color>
+    <color name="OpenClassroomsClearPurple">#ECE6F0</color>
+    <color name="OpenClassroomsDarkPurple">#6951A2</color>
     <color name="grey">#DADCE0</color>
 </resources>

@@ -8,17 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.tabs.TabLayout
 import com.openclassrooms.p8_vitesse.R
 import com.openclassrooms.p8_vitesse.databinding.FragmentHomeScreenBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-
 /**
- * Fragment responsible for handling home screen.
+ * Fragment responsible for handling the home screen UI.
  *
- * This fragment manages the UI for home screen
+ * This fragment manages the display of all and favorite candidates using tabs and observes
+ * the [HomeScreenViewModel] to update the UI based on the state.
  */
 class HomeScreenFragment : Fragment() {
 
@@ -51,6 +52,8 @@ class HomeScreenFragment : Fragment() {
     /**
      * Called when the fragment's activity has been created and the fragment's view hierarchy instantiated.
      *
+     * Sets up the TabLayout with custom tabs and observes the state from the ViewModel.
+     *
      * @param view The View returned by [onCreateView].
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
      */
@@ -58,25 +61,33 @@ class HomeScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Setup TabLayout with custom tabs
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(getString(R.string.tab_title_all)))
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(getString(R.string.tab_title_favorites)))
+        binding.tabLayout.addTab(
+            binding.tabLayout.newTab().setText(getString(R.string.tab_title_all))
+        )
+        binding.tabLayout.addTab(
+            binding.tabLayout.newTab().setText(getString(R.string.tab_title_favorites))
+        )
 
-//        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//               // filtrer la liste de ce qui va etre afficher en utilisant un bollean isfavorite = true
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//                // Optional: Handle tab unselected
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//                // Optional: Handle tab reselected
-//            }
-//        })
+        // Set a listener for tab selection
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0 -> viewModel.displayAllCandidates() // Trigger state to display all candidates when "All" tab is selected
+                    1 -> viewModel.displayFavoritesCandidates() // Trigger state to display favorites candidates when "Favorites" tab is selected
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // Handle tab unselection if necessary
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // Handle tab reselection if necessary
+            }
+        })
 
 
-        // Observe the state flow
+        // Observe the state flow from the ViewModel and update the UI accordingly
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.homeScreenStateState.collect { state ->
@@ -88,22 +99,46 @@ class HomeScreenFragment : Fragment() {
                             binding.homeScreenMessageTextView.visibility = View.GONE
                         }
 
-                        // Show success state
+                        // Show all candidates state
                         is HomeScreenState.DisplayAllCandidates -> {
                             binding.homeScreenLoadingProgressBar.visibility = View.GONE
                             binding.homeScreenMessageTextView.visibility = View.GONE
                         }
 
-                        // Show empty state
-                        is HomeScreenState.Empty -> {
+                        // Show all filtered candidates state
+                        is HomeScreenState.DisplayAllFilteredCandidates -> {
                             binding.homeScreenLoadingProgressBar.visibility = View.GONE
-                            binding.homeScreenMessageTextView.visibility = View.VISIBLE
+                            binding.homeScreenMessageTextView.visibility = View.GONE
                         }
 
-                        // Show error state
+                        // Show favorites candidates state
+                        is HomeScreenState.DisplayFavoritesCandidates -> {
+                            binding.homeScreenLoadingProgressBar.visibility = View.GONE
+                            binding.homeScreenMessageTextView.visibility = View.GONE
+                        }
+
+                        // Show favorites filtered candidates state
+                        is HomeScreenState.DisplayFavoritesFilteredCandidates -> {
+                            binding.homeScreenLoadingProgressBar.visibility = View.GONE
+                            binding.homeScreenMessageTextView.visibility = View.GONE
+                        }
+
+                        // Show empty state with a message
+                        is HomeScreenState.Empty -> {
+                            binding.homeScreenLoadingProgressBar.visibility = View.GONE
+                            binding.homeScreenMessageTextView.apply {
+                                visibility = View.VISIBLE
+                                text = state.message // Display the message for empty state
+                            }
+                        }
+
+                        // Show error state with a message
                         is HomeScreenState.Error -> {
                             binding.homeScreenLoadingProgressBar.visibility = View.GONE
-                            binding.homeScreenMessageTextView.visibility = View.VISIBLE
+                            binding.homeScreenMessageTextView.apply {
+                                visibility = View.VISIBLE
+                                text = state.message // Display the error message
+                            }
                         }
                     }
                 }
@@ -112,7 +147,9 @@ class HomeScreenFragment : Fragment() {
     }
 
     /**
-     * Called when the view previously created by onCreateView() has been detached from the fragment.
+     * Called when the view previously created by [onCreateView] has been detached from the fragment.
+     *
+     * This method clears the binding reference to avoid memory leaks.
      */
     override fun onDestroyView() {
         super.onDestroyView()

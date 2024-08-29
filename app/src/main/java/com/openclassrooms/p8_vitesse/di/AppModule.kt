@@ -1,16 +1,62 @@
 package com.openclassrooms.p8_vitesse.di
 
-import com.openclassrooms.p8_vitesse.data.repository.HomeScreenRepository
+import com.openclassrooms.p8_vitesse.data.database.AppDatabase
+import com.openclassrooms.p8_vitesse.data.repository.CandidateRepository
 import com.openclassrooms.p8_vitesse.ui.homeScreen.HomeScreenViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
+/**
+ * Dependency injection module using Koin.
+ */
 val appModule = module {
 
-    // Provide necessary dependencies
-    single { HomeScreenRepository() }
-    //single { androidContext().applicationContext }
-    // Define ViewModel for HomeScreenFragment
-    viewModel{ HomeScreenViewModel(get(), get()) }
+    /**
+     * Provides a CoroutineScope for the application.
+     */
+    single {
+        CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    }
+
+    /**
+     * Provides the AppDatabase instance.
+     *
+     * @param context The application context.
+     * @param coroutineScope The CoroutineScope for database operations.
+     * @return An instance of AppDatabase.
+     */
+    single {
+        AppDatabase.getDatabase(androidContext(), get())
+    }
+
+    /**
+     * Provides the CandidateDao from the AppDatabase.
+     *
+     * @return An instance of CandidateDtoDao.
+     */
+    single {
+        get<AppDatabase>().candidateDtoDao()
+    }
+
+    /**
+     * Provides the CandidateRepository using the CandidateDao.
+     *
+     * @return An instance of CandidateRepository.
+     */
+    single {
+        CandidateRepository(get())
+    }
+
+    /**
+     * Provides the HomeScreenViewModel.
+     *
+     * @return An instance of HomeScreenViewModel.
+     */
+    viewModel {
+        HomeScreenViewModel(get(), get())
+    }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/searchBarBackground"/> <!-- Couleur de fond, vous pouvez la changer selon vos besoins -->
+    <solid android:color="@color/OpenClassroomsClearPurple"/> <!-- Couleur de fond, vous pouvez la changer selon vos besoins -->
     <corners android:radius="24dp"/> <!-- Rayon des coins arrondis -->
 </shape>
