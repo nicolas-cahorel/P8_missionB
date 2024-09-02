@@ -20,8 +20,8 @@
     <string name="icon_email_content_description">Mail icon</string>
     <string name="email">Email</string>
     <string name="icon_birthday_component_description">Birthday icon</string>
-    <string name="add_screen_birthday_hint">Pick a date</string>
-    <string name="add_screen_birthday_hint2">Enter a date</string>
+    <string name="birthday_hint">Pick a date</string>
+    <string name="birthday_hint2">Enter a date</string>
     <string name="icon_calendar_content_description">Calendar icon</string>
     <string name="birthday_input_hint">Date</string>
     <string name="birthday_input_format">dd/mm/yyyy</string>
@@ -30,5 +30,18 @@
     <string name="icon_note_content_description">note icon</string>
     <string name="note">Note</string>
     <string name="icon_save_button_description">Save button</string>
-    <string name="add_screen_save_button">Save</string>
+    <string name="save_button">Save</string>
+    <string name="edit_screen_description">edit screen</string>
+    <string name="detail_screen_description">Detail screen</string>
+    <string name="icon_favorite_false_description">favorite button : candidate is favorite = false</string>
+    <string name="icon_favorite_true_description">favorite button : candidate is favorite = true</string>
+    <string name="icon_edit_description">edit button</string>
+    <string name="icon_delete_description">delete button</string>
+    <string name="button_Phone_description">Phone button to call the displayed candidate</string>
+    <string name="button_sms_description">sms button to send a message to the displayed candidate</string>
+    <string name="button_email_description">button email to send an email to the displayed candidate</string>
+    <string name="add_screen_about">About</string>
+    <string name="detail_screen_birthday">Birthday</string>
+    <string name="add_screen_salary">Expected salary</string>
+    <string name="add_screen_notes">Notes</string>
 </resources>

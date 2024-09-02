@@ -1,14 +1,428 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/editScreenFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.editScreen.EditScreenFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/editScreenTopComponent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/background_clear_purple"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/editScreenBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:contentDescription="@string/icon_search_content_description"
+            android:focusable="true"
+            android:src="@drawable/icon_back"/>
+
+        <TextView
+            android:id="@+id/editScreenScreenName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:hint="@string/edit_screen_description"
+            android:text="@string/edit_screen_description"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/editScreenScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/editScreenTopComponent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/editScreenScrollViewComponent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/editScreenCandidateAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="16dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:contentDescription="@string/icon_full_name_content_description"
+                android:focusable="true"
+                android:src="@drawable/default_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/editScreenScrollViewComponent"/>
+
+            <ImageView
+                android:id="@+id/editScreenFullNameIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:contentDescription="@string/icon_full_name_content_description"
+                android:focusable="true"
+                android:src="@drawable/icon_full_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editScreenCandidateAvatar"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editScreenFirstNameComponent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editScreenFullNameIcon"
+                app:layout_constraintTop_toBottomOf="@id/editScreenCandidateAvatar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editScreenFirstNameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:hint="@string/first_name"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editScreenLastNameComponent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editScreenFullNameIcon"
+                app:layout_constraintTop_toBottomOf="@id/editScreenFirstNameComponent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editScreenLastNameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:hint="@string/last_name"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/editScreenPhoneIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:contentDescription="@string/icon_phone_content_description"
+                android:focusable="true"
+                android:src="@drawable/icon_phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editScreenLastNameComponent"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editScreenPhoneComponent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editScreenPhoneIcon"
+                app:layout_constraintTop_toBottomOf="@id/editScreenLastNameComponent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editScreenPhoneInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:hint="@string/phone"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/editScreenEmailIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:contentDescription="@string/icon_email_content_description"
+                android:focusable="true"
+                android:src="@drawable/icon_email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editScreenPhoneComponent"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editScreenEmailComponent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editScreenEmailIcon"
+                app:layout_constraintTop_toBottomOf="@id/editScreenPhoneComponent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editScreenEmailInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:hint="@string/email"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <ImageView
+                android:id="@+id/editScreenBirthdayIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:contentDescription="@string/icon_birthday_component_description"
+                android:focusable="true"
+                android:src="@drawable/icon_birthday"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editScreenEmailComponent"/>
+
+            <ImageView
+                android:id="@+id/editScreenBirthdayComponent"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_margin="16dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:contentDescription="@string/icon_birthday_component_description"
+                android:focusable="true"
+                android:src="@drawable/background_24dp_rounded_clear_purple"
+                app:layout_constraintStart_toEndOf="@id/editScreenBirthdayIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editScreenEmailComponent"/>
+
+            <TextView
+                android:id="@+id/editScreenBirthdayHint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="start"
+                android:layout_margin="16dp"
+                android:hint="@string/birthday_hint"
+                android:text="@string/birthday_hint"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/editScreenBirthdayComponent"
+                app:layout_constraintEnd_toEndOf="@id/editScreenBirthdayComponent"
+                app:layout_constraintTop_toTopOf="@id/editScreenBirthdayComponent"/>
+
+            <ImageView
+                android:id="@+id/editScreenCalendarIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:contentDescription="@string/icon_calendar_content_description"
+                android:focusable="true"
+                android:src="@drawable/icon_calendar"
+                app:layout_constraintEnd_toEndOf="@+id/editScreenBirthdayComponent"
+                app:layout_constraintTop_toBottomOf="@+id/editScreenBirthdayHint"/>
+
+            <TextView
+                android:id="@+id/editScreenBirthdayHint2"
+                android:layout_width="0dp"
+                android:layout_margin="16dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="start"
+                android:hint="@string/birthday_hint2"
+                android:text="@string/birthday_hint2"
+                android:textColor="@android:color/black"
+                android:textSize="26sp"
+                app:layout_constraintStart_toStartOf="@id/editScreenBirthdayComponent"
+                app:layout_constraintEnd_toStartOf="@id/editScreenCalendarIcon"
+                app:layout_constraintTop_toTopOf="@id/editScreenCalendarIcon"
+                app:layout_constraintBottom_toBottomOf="@id/editScreenCalendarIcon"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editScreenBirthdayComponent2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:layout_constraintEnd_toEndOf="@id/editScreenBirthdayComponent"
+                app:layout_constraintStart_toStartOf="@id/editScreenBirthdayComponent"
+                app:layout_constraintTop_toBottomOf="@id/editScreenCalendarIcon">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editScreenBirthdayInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:hint="@string/birthday_input_hint"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:inputType="date"
+                    android:maxLength="10"
+                    android:text="@string/birthday_input_format"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/editScreenSalaryIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:contentDescription="@string/icon_salary_content_description"
+                android:focusable="true"
+                android:src="@drawable/icon_salary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editScreenBirthdayComponent"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editScreenSalaryComponent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editScreenSalaryIcon"
+                app:layout_constraintTop_toBottomOf="@id/editScreenBirthdayComponent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editScreenSalaryInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:hint="@string/salary"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/editScreenNoteIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:contentDescription="@string/icon_note_content_description"
+                android:focusable="true"
+                android:src="@drawable/icon_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editScreenSalaryComponent"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editScreenNoteComponent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editScreenNoteIcon"
+                app:layout_constraintTop_toBottomOf="@id/editScreenSalaryComponent"
+                android:paddingBottom="100dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editScreenNoteInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:hint="@string/note"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:inputType="textMultiLine"
+                    android:minLines="5"
+                    android:scrollbars="vertical"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/editScreenSaveButton"
+        android:layout_width="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:text="@string/save_button"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:clickable="true"
+        android:contentDescription="@string/icon_save_button_description"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/background_24dp_rounded_dark_purple"
+        tools:ignore="ContentDescription" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,4 +9,5 @@
     <string name="tab_title_all">Tous</string>
     <string name="tab_title_favorites">Favoris</string>
     <string name="candidate_avatar_description">Photo du candidat</string>
+    <string name="add_screen_about">About</string>
 </resources>
