@@ -15,4 +15,20 @@
     <string name="icon_full_name_content_description">Candidate first name and last name icon</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
+    <string name="icon_phone_content_description">Phone icon</string>
+    <string name="phone">Phone</string>
+    <string name="icon_email_content_description">Mail icon</string>
+    <string name="email">Email</string>
+    <string name="icon_birthday_component_description">Birthday icon</string>
+    <string name="add_screen_birthday_hint">Pick a date</string>
+    <string name="add_screen_birthday_hint2">Enter a date</string>
+    <string name="icon_calendar_content_description">Calendar icon</string>
+    <string name="birthday_input_hint">Date</string>
+    <string name="birthday_input_format">dd/mm/yyyy</string>
+    <string name="icon_salary_content_description">Salary icon</string>
+    <string name="salary">Expected salary</string>
+    <string name="icon_note_content_description">note icon</string>
+    <string name="note">Note</string>
+    <string name="icon_save_button_description">Save button</string>
+    <string name="add_screen_save_button">Save</string>
 </resources>
