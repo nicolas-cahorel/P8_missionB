@@ -1,154 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/homeScreenFragment"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".ui.addScreen.AddScreenFragment">
-
-
-<LinearLayout
-    android:id="@+id/addScreenTopComponent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeScreenFragment"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="0dp"
-    android:layout_marginTop="0dp"
-    android:layout_marginEnd="0dp"
-    android:layout_marginBottom="14dp"
-    android:background="@drawable/background_clear_purple"
-    android:orientation="horizontal"
-    android:padding="2dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.addScreen.AddScreenFragment">
 
-    <ImageView
-        android:id="@+id/addScreenBackButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/addScreenTopComponent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:clickable="true"
-        android:contentDescription="@string/icon_search_content_description"
-        android:focusable="true"
-        android:src="@drawable/icon_back"/>
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/background_clear_purple"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/addScreenScreenName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:hint="@string/add_screen_description"
-        android:text="@string/add_screen_description"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"/>
+        <ImageView
+            android:id="@+id/buttonAddScreenBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:contentDescription="@string/button_description_back"
+            android:focusable="true"
+            android:src="@drawable/icon_back" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/addScreenScreenTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/display_title_add_screen"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/addScreenScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/addScreenTopComponent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addScreenTopComponent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/addScreenScrollViewComponent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/displayAddScreenAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="16dp"
+                android:contentDescription="@string/display_description_avatar"
+                android:src="@drawable/default_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/addScreenScrollViewComponent" />
 
-    <ImageView
-        android:id="@+id/addScreenCandidateAvatar"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="16dp"
-        android:layout_gravity="center_vertical"
-        android:clickable="true"
-        android:contentDescription="@string/icon_full_name_content_description"
-        android:focusable="true"
-        android:src="@drawable/default_avatar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/addScreenScrollViewComponent"/>
+            <ImageView
+                android:id="@+id/addScreenFullNameIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
+                android:clickable="true"
+                android:contentDescription="@string/icon_full_name_description"
+                android:focusable="true"
+                android:src="@drawable/icon_full_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/displayAddScreenAvatar" />
 
-    <ImageView
-        android:id="@+id/addScreenFullNameIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_gravity="center_vertical"
-        android:clickable="true"
-        android:contentDescription="@string/icon_full_name_content_description"
-        android:focusable="true"
-        android:src="@drawable/icon_full_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addScreenCandidateAvatar"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addScreenFirstNameComponent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/addScreenFullNameIcon"
+                app:layout_constraintTop_toBottomOf="@id/displayAddScreenAvatar">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addScreenFirstNameComponent"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:boxCornerRadiusBottomEnd="5dp"
-        app:boxCornerRadiusBottomStart="5dp"
-        app:boxCornerRadiusTopEnd="5dp"
-        app:boxCornerRadiusTopStart="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addScreenFullNameIcon"
-        app:layout_constraintTop_toBottomOf="@id/addScreenCandidateAvatar">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputAddScreenFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:hint="@string/input_hint_first_name"
+                    android:inputType="text"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/addScreenFirstNameInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:hint="@string/first_name"
-        android:textColorHint="@android:color/darker_gray"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:inputType="text" />
-</com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addScreenLastNameComponent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/addScreenFullNameIcon"
+                app:layout_constraintTop_toBottomOf="@id/addScreenFirstNameComponent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addScreenLastNameComponent"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:boxCornerRadiusBottomEnd="5dp"
-        app:boxCornerRadiusBottomStart="5dp"
-        app:boxCornerRadiusTopEnd="5dp"
-        app:boxCornerRadiusTopStart="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addScreenFullNameIcon"
-        app:layout_constraintTop_toBottomOf="@id/addScreenFirstNameComponent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/addScreenLastNameInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:hint="@string/last_name"
-            android:textColorHint="@android:color/darker_gray"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputAddScreenLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:hint="@string/input_hint_last_name"
+                    android:inputType="text"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/addScreenPhoneIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
                 android:clickable="true"
-                android:contentDescription="@string/icon_phone_content_description"
+                android:contentDescription="@string/icon_description_phone"
                 android:focusable="true"
                 android:src="@drawable/icon_phone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addScreenLastNameComponent"/>
+                app:layout_constraintTop_toBottomOf="@+id/addScreenLastNameComponent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addScreenPhoneComponent"
@@ -165,29 +159,29 @@ tools:context=".ui.addScreen.AddScreenFragment">
                 app:layout_constraintTop_toBottomOf="@id/addScreenLastNameComponent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addScreenPhoneInput"
+                    android:id="@+id/inputAddScreenPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:hint="@string/phone"
-                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="@string/input_hint_phone"
+                    android:inputType="phone"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:inputType="text" />
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/addScreenEmailIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
                 android:clickable="true"
-                android:contentDescription="@string/icon_email_content_description"
+                android:contentDescription="@string/icon_description_email"
                 android:focusable="true"
                 android:src="@drawable/icon_email"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addScreenPhoneComponent"/>
+                app:layout_constraintTop_toBottomOf="@+id/addScreenPhoneComponent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addScreenEmailComponent"
@@ -204,89 +198,86 @@ tools:context=".ui.addScreen.AddScreenFragment">
                 app:layout_constraintTop_toBottomOf="@id/addScreenPhoneComponent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addScreenEmailInput"
+                    android:id="@+id/inputAddScreenEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:hint="@string/email"
-                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="@string/input_hint_email"
+                    android:inputType="text"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:inputType="text" />
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
-
-
 
             <ImageView
                 android:id="@+id/addScreenBirthdayIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
                 android:clickable="true"
-                android:contentDescription="@string/icon_birthday_component_description"
+                android:contentDescription="@string/icon_description_birthday"
                 android:focusable="true"
                 android:src="@drawable/icon_birthday"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addScreenEmailComponent"/>
+                app:layout_constraintTop_toBottomOf="@+id/addScreenEmailComponent" />
 
             <ImageView
                 android:id="@+id/addScreenBirthdayComponent"
                 android:layout_width="0dp"
                 android:layout_height="180dp"
-                android:layout_margin="16dp"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
                 android:clickable="true"
-                android:contentDescription="@string/icon_birthday_component_description"
+                android:contentDescription="@string/icon_description_birthday"
                 android:focusable="true"
                 android:src="@drawable/background_24dp_rounded_clear_purple"
-                app:layout_constraintStart_toEndOf="@id/addScreenBirthdayIcon"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addScreenEmailComponent"/>
+                app:layout_constraintStart_toEndOf="@id/addScreenBirthdayIcon"
+                app:layout_constraintTop_toBottomOf="@+id/addScreenEmailComponent" />
 
-                <TextView
-                    android:id="@+id/addScreenBirthdayHint"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="start"
-                    android:layout_margin="16dp"
-                    android:hint="@string/birthday_hint"
-                    android:text="@string/birthday_hint"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@id/addScreenBirthdayComponent"
-                    app:layout_constraintEnd_toEndOf="@id/addScreenBirthdayComponent"
-                    app:layout_constraintTop_toTopOf="@id/addScreenBirthdayComponent"/>
+            <TextView
+                android:id="@+id/addScreenBirthdayHint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
+                android:gravity="start"
+                android:text="@string/display_title_birthday"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/addScreenBirthdayComponent"
+                app:layout_constraintStart_toStartOf="@id/addScreenBirthdayComponent"
+                app:layout_constraintTop_toTopOf="@id/addScreenBirthdayComponent" />
 
             <ImageView
-                android:id="@+id/addScreenCalendarIcon"
+                android:id="@+id/buttonAddScreenCalendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
                 android:clickable="true"
-                android:contentDescription="@string/icon_calendar_content_description"
+                android:contentDescription="@string/button_description_calendar"
                 android:focusable="true"
                 android:src="@drawable/icon_calendar"
                 app:layout_constraintEnd_toEndOf="@+id/addScreenBirthdayComponent"
-                app:layout_constraintTop_toBottomOf="@+id/addScreenBirthdayHint"/>
+                app:layout_constraintTop_toBottomOf="@+id/addScreenBirthdayHint" />
 
-                    <TextView
-                        android:id="@+id/addScreenBirthdayHint2"
-                        android:layout_width="0dp"
-                        android:layout_margin="16dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="start"
-                        android:hint="@string/birthday_hint2"
-                        android:text="@string/birthday_hint2"
-                        android:textColor="@android:color/black"
-                        android:textSize="26sp"
-                        app:layout_constraintStart_toStartOf="@id/addScreenBirthdayComponent"
-                        app:layout_constraintEnd_toStartOf="@id/addScreenCalendarIcon"
-                        app:layout_constraintTop_toTopOf="@id/addScreenCalendarIcon"
-                        app:layout_constraintBottom_toBottomOf="@id/addScreenCalendarIcon"/>
+            <TextView
+                android:id="@+id/addScreenBirthdayHint2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
+                android:gravity="start"
+                android:hint="@string/display_title_birthday2"
+                android:text="@string/display_title_birthday2"
+                android:textColor="@android:color/black"
+                android:textSize="26sp"
+                app:layout_constraintBottom_toBottomOf="@id/buttonAddScreenCalendar"
+                app:layout_constraintEnd_toStartOf="@id/buttonAddScreenCalendar"
+                app:layout_constraintStart_toStartOf="@id/addScreenBirthdayComponent"
+                app:layout_constraintTop_toTopOf="@id/buttonAddScreenCalendar" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addScreenBirthdayComponent2"
@@ -298,36 +289,37 @@ tools:context=".ui.addScreen.AddScreenFragment">
                 app:boxCornerRadiusBottomStart="5dp"
                 app:boxCornerRadiusTopEnd="5dp"
                 app:boxCornerRadiusTopStart="5dp"
+                app:boxStrokeColor="@color/openClassroomsDarkPurple"
                 app:layout_constraintEnd_toEndOf="@id/addScreenBirthdayComponent"
                 app:layout_constraintStart_toStartOf="@id/addScreenBirthdayComponent"
-                app:layout_constraintTop_toBottomOf="@id/addScreenCalendarIcon">
+                app:layout_constraintTop_toBottomOf="@id/buttonAddScreenCalendar">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addScreenBirthdayInput"
+                    android:id="@+id/inputAddScreenBirthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:hint="@string/birthday_input_hint"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
+                    android:hint="@string/input_hint_birthday"
                     android:inputType="date"
                     android:maxLength="10"
-                    android:text="@string/birthday_input_format"/>
+                    android:text="@string/input_birthday_pre_input"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/addScreenSalaryIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
                 android:clickable="true"
-                android:contentDescription="@string/icon_salary_content_description"
+                android:contentDescription="@string/icon_description_salary"
                 android:focusable="true"
                 android:src="@drawable/icon_salary"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addScreenBirthdayComponent"/>
+                app:layout_constraintTop_toBottomOf="@+id/addScreenBirthdayComponent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addScreenSalaryComponent"
@@ -344,29 +336,29 @@ tools:context=".ui.addScreen.AddScreenFragment">
                 app:layout_constraintTop_toBottomOf="@id/addScreenBirthdayComponent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addScreenSalaryInput"
+                    android:id="@+id/inputAddScreenSalary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:hint="@string/salary"
-                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="@string/input_hint_salary"
+                    android:inputType="number"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:inputType="number" />
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/addScreenNoteIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
                 android:clickable="true"
-                android:contentDescription="@string/icon_note_content_description"
+                android:contentDescription="@string/icon_description_note"
                 android:focusable="true"
                 android:src="@drawable/icon_edit"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addScreenSalaryComponent"/>
+                app:layout_constraintTop_toBottomOf="@+id/addScreenSalaryComponent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addScreenNoteComponent"
@@ -374,55 +366,53 @@ tools:context=".ui.addScreen.AddScreenFragment">
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:paddingBottom="100dp"
                 app:boxCornerRadiusBottomEnd="5dp"
                 app:boxCornerRadiusBottomStart="5dp"
                 app:boxCornerRadiusTopEnd="5dp"
                 app:boxCornerRadiusTopStart="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/addScreenNoteIcon"
-                app:layout_constraintTop_toBottomOf="@id/addScreenSalaryComponent"
-                android:paddingBottom="100dp">
+                app:layout_constraintTop_toBottomOf="@id/addScreenSalaryComponent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addScreenNoteInput"
+                    android:id="@+id/inputAddScreenNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:hint="@string/note"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
+                    android:hint="@string/input_hint_note"
                     android:inputType="textMultiLine"
-                android:minLines="5"
-                android:scrollbars="vertical"/>
+                    android:minLines="5"
+                    android:scrollbars="vertical"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
     <TextView
-        android:id="@+id/addScreenSaveButton"
+        android:id="@+id/buttonAddScreenSave"
         android:layout_width="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/background_24dp_rounded_dark_purple"
+        android:clickable="true"
+        android:contentDescription="@string/button_description_save"
+        android:focusable="true"
         android:gravity="center"
-        android:text="@string/save_button"
+        android:text="@string/button_title_save"
         android:textColor="@android:color/white"
         android:textSize="14sp"
-        android:clickable="true"
-        android:contentDescription="@string/icon_save_button_description"
-        android:focusable="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/background_24dp_rounded_dark_purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="ContentDescription" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

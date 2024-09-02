@@ -62,10 +62,10 @@ class HomeScreenFragment : Fragment() {
 
         // Setup TabLayout with custom tabs
         binding.tabLayout.addTab(
-            binding.tabLayout.newTab().setText(getString(R.string.tab_title_all))
+            binding.tabLayout.newTab().setText(getString(R.string.display_tab_title_all))
         )
         binding.tabLayout.addTab(
-            binding.tabLayout.newTab().setText(getString(R.string.tab_title_favorites))
+            binding.tabLayout.newTab().setText(getString(R.string.display_tab_title_favorites))
         )
 
         // Set a listener for tab selection

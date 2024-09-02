@@ -2,46 +2,48 @@
     <string name="app_name">P8_Vitesse</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- HOME SCREEN UI -->
-    <string name="home_screen_message">No candidate</string>
-    <string name="home_screen_search_hint">Search</string>
-    <string name="icon_search_content_description">Search icon</string>
-    <string name="tab_title_all">All</string>
-    <string name="tab_title_favorites">Favorites</string>
-    <string name="candidate_avatar_description">Candidate Photo</string>
-    <string name="home_screen_error_message">An error has occured, please try again</string>
-    <string name="home_screen_add_button_description">Add candidate</string>
-    <string name="add_screen_description">Add a candidate</string>
-    <string name="icon_full_name_content_description">Candidate first name and last name icon</string>
-    <string name="first_name">First name</string>
-    <string name="last_name">Last name</string>
-    <string name="icon_phone_content_description">Phone icon</string>
-    <string name="phone">Phone</string>
-    <string name="icon_email_content_description">Mail icon</string>
-    <string name="email">Email</string>
-    <string name="icon_birthday_component_description">Birthday icon</string>
-    <string name="birthday_hint">Pick a date</string>
-    <string name="birthday_hint2">Enter a date</string>
-    <string name="icon_calendar_content_description">Calendar icon</string>
-    <string name="birthday_input_hint">Date</string>
-    <string name="birthday_input_format">dd/mm/yyyy</string>
-    <string name="icon_salary_content_description">Salary icon</string>
-    <string name="salary">Expected salary</string>
-    <string name="icon_note_content_description">note icon</string>
-    <string name="note">Note</string>
-    <string name="icon_save_button_description">Save button</string>
-    <string name="save_button">Save</string>
-    <string name="edit_screen_description">edit screen</string>
-    <string name="detail_screen_description">Detail screen</string>
-    <string name="icon_favorite_false_description">favorite button : candidate is favorite = false</string>
-    <string name="icon_favorite_true_description">favorite button : candidate is favorite = true</string>
-    <string name="icon_edit_description">edit button</string>
-    <string name="icon_delete_description">delete button</string>
-    <string name="button_Phone_description">Phone button to call the displayed candidate</string>
-    <string name="button_sms_description">sms button to send a message to the displayed candidate</string>
-    <string name="button_email_description">button email to send an email to the displayed candidate</string>
-    <string name="add_screen_about">About</string>
-    <string name="detail_screen_birthday">Birthday</string>
-    <string name="add_screen_salary">Expected salary</string>
-    <string name="add_screen_notes">Notes</string>
+    <!-- A VERIFIER AVEC FIGMA + KANBAN-->
+    <string name="button_description_add">Add candidate</string>
+    <string name="button_description_back">back button</string>
+    <string name="button_description_calendar">Calendar icon</string>
+    <string name="button_description_email">button email to send an email to the displayed candidate</string>
+    <string name="button_description_phone">Phone button to call the displayed candidate</string>
+    <string name="button_description_save">Save button</string>
+    <string name="button_description_search">Search button</string>
+    <string name="button_description_sms">sms button to send a message to the displayed candidate</string>
+    <string name="button_title_save">Save</string>
+    <string name="display_description_avatar">Candidate Photo</string>
+    <string name="display_message_home_screen_error">An error has occurred, please try again</string>
+    <string name="display_message_home_screen_no_result">No candidate</string>
+    <string name="display_tab_title_all">All</string>
+    <string name="display_tab_title_favorites">Favorites</string>
+    <string name="display_title_add_screen">Add a candidate</string>
+    <string name="display_title_add_screen_about">About</string>
+    <string name="display_title_add_screen_notes">Notes</string>
+    <string name="display_title_add_screen_salary">Expected salary</string>
+    <string name="display_title_birthday">Pick a date</string>
+    <string name="display_title_birthday2">Enter a date</string>
+    <string name="display_title_detail_screen">Detail screen</string>
+    <string name="display_title_detail_screen_birthday">Birthday</string>
+    <string name="display_title_edit_screen">edit screen</string>
+    <string name="icon_description_birthday">Birthday icon</string>
+    <string name="icon_description_delete">delete button</string>
+    <string name="icon_description_edit">edit button</string>
+    <string name="icon_description_email">Mail icon</string>
+    <string name="icon_description_favorite_false">favorite button : candidate is favorite = false</string>
+    <string name="icon_description_favorite_true">favorite button : candidate is favorite = true</string>
+    <string name="icon_description_note">note icon</string>
+    <string name="icon_description_phone">Phone icon</string>
+    <string name="icon_description_salary">Salary icon</string>
+    <string name="icon_full_name_description">Candidate first name and last name icon</string>
+    <string name="input_birthday_pre_input">dd/mm/yyyy</string>
+    <string name="input_hint_birthday">Date</string>
+    <string name="input_hint_email">Email</string>
+    <string name="input_hint_first_name">First name</string>
+    <string name="input_hint_home_screen_search">Search</string>
+    <string name="input_hint_last_name">Last name</string>
+    <string name="input_hint_note">Note</string>
+    <string name="input_hint_phone">Phone</string>
+    <string name="input_hint_salary">Expected salary</string>
+
 </resources>

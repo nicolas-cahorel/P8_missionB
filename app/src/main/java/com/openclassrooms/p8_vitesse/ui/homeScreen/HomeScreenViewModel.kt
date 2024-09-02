@@ -59,14 +59,14 @@ class HomeScreenViewModel(
 
                 // Check if the list is empty and update the state accordingly
                 if (candidates.isEmpty()) {
-                    val emptyMessage: String = context.getString(R.string.home_screen_message)
+                    val emptyMessage: String = context.getString(R.string.display_message_home_screen_no_result)
                     _homeScreenState.value = HomeScreenState.Empty(emptyMessage)
                 } else {
                     _homeScreenState.value = HomeScreenState.DisplayAllCandidates(candidates)
                 }
             } catch (e: Exception) {
                 // If an error occurs, update the state to Error
-                val errorMessage: String = context.getString(R.string.home_screen_error_message)
+                val errorMessage: String = context.getString(R.string.display_message_home_screen_error)
                 _homeScreenState.value = HomeScreenState.Error(errorMessage)
                 // Optionally, send a message to the UI through the shared flow
                 _homeScreenMessage.emit(errorMessage)
@@ -83,13 +83,13 @@ class HomeScreenViewModel(
                 val candidates = candidateRepository.getAllCandidates()
                 if (candidates.isEmpty()) {
                     _homeScreenState.value =
-                        HomeScreenState.Empty(context.getString(R.string.home_screen_message))
+                        HomeScreenState.Empty(context.getString(R.string.display_message_home_screen_no_result))
                 } else {
                     _homeScreenState.value = HomeScreenState.DisplayAllCandidates(candidates)
                 }
             } catch (e: Exception) {
                 _homeScreenState.value =
-                    HomeScreenState.Error(context.getString(R.string.home_screen_error_message))
+                    HomeScreenState.Error(context.getString(R.string.display_message_home_screen_error))
             }
         }
     }
@@ -103,13 +103,13 @@ class HomeScreenViewModel(
                 val favorites = candidateRepository.getFavoritesCandidates()
                 if (favorites.isEmpty()) {
                     _homeScreenState.value =
-                        HomeScreenState.Empty(context.getString(R.string.home_screen_message))
+                        HomeScreenState.Empty(context.getString(R.string.display_message_home_screen_no_result))
                 } else {
                     _homeScreenState.value = HomeScreenState.DisplayFavoritesCandidates(favorites)
                 }
             } catch (e: Exception) {
                 _homeScreenState.value =
-                    HomeScreenState.Error(context.getString(R.string.home_screen_error_message))
+                    HomeScreenState.Error(context.getString(R.string.display_message_home_screen_error))
             }
         }
     }

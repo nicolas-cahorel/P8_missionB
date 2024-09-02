@@ -21,7 +21,7 @@
         android:id="@+id/homeScreenEmptyStateMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/home_screen_message"
+        android:text="@string/display_message_home_screen_no_result"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,24 +44,24 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/homeScreenSearchBar"
+            android:id="@+id/inputHomeScreenSearchBar"
             style="@style/NoUnderlineEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:autofillHints="name"
-            android:hint="@string/home_screen_search_hint"
+            android:hint="@string/input_hint_home_screen_search"
             android:importantForAccessibility="yes"
             android:inputType="text" />
 
         <ImageView
-            android:id="@+id/homeScreenSearchButton"
+            android:id="@+id/buttonHomeScreenSearch"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:clickable="true"
-            android:contentDescription="@string/icon_search_content_description"
+            android:contentDescription="@string/button_description_search"
             android:focusable="true"
             android:scaleX="0.3"
             android:scaleY="0.3"
@@ -101,11 +101,11 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
-            android:id="@+id/homeScreenAddButton"
+            android:id="@+id/buttonHomeScreenAdd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:contentDescription="@string/home_screen_add_button_description"
+            android:contentDescription="@string/button_description_add"
             android:src="@drawable/icon_add"
             app:tint="@color/openClassroomsDarkPurple" />
 

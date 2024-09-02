@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.detailScreen.DetailScreenFragment">
 
-
     <LinearLayout
         android:id="@+id/detailScreenTopComponent"
         android:layout_width="match_parent"
@@ -24,66 +23,66 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/detailScreenBackButton"
+            android:id="@+id/buttonDetailScreenBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:clickable="true"
-            android:contentDescription="@string/icon_search_content_description"
+            android:contentDescription="@string/button_description_search"
             android:focusable="true"
-            android:src="@drawable/icon_back"/>
+            android:src="@drawable/icon_back" />
 
         <TextView
-            android:id="@+id/detailScreenScreenName"
+            android:id="@+id/displayDetailScreenScreenName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:hint="@string/detail_screen_description"
+            android:hint="@string/display_title_detail_screen"
             android:text="Full NAME"
             android:textColor="@android:color/black"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/detailScreenFavoriteFalseButton"
+            android:id="@+id/buttonDetailScreenFavoriteFalse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:clickable="true"
-            android:contentDescription="@string/icon_favorite_false_description"
+            android:contentDescription="@string/icon_description_favorite_false"
             android:focusable="true"
-            android:src="@drawable/icon_favorite_false"/>
+            android:src="@drawable/icon_favorite_false" />
 
         <ImageView
-            android:id="@+id/detailScreenFavoriteTrueButton"
+            android:id="@+id/buttonDetailScreenFavoriteTrue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:clickable="true"
-            android:contentDescription="@string/icon_favorite_true_description"
+            android:contentDescription="@string/icon_description_favorite_true"
             android:focusable="true"
-            android:visibility="gone"
-            android:src="@drawable/icon_favorite_true"/>
+            android:src="@drawable/icon_favorite_true"
+            android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/detailScreenEditButton"
+            android:id="@+id/buttonDetailScreenEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:clickable="true"
-            android:contentDescription="@string/icon_edit_description"
+            android:contentDescription="@string/icon_description_edit"
             android:focusable="true"
-            android:src="@drawable/icon_edit"/>
+            android:src="@drawable/icon_edit" />
 
         <ImageView
-            android:id="@+id/detailScreenDeleteButton"
+            android:id="@+id/buttonDetailScreenDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:clickable="true"
-            android:contentDescription="@string/icon_delete_description"
+            android:contentDescription="@string/icon_description_delete"
             android:focusable="true"
-            android:src="@drawable/icon_delete"/>
+            android:src="@drawable/icon_delete" />
 
     </LinearLayout>
 
@@ -91,8 +90,8 @@
         android:id="@+id/detailScreenScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/detailScreenTopComponent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailScreenTopComponent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/detailScreenScrollViewComponent"
@@ -100,17 +99,17 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/detailScreenCandidateAvatar"
+                android:id="@+id/displayDetailScreenAvatar"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_margin="16dp"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
                 android:clickable="true"
-                android:contentDescription="@string/icon_full_name_content_description"
+                android:contentDescription="@string/icon_full_name_description"
                 android:focusable="true"
                 android:src="@drawable/default_avatar"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/detailScreenScrollViewComponent"/>
+                app:layout_constraintTop_toTopOf="@+id/detailScreenScrollViewComponent" />
 
             <LinearLayout
                 android:id="@+id/detailScreenContactComponent"
@@ -118,180 +117,172 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="2dp"
-                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailScreenCandidateAvatar">
-
-
-                <ImageView
-                    android:id="@+id/detailScreenPhoneButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_gravity="center_vertical"
-                    android:clickable="true"
-                    android:contentDescription="@string/button_Phone_description"
-                    android:focusable="true"
-                    android:src="@drawable/icon_phone_circle"/>
-
-
+                app:layout_constraintTop_toBottomOf="@+id/displayDetailScreenAvatar">
 
                 <ImageView
-                    android:id="@+id/detailScreenSmsButton"
+                    android:id="@+id/buttonDetailScreenMakeCall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_margin="16dp"
                     android:clickable="true"
-                    android:contentDescription="@string/button_sms_description"
+                    android:contentDescription="@string/button_description_phone"
                     android:focusable="true"
-                    android:src="@drawable/icon_sms_circle"/>
+                    android:src="@drawable/icon_phone_circle" />
 
                 <ImageView
-                    android:id="@+id/detailScreenEmailButton"
+                    android:id="@+id/buttonDetailScreenSendSms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_margin="16dp"
                     android:clickable="true"
-                    android:contentDescription="@string/button_email_description"
+                    android:contentDescription="@string/button_description_sms"
                     android:focusable="true"
-                    android:src="@drawable/icon_email_circle"/>
+                    android:src="@drawable/icon_sms_circle" />
+
+                <ImageView
+                    android:id="@+id/buttonDetailScreenSendEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="16dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/button_description_email"
+                    android:focusable="true"
+                    android:src="@drawable/icon_email_circle" />
 
             </LinearLayout>
-
-
 
             <TextView
                 android:id="@+id/detailScreenAboutComponent"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_gravity="center_vertical"
-                android:gravity="start"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:background="@drawable/background_24dp_rounded_clear_purple"
+                android:gravity="start"
                 android:padding="16dp"
-                android:text="@string/add_screen_about"
+                android:text="@string/display_title_add_screen_about"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailScreenContactComponent"
-                android:background="@drawable/background_24dp_rounded_clear_purple"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailScreenContactComponent" />
 
             <TextView
-                android:id="@+id/detailScreenBirthdayDate"
+                android:id="@+id/displayDetailScreenBirthday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="start"
-                android:layout_marginTop="80dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="80dp"
+                android:gravity="start"
                 android:text="dd/mm/yyyy (xx years)"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/detailScreenAboutComponent"
                 app:layout_constraintEnd_toEndOf="@id/detailScreenAboutComponent"
-                app:layout_constraintTop_toTopOf="@id/detailScreenAboutComponent"/>
+                app:layout_constraintStart_toStartOf="@id/detailScreenAboutComponent"
+                app:layout_constraintTop_toTopOf="@id/detailScreenAboutComponent" />
 
             <TextView
                 android:id="@+id/detailScreenBirthdayText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="start"
                 android:layout_marginStart="16dp"
-                android:text="@string/detail_screen_birthday"
+                android:gravity="start"
+                android:text="@string/display_title_detail_screen_birthday"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/detailScreenAboutComponent"
                 app:layout_constraintEnd_toEndOf="@id/detailScreenAboutComponent"
-                app:layout_constraintTop_toBottomOf="@id/detailScreenBirthdayDate"/>
-
+                app:layout_constraintStart_toStartOf="@id/detailScreenAboutComponent"
+                app:layout_constraintTop_toBottomOf="@id/displayDetailScreenBirthday" />
 
             <TextView
                 android:id="@+id/detailScreenSalaryComponent"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_gravity="center_vertical"
-                android:gravity="start"
                 android:layout_margin="16dp"
+                android:background="@drawable/background_24dp_rounded_clear_purple"
+                android:gravity="start"
                 android:padding="16dp"
-                android:text="@string/add_screen_salary"
+                android:text="@string/display_title_add_screen_salary"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailScreenAboutComponent"
-                android:background="@drawable/background_24dp_rounded_clear_purple"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailScreenAboutComponent" />
 
             <TextView
-                android:id="@+id/detailScreenSalaryDisplay"
+                android:id="@+id/displayDetailScreenSalary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="start"
-                android:layout_marginTop="80dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="80dp"
+                android:gravity="start"
                 android:text="3500€"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/detailScreenSalaryComponent"
                 app:layout_constraintEnd_toEndOf="@id/detailScreenSalaryComponent"
-                app:layout_constraintTop_toTopOf="@id/detailScreenSalaryComponent"/>
+                app:layout_constraintStart_toStartOf="@id/detailScreenSalaryComponent"
+                app:layout_constraintTop_toTopOf="@id/detailScreenSalaryComponent" />
 
             <TextView
-                android:id="@+id/detailScreenConvertedSalaryDisplay"
+                android:id="@+id/displayDetailScreenConvertedSalary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="start"
                 android:layout_marginStart="16dp"
+                android:gravity="start"
                 android:text="soit 3026.99 livres"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/detailScreenSalaryComponent"
                 app:layout_constraintEnd_toEndOf="@id/detailScreenSalaryComponent"
-                app:layout_constraintTop_toBottomOf="@id/detailScreenSalaryDisplay"/>
+                app:layout_constraintStart_toStartOf="@id/detailScreenSalaryComponent"
+                app:layout_constraintTop_toBottomOf="@id/displayDetailScreenSalary" />
 
             <TextView
-                android:id="@+id/detailScreenNotesComponent"
+                android:id="@+id/detailScreenNoteComponent"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
                 android:layout_gravity="center_vertical"
-                android:gravity="start"
                 android:layout_margin="16dp"
+                android:background="@drawable/background_24dp_rounded_clear_purple"
+                android:gravity="start"
                 android:padding="16dp"
-                android:text="@string/add_screen_notes"
+                android:text="@string/display_title_add_screen_notes"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailScreenSalaryComponent"
-                android:background="@drawable/background_24dp_rounded_clear_purple"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailScreenSalaryComponent" />
 
             <TextView
-                android:id="@+id/detailScreenNotesDisplay"
+                android:id="@+id/displayDetailScreenNote"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="start"
-                android:layout_marginTop="80dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="80dp"
+                android:gravity="start"
                 android:text="loreum ...."
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/detailScreenNotesComponent"
-                app:layout_constraintEnd_toEndOf="@id/detailScreenNotesComponent"
-                app:layout_constraintTop_toTopOf="@id/detailScreenNotesComponent"/>
-
-
+                app:layout_constraintEnd_toEndOf="@id/detailScreenNoteComponent"
+                app:layout_constraintStart_toStartOf="@id/detailScreenNoteComponent"
+                app:layout_constraintTop_toTopOf="@id/detailScreenNoteComponent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
