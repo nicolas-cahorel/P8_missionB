@@ -3,8 +3,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- HOME SCREEN UI -->
-    <string name="display_message_home_screen_no_result">Aucun candidat</string>
-    <string name="input_hint_home_screen_search">Rechercher un candidat</string>
+    <string name="display_message_no_result">Aucun candidat</string>
+    <string name="input_hint_search">Rechercher un candidat</string>
     <string name="button_description_search">Icone de recherche</string>
     <string name="display_tab_title_all">Tous</string>
     <string name="display_tab_title_favorites">Favoris</string>

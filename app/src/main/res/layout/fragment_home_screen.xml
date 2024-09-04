@@ -8,7 +8,7 @@
     tools:context=".ui.homeScreen.HomeScreenFragment">
 
     <ProgressBar
-        android:id="@+id/homeScreenLoadingStateProgressBar"
+        android:id="@+id/homeScreenStateProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
@@ -18,10 +18,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/homeScreenEmptyStateMessage"
+        android:id="@+id/homeScreenStateMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/display_message_home_screen_no_result"
+        android:text="@string/display_message_no_result"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:autofillHints="name"
-            android:hint="@string/input_hint_home_screen_search"
+            android:hint="@string/input_hint_search"
             android:importantForAccessibility="yes"
             android:inputType="text" />
 

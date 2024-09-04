@@ -1,5 +1,7 @@
 package com.openclassrooms.p8_vitesse.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.openclassrooms.p8_vitesse.data.database.AppDatabase
 import com.openclassrooms.p8_vitesse.data.repository.CandidateRepository
 import com.openclassrooms.p8_vitesse.ui.homeScreen.HomeScreenViewModel
@@ -57,6 +59,15 @@ val appModule = module {
      * @return An instance of HomeScreenViewModel.
      */
     viewModel {
-        HomeScreenViewModel(get(), get())
+        HomeScreenViewModel(get(), get(), get())
     }
+
+    // Define SharedPreferences
+    single<SharedPreferences> {
+        androidContext().getSharedPreferences(
+            "my_prefs",
+            Context.MODE_PRIVATE
+        )
+    }
+
 }

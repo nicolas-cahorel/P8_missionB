@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("kapt")
+
 }
 
 android {
@@ -49,8 +51,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+
+
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
+    kapt (libs.androidx.room.compiler)
+    implementation (libs.androidx.room.runtime)
+
     implementation(libs.firebase.functions.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -68,6 +75,9 @@ dependencies {
     // DI Koin
     implementation(libs.koin.android)
     implementation(libs.koin.core)
-    implementation (libs.koin.android)
-    implementation (libs.koin.androidx.viewmodel)
+
+    // Glide
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
+
 }

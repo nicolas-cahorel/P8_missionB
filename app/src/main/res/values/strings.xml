@@ -12,9 +12,10 @@
     <string name="button_description_search">Search button</string>
     <string name="button_description_sms">sms button to send a message to the displayed candidate</string>
     <string name="button_title_save">Save</string>
+    <string name="candidate_full_name">%1$s %2$s</string>
     <string name="display_description_avatar">Candidate Photo</string>
-    <string name="display_message_home_screen_error">An error has occurred, please try again</string>
-    <string name="display_message_home_screen_no_result">No candidate</string>
+    <string name="display_message_error">An error has occurred, please try again</string>
+    <string name="display_message_no_result">No candidate</string>
     <string name="display_tab_title_all">All</string>
     <string name="display_tab_title_favorites">Favorites</string>
     <string name="display_title_add_screen">Add a candidate</string>
@@ -40,10 +41,10 @@
     <string name="input_hint_birthday">Date</string>
     <string name="input_hint_email">Email</string>
     <string name="input_hint_first_name">First name</string>
-    <string name="input_hint_home_screen_search">Search</string>
     <string name="input_hint_last_name">Last name</string>
     <string name="input_hint_note">Note</string>
     <string name="input_hint_phone">Phone</string>
     <string name="input_hint_salary">Expected salary</string>
+    <string name="input_hint_search">Search</string>
 
 </resources>

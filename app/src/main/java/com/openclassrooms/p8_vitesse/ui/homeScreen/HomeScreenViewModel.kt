@@ -1,6 +1,7 @@
 package com.openclassrooms.p8_vitesse.ui.homeScreen
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.openclassrooms.p8_vitesse.R
@@ -19,98 +20,106 @@ import kotlinx.coroutines.launch
  *
  * @property candidateRepository The repository used to fetch candidate data.
  * @property context The context used to access resources, such as strings.
+ * @property sharedPreferences SharedPreferences for storing candidate data.
  */
 class HomeScreenViewModel(
     private val candidateRepository: CandidateRepository,
-    private val context: Context
+    private val context: Context,
+    private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    // MutableStateFlow representing the current state of the Home Screen
-    private val _homeScreenState = MutableStateFlow<HomeScreenState>(HomeScreenState.Loading)
-
-    // Publicly exposed StateFlow for observing the Home Screen state
-    val homeScreenStateState: StateFlow<HomeScreenState> = _homeScreenState
-
-    // SharedFlow for sending messages (e.g., errors, notifications) to the UI
-    private val _homeScreenMessage = MutableSharedFlow<String>()
-
-    // Publicly exposed SharedFlow for observing messages from the ViewModel
-    val homeScreenMessage: SharedFlow<String> get() = _homeScreenMessage
-
-    // Initializing ViewModel with data loading simulation
-    init {
-        loadCandidates()
+    companion object {
+        private const val KEY_CANDIDATE_IDENTIFIER = "candidateIdentifier"
     }
 
     /**
-     * Loads candidates from the repository and updates the UI state accordingly.
-     *
-     * This method simulates data loading by setting the state to loading, introducing a delay, and
-     * then checking for the presence of candidates. Depending on the result, it updates the state
-     * to either display candidates, show an empty message, or an error state.
+     * Event to trigger navigation to [DetailScreenFragment].
+     * Emitted when a candidate item is clicked and should navigate to the detail screen.
      */
-    private fun loadCandidates() {
+    private val _navigateToDetailScreenEvent = MutableSharedFlow<Unit>()
+    val navigateToDetailScreenEvent: SharedFlow<Unit> get() = _navigateToDetailScreenEvent
+
+    /**
+     * Event to trigger navigation to [AddScreenFragment].
+     * Emitted when navigating to the add screen is required.
+     */
+    private val _navigateToAddScreenEvent = MutableSharedFlow<Unit>()
+    val navigateToAddScreenEvent: SharedFlow<Unit> get() = _navigateToAddScreenEvent
+
+    /**
+     * MutableStateFlow representing the current state of the Home Screen.
+     * It can be in different states like Loading, DisplayCandidates, Empty, or Error.
+     */
+    private val _homeScreenState = MutableStateFlow<HomeScreenState>(HomeScreenState.Loading)
+    val homeScreenStateState: StateFlow<HomeScreenState> = _homeScreenState
+
+    /**
+     * SharedFlow for sending messages to the UI, such as error messages or notifications.
+     */
+    private val _stateMessage = MutableSharedFlow<String>()
+    val stateMessage: SharedFlow<String> get() = _stateMessage
+
+    /**
+     * The candidate identifier accessed from SharedPreferences.
+     * This identifier is used to keep track of the selected candidate.
+     */
+    private var candidateIdentifier: Long
+
+    /**
+     * MutableStateFlow to hold the current search query.
+     */
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> get() = _searchQuery
+
+    /**
+     * Initializes the ViewModel and fetches the initial list of candidates.
+     * Also retrieves the candidate identifier from SharedPreferences.
+     */
+    init {
+        fetchCandidates(favorite = false, query = null)
+        candidateIdentifier =
+            sharedPreferences.getLong(KEY_CANDIDATE_IDENTIFIER, -1) // Provide a default value
+    }
+
+    /**
+     * Fetches candidates from the repository and updates the UI state.
+     * Displays filtered candidates or shows appropriate messages based on the result.
+     *
+     * @param favorite Whether to filter candidates based on favorites.
+     * @param query The search query to filter candidates.
+     */
+    fun fetchCandidates(favorite: Boolean, query: String?) {
         viewModelScope.launch {
             _homeScreenState.value = HomeScreenState.Loading
 
-            // Fetch candidates from the repository
             try {
-                val candidates = candidateRepository.getAllCandidates()
+                // Fetch all filtered candidates from the repository
+                val candidates = candidateRepository.getCandidates(favorite, query)
 
-                // Check if the list is empty and update the state accordingly
+
+                // Update state based on whether candidates were found or not
                 if (candidates.isEmpty()) {
-                    val emptyMessage: String = context.getString(R.string.display_message_home_screen_no_result)
-                    _homeScreenState.value = HomeScreenState.Empty(emptyMessage)
+                    _homeScreenState.value =
+                        HomeScreenState.Empty(context.getString(R.string.display_message_no_result))
                 } else {
-                    _homeScreenState.value = HomeScreenState.DisplayAllCandidates(candidates)
+                    _homeScreenState.value = HomeScreenState.DisplayCandidates(candidates)
                 }
             } catch (e: Exception) {
-                // If an error occurs, update the state to Error
-                val errorMessage: String = context.getString(R.string.display_message_home_screen_error)
-                _homeScreenState.value = HomeScreenState.Error(errorMessage)
-                // Optionally, send a message to the UI through the shared flow
-                _homeScreenMessage.emit(errorMessage)
+                _homeScreenState.value =
+                    HomeScreenState.Error(context.getString(R.string.display_message_error))
             }
         }
     }
 
     /**
-     * Displays all candidates by updating the state to [HomeScreenState.DisplayAllCandidates].
+     * Handles the event when an item is clicked.
+     * Stores the clicked candidate's ID in SharedPreferences.
+     *
+     * @param candidateId The ID of the clicked candidate.
      */
-    fun displayAllCandidates() {
-        viewModelScope.launch {
-            try {
-                val candidates = candidateRepository.getAllCandidates()
-                if (candidates.isEmpty()) {
-                    _homeScreenState.value =
-                        HomeScreenState.Empty(context.getString(R.string.display_message_home_screen_no_result))
-                } else {
-                    _homeScreenState.value = HomeScreenState.DisplayAllCandidates(candidates)
-                }
-            } catch (e: Exception) {
-                _homeScreenState.value =
-                    HomeScreenState.Error(context.getString(R.string.display_message_home_screen_error))
-            }
-        }
+    fun onItemClicked(candidateId: Long) {
+        sharedPreferences.edit().putLong(KEY_CANDIDATE_IDENTIFIER, candidateId).apply()
+
     }
 
-    /**
-     * Displays only favorite candidates by updating the state to [HomeScreenState.DisplayFavoritesCandidates].
-     */
-    fun displayFavoritesCandidates() {
-        viewModelScope.launch {
-            try {
-                val favorites = candidateRepository.getFavoritesCandidates()
-                if (favorites.isEmpty()) {
-                    _homeScreenState.value =
-                        HomeScreenState.Empty(context.getString(R.string.display_message_home_screen_no_result))
-                } else {
-                    _homeScreenState.value = HomeScreenState.DisplayFavoritesCandidates(favorites)
-                }
-            } catch (e: Exception) {
-                _homeScreenState.value =
-                    HomeScreenState.Error(context.getString(R.string.display_message_home_screen_error))
-            }
-        }
-    }
 }

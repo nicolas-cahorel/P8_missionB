@@ -199,7 +199,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:gravity="start"
-                android:text="@string/display_title_detail_screen_birthday"
+                android:text="@string/display_title_birthday"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/detailScreenAboutComponent"

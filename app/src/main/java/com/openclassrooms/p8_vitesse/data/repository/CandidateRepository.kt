@@ -11,62 +11,26 @@ import kotlinx.coroutines.flow.first
  */
 class CandidateRepository(private val candidateDao: CandidateDtoDao) {
 
+
     /**
      * Retrieves all candidates from the database.
      *
-     * @return A list of all candidates.
-     */
-    suspend fun getAllCandidates(): List<Candidate> {
-        return candidateDao.getAllCandidates()
-            .first() // Collect the first emission of the Flow
-            .map { Candidate.fromDto(it) } // Convert every DTO in Candidate
-    }
-
-    /**
-     * Retrieves favorite candidates from the database.
-     *
-     * @return A list of favorite candidates.
-     */
-    suspend fun getFavoritesCandidates(): List<Candidate> {
-        return candidateDao.getFavoritesCandidates()
-            .first() // Collect the first emission of the Flow
-            .filter { it.isFavorite } // Filter only favorite candidates
-            .map { Candidate.fromDto(it) } // Convert every DTO to a Candidate
-    }
-
-    /**
-     * Retrieves all candidates with a search filter (firstname and/or lastname).
-     *
      * @return A list of filtered candidates.
      */
-    suspend fun getAllFilteredCandidates(searchQuery: String): List<Candidate> {
-        return candidateDao.getAllFilteredCandidates()
-            .first() // Collect the first emission of the Flow
-            .filter {
-                it.firstName.contains(searchQuery, true) || it.lastName.contains(
-                    searchQuery,
-                    true
-                )
-            } // Filter by name
-            .map { Candidate.fromDto(it) } // Convert every DTO to a Candidate
+    suspend fun getCandidates(favorite: Boolean, searchQuery: String?): List<Candidate> {
+
+        return candidateDao.getAllCandidates()
+            .filter { if (favorite) it.isFavorite else true}
+            .filter { candidateDto ->
+                // if search query is null return not filtered candidate list
+                searchQuery ?: return@filter true
+                val fullName = candidateDto.firstName + " " + candidateDto.lastName
+                fullName.contains(searchQuery)
+            }
+            .map { Candidate.fromDto(it) } // Convert each DTO to a Candidate object
     }
 
-    /**
-     * Retrieves favorite candidates with a search filter (firstname and/or lastname).
-     *
-     * @return A list of favorite filtered candidates.
-     */
-    suspend fun getFavoritesFilteredCandidates(searchQuery: String): List<Candidate> {
-        return candidateDao.getFavoritesFilteredCandidates()
-            .first() // Collect the first emission of the Flow
-            .filter {
-                it.isFavorite && (it.firstName.contains(
-                    searchQuery,
-                    true
-                ) || it.lastName.contains(searchQuery, true))
-            } // Filter favorites by name
-            .map { Candidate.fromDto(it) } // Convert every DTO to a Candidate
-    }
+
 
     /**
      * Retrieves a candidate by their ID from the database.

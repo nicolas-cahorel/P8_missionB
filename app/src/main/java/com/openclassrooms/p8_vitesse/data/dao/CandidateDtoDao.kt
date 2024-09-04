@@ -37,7 +37,7 @@ interface CandidateDtoDao {
      * @return A Flow that emits the list of candidates.
      */
     @Query("SELECT * FROM candidate")
-    fun getAllCandidates(): Flow<List<CandidateDto>>
+    suspend fun getAllCandidates(): List<CandidateDto>
 
     /**
      * Retrieves favorites candidates from the database.
