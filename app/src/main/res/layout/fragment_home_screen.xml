@@ -56,15 +56,13 @@
             android:inputType="text" />
 
         <ImageView
-            android:id="@+id/buttonHomeScreenSearch"
+            android:id="@+id/iconHomeScreenSearch"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
-            android:clickable="true"
-            android:contentDescription="@string/button_description_search"
-            android:focusable="true"
-            android:scaleX="0.3"
-            android:scaleY="0.3"
+            android:contentDescription="@string/icon_description_search"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
             android:src="@drawable/icon_search" />
 
     </LinearLayout>

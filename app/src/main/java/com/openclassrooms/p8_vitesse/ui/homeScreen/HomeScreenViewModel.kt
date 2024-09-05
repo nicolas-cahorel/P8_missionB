@@ -63,7 +63,7 @@ class HomeScreenViewModel(
      * The candidate identifier accessed from SharedPreferences.
      * This identifier is used to keep track of the selected candidate.
      */
-    private var candidateIdentifier: Long
+//    private var candidateIdentifier: Long
 
     /**
      * MutableStateFlow to hold the current search query.
@@ -77,8 +77,8 @@ class HomeScreenViewModel(
      */
     init {
         fetchCandidates(favorite = false, query = null)
-        candidateIdentifier =
-            sharedPreferences.getLong(KEY_CANDIDATE_IDENTIFIER, -1) // Provide a default value
+//        candidateIdentifier =
+//            sharedPreferences.getLong(KEY_CANDIDATE_IDENTIFIER, -1) // Provide a default value
     }
 
     /**
@@ -119,7 +119,6 @@ class HomeScreenViewModel(
      */
     fun onItemClicked(candidateId: Long) {
         sharedPreferences.edit().putLong(KEY_CANDIDATE_IDENTIFIER, candidateId).apply()
-
     }
 
 }

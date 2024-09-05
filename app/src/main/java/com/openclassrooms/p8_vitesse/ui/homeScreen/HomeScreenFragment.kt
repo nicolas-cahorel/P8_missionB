@@ -55,6 +55,7 @@ class HomeScreenFragment : Fragment() {
 
     private var isFavoritesTabSelected = false
 
+
     /**
      * Creates and returns the view hierarchy associated with this fragment.
      *

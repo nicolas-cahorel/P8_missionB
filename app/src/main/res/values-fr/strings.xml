@@ -2,12 +2,50 @@
     <string name="app_name">P8_Vitesse</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- HOME SCREEN UI -->
+    <!-- A VERIFIER AVEC FIGMA + KANBAN-->
+    <string name="button_description_add">Add candidate</string>
+    <string name="button_description_back">back button</string>
+    <string name="button_description_calendar">Calendar icon</string>
+    <string name="button_description_email">button email to send an email to the displayed candidate</string>
+    <string name="button_description_phone">Phone button to call the displayed candidate</string>
+    <string name="button_description_save">Save button</string>
+    <string name="button_description_sms">sms button to send a message to the displayed candidate</string>
+    <string name="button_title_save">Save</string>
+    <string name="candidate_full_name">%1$s %2$s</string>
+    <string name="display_description_avatar">Photo du candidat</string>
+    <string name="display_message_error">An error has occurred, please try again</string>
     <string name="display_message_no_result">Aucun candidat</string>
-    <string name="input_hint_search">Rechercher un candidat</string>
-    <string name="button_description_search">Icone de recherche</string>
     <string name="display_tab_title_all">Tous</string>
     <string name="display_tab_title_favorites">Favoris</string>
-    <string name="display_description_avatar">Photo du candidat</string>
-    <string name="display_title_add_screen_about">About</string>
+    <string name="display_title_add_screen">Ajouter candidat</string>
+    <string name="display_title_add_screen_about">A propos</string>
+    <string name="display_title_add_screen_notes">Notes</string>
+    <string name="display_title_add_screen_salary">Expected salary</string>
+    <string name="display_title_birthday">Pick a date</string>
+    <string name="display_title_birthday2">Enter a date</string>
+    <string name="display_title_detail_screen">Detail screen</string>
+    <string name="display_title_detail_screen_birthday">Birthday</string>
+    <string name="display_title_edit_screen">edit screen</string>
+    <string name="icon_description_cake">icone gâteau</string>
+    <string name="icon_description_delete">delete button</string>
+    <string name="icon_description_edit">edit button</string>
+    <string name="icon_description_email">Mail icon</string>
+    <string name="icon_description_favorite_false">favorite button : candidate is favorite = false</string>
+    <string name="icon_description_favorite_true">favorite button : candidate is favorite = true</string>
+    <string name="icon_description_note">note icon</string>
+    <string name="icon_description_phone">Phone icon</string>
+    <string name="icon_description_salary">Salary icon</string>
+    <string name="icon_description_search">Icone de recherche</string>
+    <string name="icon_description_people">Candidate first name and last name icon</string>
+    <string name="input_birthday_pre_input">dd/mm/yyyy</string>
+    <string name="input_hint_birthday">Date</string>
+    <string name="input_hint_email">Email</string>
+    <string name="input_hint_first_name">Prénom</string>
+    <string name="input_hint_last_name">Nom</string>
+    <string name="input_hint_note">Note</string>
+    <string name="input_hint_phone">Téléphone</string>
+    <string name="input_hint_salary">Expected salary</string>
+    <string name="input_hint_search">Rechercher un candidat</string>
+    <string name="toast_media_permission_denied">Permission d\'accès à la Gallerie refusée</string>
+
 </resources>

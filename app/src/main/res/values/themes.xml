@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base application theme -->
-    <style name="Theme.P8_Vitesse" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.P8_Vitesse" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/softPink</item>
         <item name="colorPrimaryVariant">@color/softBlue</item>

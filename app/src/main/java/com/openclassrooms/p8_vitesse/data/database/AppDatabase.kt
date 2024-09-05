@@ -92,12 +92,12 @@ abstract class AppDatabase : RoomDatabase() {
                     photoUrl = "https://xsgames.co/randomusers/assets/avatars/male/0.jpg",
                     firstName = "John",
                     lastName = "Doe",
-                    phoneNumber = "+1234567890",
+                    phoneNumber = "1234567890",
                     emailAddress = "john.doe@example.com",
                     dateOfBirth = LocalDate.of(1985, 5, 15).atStartOfDay(ZoneOffset.UTC).toInstant()
                         .toEpochMilli(),// Convert date to timestamp
                     expectedSalary = 50000,
-                    informationNote = "Experienced software developer.",
+                    informationNote = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit.",
                     isFavorite = false
                 )
             )
@@ -109,12 +109,12 @@ abstract class AppDatabase : RoomDatabase() {
                     photoUrl = "https://xsgames.co/randomusers/assets/avatars/male/1.jpg",
                     firstName = "Jim",
                     lastName = "Nastik",
-                    phoneNumber = "+1234567891",
+                    phoneNumber = "1234567891",
                     emailAddress = "jim.nastik@example.com",
                     dateOfBirth = LocalDate.of(1980, 4, 20).atStartOfDay(ZoneOffset.UTC).toInstant()
                         .toEpochMilli(),// Convert date to timestamp
                     expectedSalary = 45000,
-                    informationNote = "Experienced android developer.",
+                    informationNote = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit.",
                     isFavorite = false
                 )
             )
@@ -126,12 +126,12 @@ abstract class AppDatabase : RoomDatabase() {
                     photoUrl = "https://xsgames.co/randomusers/assets/avatars/female/0.jpg",
                     firstName = "Jane",
                     lastName = "Smith",
-                    phoneNumber = "+0987654321",
+                    phoneNumber = "0987654321",
                     emailAddress = "jane.smith@example.com",
                     dateOfBirth = LocalDate.of(1990, 8, 22).atStartOfDay(ZoneOffset.UTC).toInstant()
                         .toEpochMilli(),// Convert date to timestamp
                     expectedSalary = 60000,
-                    informationNote = "Talented graphic designer.",
+                    informationNote = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit.",
                     isFavorite = true
                 )
             )
@@ -143,12 +143,12 @@ abstract class AppDatabase : RoomDatabase() {
                     photoUrl = "https://xsgames.co/randomusers/assets/avatars/female/1.jpg",
                     firstName = "Camille",
                     lastName = "Honnete",
-                    phoneNumber = "+0987654322",
+                    phoneNumber = "0987654322",
                     emailAddress = "camille.honnete@example.com",
                     dateOfBirth = LocalDate.of(1989, 1, 5).atStartOfDay(ZoneOffset.UTC).toInstant()
                         .toEpochMilli(),// Convert date to timestamp
                     expectedSalary = 65000,
-                    informationNote = "Talented graphic designer.",
+                    informationNote = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit.",
                     isFavorite = true
                 )
             )

@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/detailScreenTopComponent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
@@ -24,11 +24,13 @@
 
         <ImageView
             android:id="@+id/buttonDetailScreenBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:clickable="true"
-            android:contentDescription="@string/button_description_search"
+            android:contentDescription="@string/button_description_back"
             android:focusable="true"
             android:src="@drawable/icon_back" />
 
@@ -105,7 +107,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="16dp"
                 android:clickable="true"
-                android:contentDescription="@string/icon_full_name_description"
+                android:contentDescription="@string/icon_description_people"
                 android:focusable="true"
                 android:src="@drawable/default_avatar"
                 app:layout_constraintStart_toStartOf="parent"
