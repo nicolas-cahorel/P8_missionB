@@ -253,6 +253,32 @@
                 app:layout_constraintStart_toEndOf="@id/addScreenCakeIcon"
                 app:layout_constraintTop_toTopOf="@id/addScreenBirthdayComponent" />
 
+            <ImageButton
+                android:id="@+id/buttonAddScreenValidate"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="@string/icon_description_validate"
+                android:background="@drawable/icon_check_circle"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/addScreenBirthdayComponent"
+                app:layout_constraintEnd_toEndOf="@+id/buttonAddScreenCancel"
+                app:layout_constraintBottom_toBottomOf="@id/addScreenBirthdayComponent" />
+
+            <ImageButton
+                android:id="@+id/buttonAddScreenCancel"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="@string/button_description_cancel"
+                android:background="@drawable/icon_cancel"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/buttonAddScreenValidate"
+                app:layout_constraintEnd_toEndOf="@+id/addScreenBirthdayComponent"
+                app:layout_constraintBottom_toBottomOf="@id/addScreenBirthdayComponent"/>
+
             <TextView
                 android:id="@+id/addScreenBirthdayHint"
                 android:layout_width="0dp"
@@ -271,7 +297,6 @@
                 android:id="@+id/buttonAddScreenCalendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_margin="16dp"
                 android:background="@drawable/icon_calendar"
                 android:clickable="true"

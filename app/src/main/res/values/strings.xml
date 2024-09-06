@@ -47,5 +47,11 @@
     <string name="input_hint_salary">Expected salary</string>
     <string name="input_hint_search">Search</string>
     <string name="toast_media_permission_denied">Permission to access Gallery denied</string>
+    <string name="error_invalid_email">Email format invalid</string>
+    <string name="error_invalid_phone">Number format invalid</string>
+    <string name="error_invalid_birthday_format">Date format invalid</string>
+    <string name="error_future_date">Date should not be in the future</string>
+    <string name="button_description_cancel">Cancel button</string>
+    <string name="icon_description_validate">Validate button</string>
 
 </resources>

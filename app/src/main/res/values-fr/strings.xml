@@ -10,7 +10,7 @@
     <string name="button_description_phone">Phone button to call the displayed candidate</string>
     <string name="button_description_save">Save button</string>
     <string name="button_description_sms">sms button to send a message to the displayed candidate</string>
-    <string name="button_title_save">Save</string>
+    <string name="button_title_save">Sauvegarder</string>
     <string name="candidate_full_name">%1$s %2$s</string>
     <string name="display_description_avatar">Photo du candidat</string>
     <string name="display_message_error">An error has occurred, please try again</string>
@@ -44,8 +44,12 @@
     <string name="input_hint_last_name">Nom</string>
     <string name="input_hint_note">Note</string>
     <string name="input_hint_phone">Téléphone</string>
-    <string name="input_hint_salary">Expected salary</string>
+    <string name="input_hint_salary">Prétentions salariales</string>
     <string name="input_hint_search">Rechercher un candidat</string>
     <string name="toast_media_permission_denied">Permission d\'accès à la Gallerie refusée</string>
+    <string name="error_invalid_email">Format d\'email invalide</string>
+    <string name="error_invalid_phone">Format de numéro invalide</string>
+    <string name="error_invalid_birthday_format">Format de date invalide</string>
+    <string name="error_future_date">Cette date ne doit pas être dans le futur</string>
 
 </resources>
