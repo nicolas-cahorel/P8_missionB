@@ -39,29 +39,6 @@ interface CandidateDtoDao {
     @Query("SELECT * FROM candidate")
     suspend fun getAllCandidates(): List<CandidateDto>
 
-    /**
-     * Retrieves favorites candidates from the database.
-     *
-     * @return A Flow that emits the list of favorites candidates.
-     */
-    @Query("SELECT * FROM candidate")
-    fun getFavoritesCandidates(): Flow<List<CandidateDto>>
-
-    /**
-     * Retrieves all filtered candidates from the database.
-     *
-     * @return A Flow that emits the list of all filtered candidates.
-     */
-    @Query("SELECT * FROM candidate")
-    fun getAllFilteredCandidates(): Flow<List<CandidateDto>>
-
-    /**
-     * Retrieves favorites filtered candidates from the database.
-     *
-     * @return A Flow that emits the list of favorites filtered candidates.
-     */
-    @Query("SELECT * FROM candidate")
-    fun getFavoritesFilteredCandidates(): Flow<List<CandidateDto>>
 
     /**
      * Retrieves a candidate by its ID from the database.
