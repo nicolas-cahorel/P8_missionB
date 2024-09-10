@@ -3,8 +3,12 @@ package com.openclassrooms.p8_vitesse.ui.addScreen
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.openclassrooms.p8_vitesse.data.repository.CandidateRepository
+import com.openclassrooms.p8_vitesse.domain.model.Candidate
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 /**
  * ViewModel responsible for managing the state of the Home Screen.
@@ -52,4 +56,11 @@ class AddScreenViewModel(
     fun getMediaAccessPermissionStatus(): Boolean {
         return sharedPreferences.getBoolean(KEY_IS_MEDIA_ACCESS_PERMITTED, false) // Provide a default value
     }
+
+    fun addNewCandidate(candidate: Candidate) {
+        viewModelScope.launch(Dispatchers.IO) {
+            candidateRepository.addCandidate(candidate)
+        }
+    }
+
 }

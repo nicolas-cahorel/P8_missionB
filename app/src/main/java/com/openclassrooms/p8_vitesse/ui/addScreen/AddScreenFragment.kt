@@ -2,9 +2,11 @@ package com.openclassrooms.p8_vitesse.ui.addScreen
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -18,10 +20,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.openclassrooms.p8_vitesse.R
 import com.openclassrooms.p8_vitesse.databinding.FragmentAddScreenBinding
 import com.openclassrooms.p8_vitesse.ui.homeScreen.HomeScreenFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -49,27 +53,25 @@ class AddScreenFragment : Fragment() {
 
     private var isMediaAccessPermitted: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    // Déclarez `selectedImageUrl` comme une variable de classe pour stocker l'URL de l'image sélectionnée
+    private var selectedImageUrl: String =
+        "android.resource://com.openclassrooms.p8_vitesse/${R.drawable.default_avatar}"
 
-        // Initialize the activity result launcher
-        pickImageLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == android.app.Activity.RESULT_OK) {
-                    val uri = result.data?.data
-                    // Handle the image selection result
-                    uri?.let {
-                        binding.displayAddScreenAvatar.setImageURI(it)
-                    }
-                }
-            }
-    }
+    private var isFirstNameCorrect: Boolean = false
+    private var isLastNameCorrect: Boolean = false
+    private var isPhoneCorrect: Boolean = false
+    private var isEmailCorrect: Boolean = false
+    private var isBirthdayCorrect: Boolean = false
+
+    private var inputErrorCount: Int = 0
+    private var incorrectFields: String? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentAddScreenBinding.inflate(inflater, container, false)
         return binding.root
@@ -78,6 +80,26 @@ class AddScreenFragment : Fragment() {
     @SuppressLint("DefaultLocale")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        pickImageLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    // L'utilisateur a sélectionné une image
+                    val data: Intent? = result.data
+                    if (data != null && data.data != null) {
+                        // Obtenir l'URI de l'image sélectionnée
+                        val imageUri: Uri = data.data!!
+
+                        // Stocker l'URL de l'image en tant que chaîne
+                        selectedImageUrl = imageUri.toString()
+
+                        // Mettre à jour l'ImageView avec l'image sélectionnée
+//                        binding.displayAddScreenAvatar.setImageURI(imageUri)
+
+                        // Vous pouvez maintenant utiliser `selectedImageUrl` pour enregistrer l'URL de l'image sélectionnée dans la base de données
+                    }
+                }
+            }
 
         // Set up a click listener for the "Add" button.
         binding.buttonAddScreenBack.setOnClickListener {
@@ -93,26 +115,35 @@ class AddScreenFragment : Fragment() {
                 checkPermissions()
         }
 
-        // Ajout du TextWatcher pour contrôler le format du numéro de téléphone
-        binding.inputAddScreenPhone.addTextChangedListener(object : TextWatcher {
+        binding.inputAddScreenFirstName.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {  // Si le champ a le focus
+                if (binding.inputAddScreenFirstName.text.isNullOrEmpty()) {
+                    isFirstNameCorrect = false
+                    binding.addScreenFirstNameComponent.error =
+                        getString(R.string.error_empty_first_name)
+                    binding.addScreenFirstNameComponent.boxStrokeColor = Color.RED
+                }
+            }
+        }
+
+        binding.inputAddScreenFirstName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            @SuppressLint("PrivateResource")
             override fun afterTextChanged(s: Editable?) {
-                // Regex pour valider le numéro de téléphone français (10 chiffres)
-                val phonePattern = Regex("^\\d{10}$")
-
-                if (!s.isNullOrEmpty() && !phonePattern.matches(s)) {
-                    // Si le format est incorrect, afficher une erreur et changer la couleur de la bordure
-                    binding.addScreenPhoneComponent.error = getString(R.string.error_invalid_phone)
-                    binding.addScreenPhoneComponent.boxStrokeColor = Color.RED
+                if (s.isNullOrEmpty()) {
+                    isFirstNameCorrect = false
+                    binding.addScreenFirstNameComponent.error =
+                        getString(R.string.error_empty_first_name)
+                    binding.addScreenFirstNameComponent.boxStrokeColor = Color.RED
                 } else {
-                    // Si le format est correct, retirer l'erreur et restaurer la couleur de la bordure par défaut
-                    binding.addScreenPhoneComponent.error = null
+                    isFirstNameCorrect = true
+                    binding.addScreenFirstNameComponent.error = null
                     ContextCompat.getColorStateList(
                         requireContext(),
                         com.google.android.material.R.color.mtrl_textinput_default_box_stroke_color
                     )?.let {
-                        binding.addScreenPhoneComponent.setBoxStrokeColorStateList(
+                        binding.addScreenFirstNameComponent.setBoxStrokeColorStateList(
                             it
                         )
                     }
@@ -120,58 +151,147 @@ class AddScreenFragment : Fragment() {
             }
         })
 
-
-        // Setup TextWatcher for email validation
-        binding.inputAddScreenEmail.addTextChangedListener(object : TextWatcher {
-            @SuppressLint("PrivateResource")
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun beforeTextChanged(
-                s: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
+        binding.inputAddScreenLastName.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {  // Si le champ a le focus
+                if (binding.inputAddScreenLastName.text.isNullOrEmpty()) {
+                    isLastNameCorrect = false
+                    binding.addScreenLastNameComponent.error =
+                        getString(R.string.error_empty_last_name)
+                    binding.addScreenLastNameComponent.boxStrokeColor = Color.RED
+                }
             }
-            override fun afterTextChanged(s: Editable?) {
-                val email = s.toString().trim()
-                if (!isValidEmail(email)) {
-                    // Set error message and change border color to red
-                    binding.addScreenEmailComponent.error =
-                        getString(R.string.error_invalid_email)
-                    binding.addScreenEmailComponent.boxStrokeColor = Color.RED
-                } else {
-                    // Clear the error and reset border color to default
-                    binding.addScreenEmailComponent.error = null
+        }
 
-                    // Set the box stroke color to default using ColorStateList from the theme
+        binding.inputAddScreenLastName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            @SuppressLint("PrivateResource")
+            override fun afterTextChanged(s: Editable?) {
+                if (s.isNullOrEmpty()) {
+                    isLastNameCorrect = false
+                    binding.addScreenLastNameComponent.error =
+                        getString(R.string.error_empty_last_name)
+                    binding.addScreenFirstNameComponent.boxStrokeColor = Color.RED
+                } else {
+                    isLastNameCorrect = true
+                    binding.addScreenLastNameComponent.error = null
                     ContextCompat.getColorStateList(
                         requireContext(),
                         com.google.android.material.R.color.mtrl_textinput_default_box_stroke_color
-                    )
-                        ?.let {
-                            binding.addScreenEmailComponent.setBoxStrokeColorStateList(
-                                it
-                            )
-                        }
+                    )?.let {
+                        binding.addScreenLastNameComponent.setBoxStrokeColorStateList(
+                            it
+                        )
+                    }
                 }
             }
+        })
 
+        binding.inputAddScreenPhone.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {  // Si le champ a le focus
+                if (binding.inputAddScreenPhone.text.isNullOrEmpty()) {
+                    isPhoneCorrect = false
+                    binding.addScreenPhoneComponent.error =
+                        getString(R.string.error_empty_phone)
+                    binding.addScreenPhoneComponent.boxStrokeColor = Color.RED
+                }
+            }
+        }
 
+        // Ajout du TextWatcher pour contrôler le format du numéro de téléphone
+        binding.inputAddScreenPhone.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            @SuppressLint("PrivateResource")
+            override fun afterTextChanged(s: Editable?) {
+                // Regex pour valider le numéro de téléphone français (10 chiffres)
+                val phonePattern = Regex("^\\d{10}$")
+
+                if (s.isNullOrEmpty()) {
+                    // Si le champ est vide, afficher une erreur et changer la couleur de la bordure
+                    isPhoneCorrect = false
+                    binding.addScreenPhoneComponent.error = getString(R.string.error_empty_phone)
+                    binding.addScreenPhoneComponent.boxStrokeColor = Color.RED
+                } else if (!phonePattern.matches(s)) {
+                    // Si le format est incorrect, afficher une erreur et changer la couleur de la bordure
+                    isPhoneCorrect = false
+                    binding.addScreenPhoneComponent.error = getString(R.string.error_invalid_phone)
+                    binding.addScreenPhoneComponent.boxStrokeColor = Color.RED
+                } else {
+                    // Si le format est correct, retirer l'erreur et restaurer la couleur de la bordure par défaut
+                    isPhoneCorrect = true
+                    binding.addScreenPhoneComponent.error = null
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        com.google.android.material.R.color.mtrl_textinput_default_box_stroke_color
+                    )?.let {
+                        binding.addScreenPhoneComponent.setBoxStrokeColorStateList(it)
+                    }
+                }
+            }
+        })
+
+        binding.inputAddScreenEmail.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {  // Si le champ a le focus
+                if (binding.inputAddScreenEmail.text.isNullOrEmpty()) {
+                    isEmailCorrect = false
+                    binding.addScreenEmailComponent.error =
+                        getString(R.string.error_empty_email)
+                    binding.addScreenEmailComponent.boxStrokeColor = Color.RED
+                }
+            }
+        }
+
+        // Setup TextWatcher for email validation
+        binding.inputAddScreenEmail.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            @SuppressLint("PrivateResource")
+            override fun afterTextChanged(s: Editable?) {
+                val email = s.toString().trim()
+                if (s.isNullOrEmpty()) {
+                    // Si le champ est vide, afficher un message d'erreur spécifique
+                    isEmailCorrect = false
+                    binding.addScreenEmailComponent.error = getString(R.string.error_empty_email)
+                    binding.addScreenEmailComponent.boxStrokeColor = Color.RED
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    // Si le format de l'e-mail est incorrect, afficher un message d'erreur différent
+                    isEmailCorrect = false
+                    binding.addScreenEmailComponent.error = getString(R.string.error_invalid_email)
+                    binding.addScreenEmailComponent.boxStrokeColor = Color.RED
+                } else {
+                    // Si l'e-mail est valide, retirer l'erreur et restaurer la couleur par défaut
+                    isEmailCorrect = true
+                    binding.addScreenEmailComponent.error = null
+
+                    // Restaurer la couleur par défaut de la bordure
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        com.google.android.material.R.color.mtrl_textinput_default_box_stroke_color
+                    )?.let {
+                        binding.addScreenEmailComponent.setBoxStrokeColorStateList(it)
+                    }
+                }
+            }
         })
 
         binding.buttonAddScreenCalendar.setOnClickListener {
-                binding.addScreenDatePicker.visibility = View.VISIBLE
-                binding.buttonAddScreenValidate.visibility = View.VISIBLE
-                binding.buttonAddScreenCancel.visibility = View.VISIBLE
-                binding.addScreenBirthdayHint2.visibility = View.GONE
-                binding.addScreenBirthdayComponent2.visibility = View.GONE
-                binding.buttonAddScreenCalendar.visibility = View.GONE
+            binding.addScreenDatePicker.visibility = View.VISIBLE
+            binding.buttonAddScreenValidate.visibility = View.VISIBLE
+            binding.buttonAddScreenCancel.visibility = View.VISIBLE
+            binding.addScreenBirthdayHint2.visibility = View.GONE
+            binding.addScreenBirthdayComponent2.visibility = View.GONE
+            binding.buttonAddScreenCalendar.visibility = View.GONE
         }
+
+        // Définir la date maximale sur le DatePicker pour empêcher les dates futures
+        binding.addScreenDatePicker.maxDate = System.currentTimeMillis()
 
         binding.buttonAddScreenValidate.setOnClickListener {
             // Récupérer la date sélectionnée dans le DatePicker
             val day = binding.addScreenDatePicker.dayOfMonth
-            val month = binding.addScreenDatePicker.month + 1 // Les mois sont indexés à partir de 0, donc ajouter 1
+            val month =
+                binding.addScreenDatePicker.month + 1 // Les mois sont indexés à partir de 0, donc ajouter 1
             val year = binding.addScreenDatePicker.year
 
             // Formater la date comme "dd/MM/yyyy"
@@ -201,58 +321,112 @@ class AddScreenFragment : Fragment() {
             binding.buttonAddScreenCalendar.visibility = View.VISIBLE
         }
 
-        // Définir la date maximale sur le DatePicker pour empêcher les dates futures
-        binding.addScreenDatePicker.maxDate = System.currentTimeMillis()
+        binding.inputAddScreenBirthday.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {  // Si le champ a le focus
+                val preInputText = getString(R.string.input_birthday_pre_input)  // Récupère la valeur de "input_birthday_preinput"
 
+                if (binding.inputAddScreenBirthday.text.toString() == preInputText) {
+                    // Si le texte actuel correspond à la valeur par défaut, on le vide
+                    binding.inputAddScreenBirthday.text?.clear()
+                }
+            }
+        }
 
 
         // Ajout du TextWatcher pour contrôler le format de la date de naissance
         binding.inputAddScreenBirthday.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            @SuppressLint("PrivateResource")
             override fun afterTextChanged(s: Editable?) {
                 // Regex pour valider le format de la date (dd/MM/yyyy)
                 val datePattern = Regex("^\\d{2}/\\d{2}/\\d{4}$")
 
-                if (!s.isNullOrEmpty()) {
-                    if (!datePattern.matches(s)) {
-                        // Format incorrect, afficher une erreur et changer la couleur de la bordure
-                        binding.addScreenBirthdayComponent2.error = getString(R.string.error_invalid_birthday_format)
-                        binding.addScreenBirthdayComponent2.boxStrokeColor = Color.RED
-                    } else {
-                        // Vérification si la date est dans le futur
-                        val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                if (s.isNullOrEmpty()) {
+                    // Champ vide, afficher une erreur et changer la couleur de la bordure
+                    isBirthdayCorrect = false
+                    binding.addScreenBirthdayComponent2.error = getString(R.string.error_empty_birthday)
+                    binding.addScreenBirthdayComponent2.boxStrokeColor = Color.RED
+                } else if (!datePattern.matches(s)) {
+                    // Format incorrect, afficher une erreur et changer la couleur de la bordure
+                    isBirthdayCorrect = false
+                    binding.addScreenBirthdayComponent2.error = getString(R.string.error_invalid_birthday_format)
+                    binding.addScreenBirthdayComponent2.boxStrokeColor = Color.RED
+                } else {
+                    // Vérification si la date existe réellement
+                    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    formatter.isLenient = false // Désactive la tolérance pour des dates invalides
+
+                    try {
                         val inputDate: Date = formatter.parse(s.toString())!!
                         val currentDate = Date()
 
                         if (inputDate.after(currentDate)) {
                             // Date dans le futur, afficher une erreur
-                            binding.addScreenBirthdayComponent2.error = getString(R.string.error_future_date)
+                            isBirthdayCorrect = false
+                            binding.addScreenBirthdayComponent2.error = getString(R.string.error_invalid_birthday_future_date)
                             binding.addScreenBirthdayComponent2.boxStrokeColor = Color.RED
                         } else {
                             // Date valide, retirer l'erreur et restaurer la couleur de la bordure par défaut
+                            isBirthdayCorrect = true
                             binding.addScreenBirthdayComponent2.error = null
-                            ContextCompat.getColorStateList(requireContext(), com.google.android.material.R.color.mtrl_textinput_default_box_stroke_color)
-                                ?.let {
-                                    binding.addScreenBirthdayComponent2.setBoxStrokeColorStateList(
-                                        it
-                                    )
-                                }
+                            ContextCompat.getColorStateList(
+                                requireContext(),
+                                com.google.android.material.R.color.mtrl_textinput_default_box_stroke_color
+                            )?.let {
+                                binding.addScreenBirthdayComponent2.setBoxStrokeColorStateList(it)
+                            }
                         }
+                    } catch (e: ParseException) {
+                        // La date n'existe pas (ex: 32/01/1999), afficher une erreur
+                        isBirthdayCorrect = false
+                        binding.addScreenBirthdayComponent2.error = getString(R.string.error_invalid_birthday_date)
+                        binding.addScreenBirthdayComponent2.boxStrokeColor = Color.RED
                     }
-                } else {
-                    // Champ vide, retirer l'erreur
-                    binding.addScreenBirthdayComponent2.error = null
-                    ContextCompat.getColorStateList(requireContext(), com.google.android.material.R.color.mtrl_textinput_default_box_stroke_color)
-                        ?.let {
-                            binding.addScreenBirthdayComponent2.setBoxStrokeColorStateList(
-                                it
-                            )
-                        }
                 }
             }
-
         })
+
+
+        binding.buttonAddScreenSaveButton.setOnClickListener {
+            inputErrorCount = 0
+            incorrectFields = null
+
+            if (!isFirstNameCorrect) {
+                inputErrorCount += 1
+                incorrectFields = getString(R.string.input_hint_first_name)
+            }
+            if (!isLastNameCorrect) {
+                inputErrorCount += 1
+                incorrectFields += ", " + getString(R.string.input_hint_last_name)
+            }
+            if (!isPhoneCorrect) {
+                inputErrorCount += 1
+                incorrectFields += ", " + getString(R.string.input_hint_phone)
+            }
+            if (!isEmailCorrect) {
+                inputErrorCount += 1
+                incorrectFields += ", " + getString(R.string.input_hint_email)
+            }
+            if (!isBirthdayCorrect) {
+                inputErrorCount += 1
+                incorrectFields += ", " + getString(R.string.display_title_detail_screen_birthday)
+            }
+            if (inputErrorCount == 0) {
+
+                // TODO : add candidate to DB + navigate to other screen
+
+            } else {
+
+                Snackbar.make(
+                    binding.root, // Assurez-vous que 'binding.root' est une vue de niveau supérieur dans votre layout
+                    getString(R.string.button_validate_error_message) + incorrectFields,
+                    Snackbar.LENGTH_LONG
+                ).show()
+
+            }
+
+        }
 
 
     }
@@ -313,10 +487,69 @@ class AddScreenFragment : Fragment() {
         pickImageLauncher.launch(intent)
     }
 
-    // Function to check if email is valid
-    private fun isValidEmail(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
+//    private fun fetchInputData(): Triple<String, String, String, String, String, String, String, String> {
+//        val photoUrl = selectedImageUrl ?: ""
+//        val firstName = binding.inputAddScreenFirstName.text.toString().trim()
+//        val lastName = binding.inputAddScreenLastName.text.toString().trim()
+//        val phoneNumber = binding.inputAddScreenPhone.text.toString().trim()
+//        val emailAddress = binding.inputAddScreenEmail.text.toString().trim()
+//        val dateOfBirthStr = binding.inputAddScreenBirthday.text.toString().trim()
+//        val expectedSalaryStr = binding.inputAddScreenSalary.text.toString().trim()
+//        val informationNote = binding.inputAddScreenNote.text.toString().trim()
+//
+//        val dateOfBirth = convertDateToTimestamp(dateOfBirthStr)
+//        val expectedSalary = expectedSalaryStr.toInt()
+//
+//        return Triple(
+//            photoUrl,
+//            firstName,
+//            lastName,
+//            phoneNumber,
+//            emailAddress,
+//            dateOfBirth,
+//            expectedSalary,
+//            informationNote
+//        )
+//    }
+
+
+//    private fun addCandidate(
+//        photoUrl: String,
+//        firstName: String,
+//        lastName: String,
+//        phoneNumber: String,
+//        emailAddress: String,
+//        dateOfBirth: String,
+//        expectedSalary: String,
+//        informationNote: String
+//    ) {
+
+
+//        // Création d'un nouvel objet CandidateDto
+//        val newCandidate = CandidateDto(
+//            photoUrl = photoUrl,
+//            firstName = firstName,
+//            lastName = lastName,
+//            phoneNumber = phoneNumber,
+//            emailAddress = emailAddress,
+//            dateOfBirth = dateOfBirth,
+//            expectedSalary = expectedSalary,
+//            informationNote = informationNote,
+//            isFavorite = false
+//        )
+//
+//        // Ajouter le nouveau candidat à la base de données
+//        viewModel.addNewCandidate(newCandidate)
+//    }
+
+
+
+
+//    private fun convertDateToTimestamp(dateStr: String): Long {
+//        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+//        return sdf.parse(dateStr)?.time ?: 0L
+//    }
+
 
     /**
      * Called when the view previously created by [onCreateView] has been detached from the fragment.

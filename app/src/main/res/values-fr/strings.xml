@@ -50,6 +50,6 @@
     <string name="error_invalid_email">Format d\'email invalide</string>
     <string name="error_invalid_phone">Format de numéro invalide</string>
     <string name="error_invalid_birthday_format">Format de date invalide</string>
-    <string name="error_future_date">Cette date ne doit pas être dans le futur</string>
+    <string name="error_invalid_birthday_future_date">Cette date ne doit pas être dans le futur</string>
 
 </resources>

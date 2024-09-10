@@ -48,10 +48,17 @@
     <string name="input_hint_search">Search</string>
     <string name="toast_media_permission_denied">Permission to access Gallery denied</string>
     <string name="error_invalid_email">Email format invalid</string>
-    <string name="error_invalid_phone">Number format invalid</string>
+    <string name="error_invalid_phone">Invalid format (0123456789)</string>
+    <string name="error_empty_phone">Phone number field should not be empty</string>
     <string name="error_invalid_birthday_format">Date format invalid</string>
-    <string name="error_future_date">Date should not be in the future</string>
+    <string name="error_invalid_birthday_future_date">Date should not be in the future</string>
     <string name="button_description_cancel">Cancel button</string>
     <string name="icon_description_validate">Validate button</string>
+    <string name="error_empty_first_name">First name field should not be empty</string>
+    <string name="error_empty_last_name">Last name field should not be empty</string>
+    <string name="error_invalid_birthday_date">Error, the entered date does not exist</string>
+    <string name="button_validate_error_message">"Please check following fields to save new candidate : "</string>
+    <string name="error_empty_email">Email field should not be empty</string>
+    <string name="error_empty_birthday">Birthday field should not be empty</string>
 
 </resources>
