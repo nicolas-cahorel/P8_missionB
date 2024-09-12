@@ -85,7 +85,15 @@ class HomeScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupObservers()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.homeScreenStateState.collect() { state ->
+                // Check if the state is DisplayCandidates
+                if (state is HomeScreenState.DisplayCandidates) {
+                    // Update the adapter with the list of candidates from the state
+                    homeScreenAdapter.updateData(state.candidates)
+                }
+            }
+        }
 
         // Set up the RecyclerView for displaying the list of candidates.
         binding.homeScreenRecyclerview.layoutManager =
@@ -189,21 +197,6 @@ class HomeScreenFragment : Fragment() {
                             binding.buttonHomeScreenAdd.visibility = View.VISIBLE
                         }
                     }
-                }
-            }
-        }
-    }
-
-    /**
-     * Set up observers for the ViewModel's state flows.
-     */
-    private fun setupObservers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.homeScreenStateState.collect() { state ->
-                // Check if the state is DisplayCandidates
-                if (state is HomeScreenState.DisplayCandidates) {
-                    // Update the adapter with the list of candidates from the state
-                    homeScreenAdapter.updateData(state.candidates)
                 }
             }
         }

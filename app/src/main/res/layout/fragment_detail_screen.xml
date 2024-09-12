@@ -7,6 +7,81 @@
     android:layout_height="match_parent"
     tools:context=".ui.detailScreen.DetailScreenFragment">
 
+
+    <ImageView
+        android:id="@+id/detailScreenDialogComponent"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/detail_screen_dialog_component_description"
+        android:src="@drawable/background_24dp_rounded_clear_purple_shadowed"
+        android:visibility="gone"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/displayDetailScreenScreenDialogTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:visibility="gone"
+        android:elevation="10dp"
+        android:layout_weight="1"
+        android:text="@string/display_title_detail_screen_dialog"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/detailScreenDialogComponent"
+        app:layout_constraintStart_toStartOf="@id/detailScreenDialogComponent"
+        app:layout_constraintTop_toTopOf="@id/detailScreenDialogComponent"/>
+
+    <TextView
+        android:id="@+id/displayDetailScreenScreenDialogContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        android:elevation="10dp"
+        android:layout_weight="1"
+        android:text="@string/display_content_detail_screen_dialog"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/detailScreenDialogComponent"
+        app:layout_constraintStart_toStartOf="@id/detailScreenDialogComponent"
+        app:layout_constraintTop_toBottomOf="@id/displayDetailScreenScreenDialogTitle"/>
+
+    <Button
+        android:id="@+id/buttonDetailScreenScreenDialogConfirm"
+        android:layout_margin="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:elevation="20dp"
+        android:background="@android:color/transparent"
+        android:text="@string/button_title_confirm"
+        android:textColor="@color/openClassroomsDarkPurple"
+        app:layout_constraintEnd_toEndOf="@id/detailScreenDialogComponent"
+        app:layout_constraintBottom_toBottomOf="@id/detailScreenDialogComponent"/>
+
+    <Button
+        android:id="@+id/buttonDetailScreenScreenDialogCancel"
+        android:layout_margin="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:elevation="20dp"
+        android:background="@android:color/transparent"
+        android:text="@string/button_title_cancel"
+        android:textColor="@color/openClassroomsDarkPurple"
+        app:layout_constraintEnd_toStartOf="@id/buttonDetailScreenScreenDialogConfirm"
+        app:layout_constraintBottom_toBottomOf="@id/detailScreenDialogComponent"/>
+
+
     <LinearLayout
         android:id="@+id/detailScreenTopComponent"
         android:layout_width="match_parent"
@@ -68,8 +143,10 @@
 
         <ImageView
             android:id="@+id/buttonDetailScreenEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="16dp"
+            android:padding="4dp"
             android:layout_gravity="center_vertical"
             android:clickable="true"
             android:contentDescription="@string/icon_description_edit"
@@ -78,8 +155,10 @@
 
         <ImageView
             android:id="@+id/buttonDetailScreenDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:padding="4dp"
             android:layout_gravity="center_vertical"
             android:clickable="true"
             android:contentDescription="@string/icon_description_delete"
@@ -201,7 +280,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:gravity="start"
-                android:text="@string/display_title_birthday"
+                android:text="@string/display_title_detail_screen_birthday"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/detailScreenAboutComponent"
@@ -269,15 +348,16 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailScreenSalaryComponent" />
+                app:layout_constraintTop_toBottomOf="@+id/detailScreenSalaryComponent"/>
 
             <TextView
                 android:id="@+id/displayDetailScreenNote"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp"
+                android:padding="16dp"
                 android:layout_marginTop="80dp"
+                android:background="@drawable/background_24dp_rounded_clear_purple"
                 android:gravity="start"
                 android:text="loreum ...."
                 android:textColor="@android:color/black"
@@ -289,5 +369,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

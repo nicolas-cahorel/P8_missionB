@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.openclassrooms.p8_vitesse.data.database.AppDatabase
 import com.openclassrooms.p8_vitesse.data.repository.CandidateRepository
 import com.openclassrooms.p8_vitesse.ui.addScreen.AddScreenViewModel
+import com.openclassrooms.p8_vitesse.ui.detailScreen.DetailScreenViewModel
 import com.openclassrooms.p8_vitesse.ui.homeScreen.HomeScreenViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -70,6 +71,15 @@ val appModule = module {
      */
     viewModel {
         AddScreenViewModel(get(), get(), get())
+    }
+
+    /**
+     * Provides the DetailScreenViewModel.
+     *
+     * @return An instance of HomeScreenViewModel.
+     */
+    viewModel {
+        DetailScreenViewModel(get(), get(), get())
     }
 
     // Define SharedPreferences

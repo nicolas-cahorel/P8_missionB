@@ -80,4 +80,13 @@ dependencies {
     implementation (libs.glide)
     annotationProcessor (libs.compiler)
 
+    // Retrofit for Network Requests
+    implementation(libs.retrofit)
+    implementation(libs.logging.interceptor)
+    implementation(libs.converter.moshi)
+
+    // Moshi JSON Library
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+
 }

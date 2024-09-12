@@ -20,8 +20,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
 import com.openclassrooms.p8_vitesse.R
 import com.openclassrooms.p8_vitesse.databinding.FragmentAddScreenBinding
 import com.openclassrooms.p8_vitesse.domain.model.Candidate
@@ -52,8 +52,6 @@ class AddScreenFragment : Fragment() {
 
     // Define the image pick launcher
     private lateinit var pickImageLauncher: ActivityResultLauncher<Intent>
-
-    private var isMediaAccessPermitted: Boolean = false
 
     // Déclarez `selectedImageUrl` comme une variable de classe pour stocker l'URL de l'image sélectionnée
     private var selectedImageUrl: String =
@@ -96,7 +94,11 @@ class AddScreenFragment : Fragment() {
                         selectedImageUrl = imageUri.toString()
 
                         // Mettre à jour l'ImageView avec l'image sélectionnée
-                        binding.displayAddScreenAvatar.setImageURI(imageUri)
+//                        binding.displayAddScreenAvatar.setImageURI(imageUri)
+                        Glide.with(binding.root.context)
+                            .load(selectedImageUrl)
+                            .error(R.drawable.default_avatar)
+                            .into(binding.displayAddScreenAvatar)
 
                         // Vous pouvez maintenant utiliser `selectedImageUrl` pour enregistrer l'URL de l'image sélectionnée dans la base de données
                     }
@@ -110,14 +112,13 @@ class AddScreenFragment : Fragment() {
 
         binding.displayAddScreenAvatar.setOnClickListener {
             // Check permissions before allowing image selection
-            isMediaAccessPermitted = viewModel.getMediaAccessPermissionStatus()
-            if (isMediaAccessPermitted)
+            if (viewModel.getMediaAccessPermissionStatus())
                 launchImagePicker()
             else
                 checkPermissions()
         }
 
-        binding.inputAddScreenFirstName.setOnFocusChangeListener { v, hasFocus ->
+        binding.inputAddScreenFirstName.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {  // Si le champ a le focus
                 if (binding.inputAddScreenFirstName.text.isNullOrEmpty()) {
                     isFirstNameCorrect = false
@@ -154,7 +155,7 @@ class AddScreenFragment : Fragment() {
             }
         })
 
-        binding.inputAddScreenLastName.setOnFocusChangeListener { v, hasFocus ->
+        binding.inputAddScreenLastName.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {  // Si le champ a le focus
                 if (binding.inputAddScreenLastName.text.isNullOrEmpty()) {
                     isLastNameCorrect = false
@@ -191,7 +192,7 @@ class AddScreenFragment : Fragment() {
             }
         })
 
-        binding.inputAddScreenPhone.setOnFocusChangeListener { v, hasFocus ->
+        binding.inputAddScreenPhone.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {  // Si le champ a le focus
                 if (binding.inputAddScreenPhone.text.isNullOrEmpty()) {
                     isPhoneCorrect = false
@@ -215,7 +216,7 @@ class AddScreenFragment : Fragment() {
                 if (s.isNullOrEmpty()) {
                     // Si le champ est vide, afficher une erreur et changer la couleur de la bordure
                     isPhoneCorrect = false
-                    binding.addScreenPhoneComponent.error = getString(R.string.error_empty_phone)
+                        binding.addScreenPhoneComponent.error = getString(R.string.error_empty_phone)
                     binding.addScreenPhoneComponent.boxStrokeColor = Color.RED
                 } else if (!phonePattern.matches(s)) {
                     // Si le format est incorrect, afficher une erreur et changer la couleur de la bordure
@@ -236,7 +237,7 @@ class AddScreenFragment : Fragment() {
             }
         })
 
-        binding.inputAddScreenEmail.setOnFocusChangeListener { v, hasFocus ->
+        binding.inputAddScreenEmail.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {  // Si le champ a le focus
                 if (binding.inputAddScreenEmail.text.isNullOrEmpty()) {
                     isEmailCorrect = false
@@ -327,7 +328,7 @@ class AddScreenFragment : Fragment() {
             binding.buttonAddScreenCalendar.visibility = View.VISIBLE
         }
 
-        binding.inputAddScreenBirthday.setOnFocusChangeListener { v, hasFocus ->
+        binding.inputAddScreenBirthday.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {  // Si le champ a le focus
                 val preInputText =
                     getString(R.string.input_birthday_pre_input)  // Récupère la valeur de "input_birthday_preinput"
@@ -483,11 +484,7 @@ class AddScreenFragment : Fragment() {
             } else {
                 // Permission denied, show a message to the user
                 viewModel.setMediaAccessPermissionStatus(false)
-                Toast.makeText(
-                    context,
-                    getString(R.string.toast_media_permission_denied),
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(context, getString(R.string.toast_media_permission_denied), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -499,10 +496,10 @@ class AddScreenFragment : Fragment() {
     }
 
     private fun addCandidate() {
-        var expectedSalary: Int = 0  // Default value for expected salary
+        var expectedSalary = 0  // Default value for expected salary
 
         // Check if the salary field is not empty or null
-        if (!binding.inputAddScreenSalary.text.toString().isNullOrEmpty()) {
+        if (binding.inputAddScreenSalary.text.toString().isNotEmpty()) {
             expectedSalary = binding.inputAddScreenSalary.text.toString().trim().toInt()
         }
 
@@ -514,7 +511,7 @@ class AddScreenFragment : Fragment() {
             lastName = capitalizeWords(binding.inputAddScreenLastName.text.toString().trim()),
             phoneNumber = binding.inputAddScreenPhone.text.toString().trim(),
             emailAddress = binding.inputAddScreenEmail.text.toString().trim(),
-            dateOfBirth = convertDateToTimestamp(binding.inputAddScreenBirthday.text.toString().trim()),
+            dateOfBirthStr = convertDateToTimestamp(binding.inputAddScreenBirthday.text.toString().trim()),
             expectedSalary = expectedSalary,
             informationNote = binding.inputAddScreenNote.text.toString().trim(),
             isFavorite = false  // Default value for isFavorite
@@ -535,9 +532,8 @@ class AddScreenFragment : Fragment() {
 
     // Fonction pour capitaliser la première lettre de chaque mot
     private fun capitalizeWords(text: String): String {
-        return text.split(" ") // Divise la chaîne en mots
-            .map { it.replaceFirstChar { char -> char.uppercase() } } // Capitalise chaque mot
-            .joinToString(" ") // Rejoint les mots avec des espaces
+        return text.split(" ")
+            .joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } } // Rejoint les mots avec des espaces
     }
 
     /**

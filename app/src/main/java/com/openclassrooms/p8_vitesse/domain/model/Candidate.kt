@@ -9,7 +9,7 @@ data class Candidate(
     var lastName: String,
     var phoneNumber: String,
     var emailAddress: String,
-    var dateOfBirth: Long,
+    var dateOfBirthStr: Long,
     var expectedSalary: Int,
     var informationNote: String,
     var isFavorite: Boolean
@@ -23,7 +23,7 @@ data class Candidate(
                 lastName = dto.lastName,
                 phoneNumber = dto.phoneNumber,
                 emailAddress = dto.emailAddress,
-                dateOfBirth = dto.dateOfBirth,
+                dateOfBirthStr = dto.dateOfBirth,
                 expectedSalary = dto.expectedSalary,
                 informationNote = dto.informationNote,
                 isFavorite = dto.isFavorite
@@ -39,7 +39,7 @@ data class Candidate(
             lastName = lastName,
             phoneNumber = phoneNumber,
             emailAddress = emailAddress,
-            dateOfBirth = dateOfBirth,
+            dateOfBirth = dateOfBirthStr,
             expectedSalary = expectedSalary,
             informationNote = informationNote,
             isFavorite = isFavorite

@@ -1,13 +1,11 @@
 package com.openclassrooms.p8_vitesse.ui.homeScreen
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.openclassrooms.p8_vitesse.R
+import com.openclassrooms.p8_vitesse.databinding.ItemCandidateBinding
 import com.openclassrooms.p8_vitesse.domain.model.Candidate
 
 /**
@@ -21,28 +19,34 @@ import com.openclassrooms.p8_vitesse.domain.model.Candidate
 class HomeScreenAdapter(
     private var candidates: List<Candidate>,
     private val onItemClicked: (Long) -> Unit
-) :
-    RecyclerView.Adapter<HomeScreenAdapter.CandidateViewHolder>() {
+) : RecyclerView.Adapter<HomeScreenAdapter.CandidateViewHolder>() {
 
     /**
      * ViewHolder for candidate items in the RecyclerView.
      *
-     * @property photo The ImageView for displaying the candidate's photo.
-     * @property fullName The TextView for displaying the candidate's full name.
-     * @property informationNote The TextView for displaying additional information about the candidate.
+     * @property binding The view binding for the item layout.
      */
-    inner class CandidateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var photo: ImageView = itemView.findViewById(R.id.display_item_candidate_avatar)
-        var fullName: TextView = itemView.findViewById(R.id.display_item_candidate_full_name)
-        var informationNote: TextView = itemView.findViewById(R.id.display_item_candidate_note)
+    inner class CandidateViewHolder(private val binding: ItemCandidateBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        /**
+            /**
          * Binds the candidate data to the views and sets up click listener.
          *
          * @param candidate The candidate data to be bound to the views.
          */
         fun bind(candidate: Candidate) {
-            itemView.setOnClickListener {
+            // Load candidate photo using Glide
+            Glide.with(binding.root.context)
+                .load(candidate.photo)
+                .error(R.drawable.default_avatar)
+                .into(binding.displayItemCandidateAvatar)
+
+            // Set other fields
+            binding.displayItemCandidateFullName.text =
+                "${candidate.firstName} ${candidate.lastName}"
+            binding.displayItemCandidateNote.text = candidate.informationNote
+
+            binding.constraintLayout.setOnClickListener {
                 onItemClicked(candidate.id)
             }
         }
@@ -58,9 +62,9 @@ class HomeScreenAdapter(
      * @return A new instance of [CandidateViewHolder].
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CandidateViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_candidate, parent, false)
-        return CandidateViewHolder(itemView)
+        val binding =
+            ItemCandidateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CandidateViewHolder(binding)
     }
 
     /**
@@ -71,19 +75,7 @@ class HomeScreenAdapter(
      */
     override fun onBindViewHolder(holder: CandidateViewHolder, position: Int) {
         val candidate = candidates[position]
-
-        // Bind candidate data to the views
         holder.bind(candidate)
-
-        // Load candidate photo using Glide
-        Glide.with(holder.itemView.context)
-            .load(candidate.photo)  // assuming photoUrl is a field in Candidate class containing the URL
-            .error(R.drawable.default_avatar) // Optional: Error image if URL fails to load
-            .into(holder.photo)  // ImageView in which to load the image
-
-        // Set other fields
-        holder.fullName.text = "${candidate.firstName} ${candidate.lastName}"
-        holder.informationNote.text = candidate.informationNote
     }
 
     /**
@@ -98,8 +90,13 @@ class HomeScreenAdapter(
      *
      * @param newCandidates The new list of candidates to display.
      */
+    /**
+     * Updates the list of candidates and notifies the adapter of data changes.
+     *
+     * @param newCandidates The new list of candidates to display.
+     */
     fun updateData(newCandidates: List<Candidate>) {
         this.candidates = newCandidates
-        notifyDataSetChanged() // Notify the RecyclerView to refresh the displayed data
+        notifyDataSetChanged()
     }
 }

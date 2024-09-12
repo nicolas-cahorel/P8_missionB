@@ -58,5 +58,15 @@
     <string name="button_validate_error_message">"Mandatory field"</string>
     <string name="error_empty_email">Email field should not be empty</string>
     <string name="error_empty_birthday">Birthday field should not be empty</string>
+    <string name="years">years</string>
+    <string name="now_favorite">Candidate is now favorite</string>
+    <string name="toast_favorite">Favorites</string>
+    <string name="toast_edit">Edit</string>
+    <string name="toast_delete">Delete</string>
+    <string name="display_title_detail_screen_dialog">Deletion</string>
+    <string name="display_content_detail_screen_dialog">Are you sure you want to delete this candidate? This action cannot be undone.</string>
+    <string name="detail_screen_dialog_component_description">Detail screen dialog component</string>
+    <string name="button_title_confirm">Confirm</string>
+    <string name="button_title_cancel">Cancel</string>
 
 </resources>
