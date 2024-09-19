@@ -4,7 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.openclassrooms.p8_vitesse.data.database.AppDatabase
 import com.openclassrooms.p8_vitesse.data.repository.CandidateRepository
-import com.openclassrooms.p8_vitesse.ui.addScreen.AddScreenViewModel
+import com.openclassrooms.p8_vitesse.data.repository.ExchangeRatesRepository
+import com.openclassrooms.p8_vitesse.ui.addOrEditScreen.AddOrEditScreenViewModel
 import com.openclassrooms.p8_vitesse.ui.detailScreen.DetailScreenViewModel
 import com.openclassrooms.p8_vitesse.ui.homeScreen.HomeScreenViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -56,6 +57,24 @@ val appModule = module {
     }
 
     /**
+     * Provides the ExchangeRatesRepository using the ExchangeRatesClient.
+     *
+     * @return An instance of ExchangeRatesRepository.
+     */
+    single {
+        ExchangeRatesRepository(get())
+    }
+
+    /**
+     * Provides the SharedPreferences instance.
+     *
+     * @return An instance of SharedPreferences.
+     */
+    single<SharedPreferences> {
+        androidContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+    }
+
+    /**
      * Provides the HomeScreenViewModel.
      *
      * @return An instance of HomeScreenViewModel.
@@ -65,29 +84,20 @@ val appModule = module {
     }
 
     /**
-     * Provides the HomeScreenViewModel.
+     * Provides the AddScreenViewModel.
      *
-     * @return An instance of HomeScreenViewModel.
+     * @return An instance of AddScreenViewModel.
      */
     viewModel {
-        AddScreenViewModel(get(), get(), get())
+        AddOrEditScreenViewModel(get(), get(), get())
     }
 
     /**
      * Provides the DetailScreenViewModel.
      *
-     * @return An instance of HomeScreenViewModel.
+     * @return An instance of DetailScreenViewModel.
      */
     viewModel {
-        DetailScreenViewModel(get(), get(), get())
+        DetailScreenViewModel(get(), get(), get(), get())
     }
-
-    // Define SharedPreferences
-    single<SharedPreferences> {
-        androidContext().getSharedPreferences(
-            "my_prefs",
-            Context.MODE_PRIVATE
-        )
-    }
-
 }

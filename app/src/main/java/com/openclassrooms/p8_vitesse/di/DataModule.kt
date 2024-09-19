@@ -1,7 +1,7 @@
 package com.openclassrooms.p8_vitesse.di
 
-import com.openclassrooms.p8_vitesse.data.network.ConverterClient
-import com.openclassrooms.p8_vitesse.data.repository.CandidateRepository
+import com.openclassrooms.p8_vitesse.data.network.ExchangeRatesClient
+import com.openclassrooms.p8_vitesse.data.repository.ExchangeRatesRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -11,36 +11,47 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+/**
+ * Koin module for providing network-related dependencies.
+ */
 val dataModule: Module = module {
 
-    // OkHttpClient for network operations, with logging interceptor
+    /**
+     * Provides an [OkHttpClient] instance with logging capabilities for network requests.
+     */
     single {
         OkHttpClient.Builder().apply {
             addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         }.build()
     }
 
-    // Moshi instance for JSON serialization/deserialization
+    /**
+     * Provides a [Moshi] instance for JSON serialization/deserialization.
+     */
     single {
         Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     }
 
-    // Retrofit instance for API calls, configured with base URL, Moshi converter, and OkHttpClient
+    /**
+     * Provides a [Retrofit] instance configured with the base URL, [Moshi] converter, and [OkHttpClient].
+     */
     single {
         Retrofit.Builder()
-            .baseUrl("https://latest.currency-api.pages.dev/v1") // ou l'adresse IP de votre ordinateur pour un appareil physique
+            .baseUrl("https://latest.currency-api.pages.dev/v1/")
             .addConverterFactory(MoshiConverterFactory.create(get()))
             .client(get())
             .build()
     }
 
-    // LoginClient instance created from Retrofit
+    /**
+     * Provides an [ExchangeRatesClient] instance created from [Retrofit].
+     */
     single {
-        get<Retrofit>().create(ConverterClient::class.java)
+        get<Retrofit>().create(ExchangeRatesClient::class.java)
     }
 
-
-    // LoginRepository with dependency on LoginClient
-    single { CandidateRepository(get()) }
-
+    /**
+     * Provides an [ExchangeRatesRepository] instance with dependency on [ExchangeRatesClient].
+     */
+    single { ExchangeRatesRepository(get()) }
 }

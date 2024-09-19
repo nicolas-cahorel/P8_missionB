@@ -192,20 +192,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/detailScreenScrollViewComponent" />
 
-            <LinearLayout
-                android:id="@+id/detailScreenContactComponent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/displayDetailScreenAvatar">
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/buttonDetailScreenMakeCall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -214,9 +202,21 @@
                     android:clickable="true"
                     android:contentDescription="@string/button_description_phone"
                     android:focusable="true"
-                    android:src="@drawable/icon_phone_circle" />
+                    android:src="@drawable/icon_phone_circle"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/buttonDetailScreenSendSms"
+                    app:layout_constraintTop_toBottomOf="@id/displayDetailScreenAvatar"/>
+                <TextView
+                    android:id="@+id/buttonDetailScreenMakeCallLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_call"
+                    app:layout_constraintStart_toStartOf="@id/buttonDetailScreenMakeCall"
+                    app:layout_constraintEnd_toEndOf="@id/buttonDetailScreenMakeCall"
+                    app:layout_constraintTop_toBottomOf="@id/buttonDetailScreenMakeCall"/>
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/buttonDetailScreenSendSms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -225,9 +225,21 @@
                     android:clickable="true"
                     android:contentDescription="@string/button_description_sms"
                     android:focusable="true"
-                    android:src="@drawable/icon_sms_circle" />
+                    android:src="@drawable/icon_sms_circle"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintStart_toEndOf="@id/buttonDetailScreenMakeCall"
+                    app:layout_constraintEnd_toStartOf="@id/buttonDetailScreenSendEmail"
+                    app:layout_constraintTop_toBottomOf="@id/displayDetailScreenAvatar"/>
+            <TextView
+                android:id="@+id/buttonDetailScreenSendSmsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_sms"
+                app:layout_constraintStart_toStartOf="@id/buttonDetailScreenSendSms"
+                app:layout_constraintEnd_toEndOf="@id/buttonDetailScreenSendSms"
+                app:layout_constraintTop_toBottomOf="@id/buttonDetailScreenSendSms"/>
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/buttonDetailScreenSendEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -236,17 +248,27 @@
                     android:clickable="true"
                     android:contentDescription="@string/button_description_email"
                     android:focusable="true"
-                    android:src="@drawable/icon_email_circle" />
+                    android:src="@drawable/icon_email_circle"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintStart_toEndOf="@id/buttonDetailScreenSendSms"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/displayDetailScreenAvatar"/>
+            <TextView
+                android:id="@+id/buttonDetailScreenSendEmailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_email"
+                app:layout_constraintStart_toStartOf="@id/buttonDetailScreenSendEmail"
+                app:layout_constraintEnd_toEndOf="@id/buttonDetailScreenSendEmail"
+                app:layout_constraintTop_toBottomOf="@id/buttonDetailScreenSendEmail"/>
 
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/detailScreenAboutComponent"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_margin="16dp"
                 android:background="@drawable/background_24dp_rounded_clear_purple"
                 android:gravity="start"
                 android:padding="16dp"
@@ -256,7 +278,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailScreenContactComponent" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonDetailScreenMakeCallLabel" />
 
             <TextView
                 android:id="@+id/displayDetailScreenBirthday"

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.openclassrooms.p8_vitesse.R
 import com.openclassrooms.p8_vitesse.databinding.FragmentHomeScreenBinding
-import com.openclassrooms.p8_vitesse.ui.addScreen.AddScreenFragment
+import com.openclassrooms.p8_vitesse.ui.addOrEditScreen.AddOrEditScreenFragment
 import com.openclassrooms.p8_vitesse.ui.detailScreen.DetailScreenFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -208,8 +208,8 @@ class HomeScreenFragment : Fragment() {
     private fun navigateToAddScreen() {
         val fragmentManager = parentFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val addScreenFragment = AddScreenFragment()
-        fragmentTransaction.replace(R.id.fragment_container, addScreenFragment)
+        val addOrEditScreenFragment = AddOrEditScreenFragment()
+        fragmentTransaction.replace(R.id.fragment_container, addOrEditScreenFragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }

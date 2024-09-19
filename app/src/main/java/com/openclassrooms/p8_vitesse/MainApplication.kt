@@ -2,6 +2,7 @@ package com.openclassrooms.p8_vitesse
 
 import android.app.Application
 import com.openclassrooms.p8_vitesse.di.appModule
+import com.openclassrooms.p8_vitesse.di.dataModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -29,7 +30,7 @@ class MainApplication : Application() {
             androidContext(this@MainApplication)
 
             // Load the Koin modules, including appModule which defines dependencies
-            modules(appModule)
+            modules(appModule, dataModule)
 
             // Enable Koin logging
             printLogger()

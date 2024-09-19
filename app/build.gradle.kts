@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt")
-
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -88,5 +88,9 @@ dependencies {
     // Moshi JSON Library
     implementation(libs.moshi)
     implementation(libs.moshi.kotlin)
+
+    // Coroutine
+    implementation (libs.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
 
 }

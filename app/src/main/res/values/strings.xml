@@ -68,5 +68,18 @@
     <string name="detail_screen_dialog_component_description">Detail screen dialog component</string>
     <string name="button_title_confirm">Confirm</string>
     <string name="button_title_cancel">Cancel</string>
+    <string name="label_call">Call</string>
+    <string name="label_sms">SMS</string>
+    <string name="label_email">E-mail</string>
+    <string name="converted_salary_text">or £</string>
+    <string name="toast_unavailable_phone_number">Phone number not available</string>
+    <string name="toast_no_email_app_found">No email application found</string>
+    <string name="toast_unavailable_email_adress">Email address not available</string>
 
+    <!-- Placeholders for displaying candidate details -->
+    <string name="candidate_name">%1$s %2$s</string>
+    <string name="candidate_salary">%1$d €</string>
+    <string name="converted_salary">or £ %s</string>
+    <string name="edit_screen_top_bar_title">Edit a candidate</string>
+    <string name="add_screen_top_bar_title">Add a candidate</string>
 </resources>

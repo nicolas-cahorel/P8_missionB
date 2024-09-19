@@ -9,27 +9,20 @@ import kotlinx.coroutines.flow.Flow
 
 /**
  * DAO for accessing candidate data in the Room database.
+ * This interface provides methods for inserting, updating, retrieving, and deleting candidate records.
  */
 @Dao
 interface CandidateDtoDao {
 
     /**
-     * Inserts a candidate in the database.
+     * Inserts or updates a candidate in the database.
+     * If a candidate with the same ID already exists, it will be replaced.
      *
-     * @param candidate The candidate to be inserted.
-     * @return The ID of the newly inserted candidate.
+     * @param candidate The candidate to insert or update.
+     * @return The ID of the inserted or updated candidate.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCandidate(candidate: CandidateDto): Long
-
-    /**
-     * Updates a candidate in the database.
-     *
-     * @param candidate The candidate to be updated.
-     * @return The ID of the newly updated candidate.
-     */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateCandidate(candidate: CandidateDto): Long
+    suspend fun insertOrUpdateCandidate(candidate: CandidateDto): Long
 
     /**
      * Retrieves all candidates from the database.
@@ -39,12 +32,12 @@ interface CandidateDtoDao {
     @Query("SELECT * FROM candidate")
     suspend fun getAllCandidates(): List<CandidateDto>
 
-
     /**
      * Retrieves a candidate by its ID from the database.
+     * This method returns a Flow to allow observing changes to the candidate in real-time.
      *
-     * @param id The ID of the candidate to be retrieved.
-     * @return A Flow that emits the candidate with the specified ID.
+     * @param id The ID of the candidate to retrieve.
+     * @return A Flow that emits the candidate with the specified ID, or null if not found.
      */
     @Query("SELECT * FROM candidate WHERE id = :id")
     fun getCandidateById(id: Long): Flow<CandidateDto?>

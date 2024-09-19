@@ -5,7 +5,7 @@
     android:id="@+id/homeScreenFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addScreen.AddScreenFragment">
+    tools:context=".ui.addOrEditScreen.AddOrEditScreenFragment">
 
     <LinearLayout
         android:id="@+id/addScreenTopComponent"
@@ -32,7 +32,7 @@
             android:src="@drawable/icon_back" />
 
         <TextView
-            android:id="@+id/addScreenScreenTitle"
+            android:id="@+id/addOrEditScreenTopBarTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

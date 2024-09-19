@@ -1,4 +1,4 @@
-package com.openclassrooms.p8_vitesse.ui.addScreen
+package com.openclassrooms.p8_vitesse.ui.addOrEditScreen
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
  * @property candidateRepository The repository used to fetch candidate data.
  * @property context The context used to access resources, such as strings.
  */
-class AddScreenViewModel(
+class AddOrEditScreenViewModel(
     private val candidateRepository: CandidateRepository,
     private val context: Context,
     private val sharedPreferences: SharedPreferences
@@ -57,9 +57,9 @@ class AddScreenViewModel(
         return sharedPreferences.getBoolean(KEY_IS_MEDIA_ACCESS_PERMITTED, false) // Provide a default value
     }
 
-    fun addNewCandidate(candidate: Candidate) {
+    fun addOrEditCandidate(candidate: Candidate) {
         viewModelScope.launch(Dispatchers.IO) {
-            candidateRepository.addCandidate(candidate)
+            candidateRepository.addOrUpdateCandidate(candidate)
         }
     }
 

@@ -51,5 +51,9 @@
     <string name="error_invalid_phone">Format de numéro invalide</string>
     <string name="error_invalid_birthday_format">Format de date invalide</string>
     <string name="error_invalid_birthday_future_date">Cette date ne doit pas être dans le futur</string>
+    <string name="label_call">Appel</string>
+    <string name="label_sms">SMS</string>
+    <string name="label_email">E-mail</string>
+    <string name="converted_salary_text">soit £</string>
 
 </resources>
