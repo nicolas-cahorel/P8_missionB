@@ -21,7 +21,6 @@ import kotlinx.coroutines.launch
  */
 class AddOrEditScreenViewModel(
     private val candidateRepository: CandidateRepository,
-    private val context: Application,
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 

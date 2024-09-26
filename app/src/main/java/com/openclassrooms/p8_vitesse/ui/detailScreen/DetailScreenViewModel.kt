@@ -32,7 +32,6 @@ import java.net.UnknownHostException
 class DetailScreenViewModel(
     private val candidateRepository: CandidateRepository,
     private val exchangeRatesRepository: ExchangeRatesRepository,
-    private val context: Application,
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 

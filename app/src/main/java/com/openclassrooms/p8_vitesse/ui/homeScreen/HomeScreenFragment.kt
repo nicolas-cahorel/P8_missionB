@@ -92,10 +92,13 @@ class HomeScreenFragment : Fragment() {
         setupSearchBar()
         setupTabLayout()
         setupAddButton()
-        getHomeScreenState()
-        updateUIWithState()
         setupRecyclerView()
+        updateUIWithState()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        fetchInitialCandidates()
     }
 
     /**
@@ -161,25 +164,40 @@ class HomeScreenFragment : Fragment() {
     }
 
     /**
-     * Observes state updates from the ViewModel and updates the UI based on the current state.
-     * Handles different states like DisplayCandidates, Loading, Empty, and Error.
+     * Sets up the RecyclerView for displaying the list of candidates.
+     * Configures the layout manager and assigns the adapter for the RecyclerView.
      */
-    private fun getHomeScreenState() {
-        // Observe state updates from the ViewModel
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.homeScreenState.collect { state ->
-                // Check if the state is DisplayCandidates
-                if (state is HomeScreenState.DisplayCandidates) {
-                    // Update the adapter with the list of candidates from the state
-                    homeScreenAdapter.updateData(state.candidates)
-                }
-            }
-        }
+    private fun setupRecyclerView() {
+        binding.homeScreenRecyclerview.layoutManager =
+            LinearLayoutManager(context)
+        binding.homeScreenRecyclerview.adapter = homeScreenAdapter
+    }
+
+    /**
+     * Fetches the initial candidates when the fragment is created.
+     * This method will be called when the fragment view is created to populate the candidate list.
+     */
+    private fun fetchInitialCandidates() {
+        viewModel.fetchCandidates(favorite = isFavoritesTabSelected, query = currentQuery)
     }
 
     /**
      * Updates the UI based on the current state collected from the ViewModel.
-     * Displays loading indicators, candidate lists, empty messages, or error messages as needed.
+     * This method observes the state flow from the ViewModel and updates the UI accordingly by:
+     * - Displaying a loading indicator when the state is [HomeScreenState.Loading].
+     * - Showing the list of candidates when the state is [HomeScreenState.DisplayCandidates].
+     * - Displaying a message when no candidates are found (state is [HomeScreenState.Empty]).
+     * - Showing an error message when an error occurs during data fetching (state is [HomeScreenState.Error]).
+     *
+     * The UI elements affected by this method include:
+     * - A progress bar to indicate loading.
+     * - A message view to show empty or error messages.
+     * - A search bar that can be enabled or disabled based on the loading state.
+     * - A RecyclerView to display the list of candidates, which is updated with new data when available.
+     * - A button for adding new candidates, whose visibility is controlled based on the current state.
+     *
+     * This method is called within the lifecycle of the fragment and should be invoked when the
+     * fragment's view is created to ensure the UI reflects the current data state.
      */
     private fun updateUIWithState() {
         // Observe the state flow from the ViewModel and update the UI accordingly
@@ -213,7 +231,7 @@ class HomeScreenFragment : Fragment() {
                             binding.homeScreenStateProgressBar.visibility = View.GONE
                             binding.homeScreenStateMessage.apply {
                                 visibility = View.VISIBLE
-                                text = state.stateMessage // Display the message for empty state
+                                text = getString(state.stateMessageId) // Display the message for empty state
                             }
                             binding.homeScreenSearchBarField.isEnabled = TRUE
                             binding.homeScreenRecyclerview.visibility = View.GONE
@@ -225,7 +243,7 @@ class HomeScreenFragment : Fragment() {
                             binding.homeScreenStateProgressBar.visibility = View.GONE
                             binding.homeScreenStateMessage.apply {
                                 visibility = View.VISIBLE
-                                text = state.stateMessage // Display the error message
+                                text = getString(state.stateMessageId) // Display the error message
                             }
                             binding.homeScreenSearchBarField.isEnabled = TRUE
                             binding.homeScreenRecyclerview.visibility = View.GONE
@@ -235,16 +253,6 @@ class HomeScreenFragment : Fragment() {
                 }
             }
         }
-    }
-
-    /**
-     * Sets up the RecyclerView for displaying the list of candidates.
-     * Configures the layout manager and assigns the adapter for the RecyclerView.
-     */
-    private fun setupRecyclerView() {
-        binding.homeScreenRecyclerview.layoutManager =
-            LinearLayoutManager(context)
-        binding.homeScreenRecyclerview.adapter = homeScreenAdapter
     }
 
     /**

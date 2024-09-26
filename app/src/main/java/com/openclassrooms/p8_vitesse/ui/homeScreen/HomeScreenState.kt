@@ -28,7 +28,7 @@ sealed interface HomeScreenState {
      *
      * @property stateMessage The message explaining the absence of candidates, which can be used to guide the user.
      */
-    data class Empty(val stateMessage: String) : HomeScreenState
+    data class Empty(val stateMessageId: Int) : HomeScreenState
 
     /**
      * Represents an error state with a message explaining why the data loading or processing failed.
@@ -36,5 +36,5 @@ sealed interface HomeScreenState {
      *
      * @property stateMessage The message describing the cause of the failure, helping the user understand what went wrong.
      */
-    data class Error(val stateMessage: String) : HomeScreenState
+    data class Error(val stateMessageId: Int) : HomeScreenState
 }

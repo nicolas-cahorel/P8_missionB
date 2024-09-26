@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
  */
 class HomeScreenViewModel(
     private val candidateRepository: CandidateRepository,
-    private val context: Application,
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
@@ -67,13 +66,13 @@ class HomeScreenViewModel(
                 // Update state depending on the candidates list
                 if (candidates.isEmpty()) {
                     _homeScreenState.value =
-                        HomeScreenState.Empty(context.getString(R.string.home_screen_empty_state_message))
+                        HomeScreenState.Empty(R.string.home_screen_empty_state_message)
                 } else {
                     _homeScreenState.value = HomeScreenState.DisplayCandidates(candidates)
                 }
             } catch (e: Exception) {
                 _homeScreenState.value =
-                    HomeScreenState.Error(context.getString(R.string.home_screen_error_state_message))
+                    HomeScreenState.Error(R.string.home_screen_error_state_message)
             }
         }
     }

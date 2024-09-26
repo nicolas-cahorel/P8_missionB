@@ -78,7 +78,7 @@ val appModule = module {
      * @return An instance of HomeScreenViewModel.
      */
     viewModel {
-        HomeScreenViewModel(get(), get(), get())
+        HomeScreenViewModel(get(), get())
     }
 
     /**
@@ -87,7 +87,7 @@ val appModule = module {
      * @return An instance of AddScreenViewModel.
      */
     viewModel {
-        AddOrEditScreenViewModel(get(), get(), get())
+        AddOrEditScreenViewModel(get(), get())
     }
 
     /**
@@ -96,6 +96,6 @@ val appModule = module {
      * @return An instance of DetailScreenViewModel.
      */
     viewModel {
-        DetailScreenViewModel(get(), get(), get(), get())
+        DetailScreenViewModel(get(), get(), get())
     }
 }

@@ -25,7 +25,6 @@ class CandidateRepository(private val candidateDao: CandidateDtoDao) {
      * @return A list of [Candidate] objects matching the filters.
      */
     suspend fun getCandidates(favorite: Boolean, searchQuery: String?): List<Candidate> {
-
         return candidateDao.getAllCandidates()
             .filter { if (favorite) it.isFavorite else true } // Filter by favorite status
             .filter { candidateDto ->
