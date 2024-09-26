@@ -1,59 +1,112 @@
 <resources>
-    <string name="app_name">P8_Vitesse</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- A VERIFIER AVEC FIGMA + KANBAN-->
-    <string name="button_description_add">Add candidate</string>
-    <string name="button_description_back">back button</string>
-    <string name="button_description_calendar">Calendar icon</string>
-    <string name="button_description_email">button email to send an email to the displayed candidate</string>
-    <string name="button_description_phone">Phone button to call the displayed candidate</string>
-    <string name="button_description_save">Save button</string>
-    <string name="button_description_sms">sms button to send a message to the displayed candidate</string>
-    <string name="button_title_save">Sauvegarder</string>
-    <string name="candidate_full_name">%1$s %2$s</string>
-    <string name="display_description_avatar">Photo du candidat</string>
-    <string name="display_message_error">An error has occurred, please try again</string>
-    <string name="display_message_no_result">Aucun candidat</string>
-    <string name="display_tab_title_all">Tous</string>
-    <string name="display_tab_title_favorites">Favoris</string>
-    <string name="display_title_add_screen">Ajouter candidat</string>
-    <string name="display_title_add_screen_about">A propos</string>
-    <string name="display_title_add_screen_notes">Notes</string>
-    <string name="display_title_add_screen_salary">Expected salary</string>
-    <string name="display_title_birthday">Pick a date</string>
-    <string name="display_title_birthday2">Enter a date</string>
-    <string name="display_title_detail_screen">Detail screen</string>
-    <string name="display_title_detail_screen_birthday">Birthday</string>
-    <string name="display_title_edit_screen">edit screen</string>
-    <string name="icon_description_cake">icone gâteau</string>
-    <string name="icon_description_delete">delete button</string>
-    <string name="icon_description_edit">edit button</string>
-    <string name="icon_description_email">Mail icon</string>
-    <string name="icon_description_favorite_false">favorite button : candidate is favorite = false</string>
-    <string name="icon_description_favorite_true">favorite button : candidate is favorite = true</string>
-    <string name="icon_description_note">note icon</string>
-    <string name="icon_description_phone">Phone icon</string>
-    <string name="icon_description_salary">Salary icon</string>
-    <string name="icon_description_search">Icone de recherche</string>
-    <string name="icon_description_people">Candidate first name and last name icon</string>
-    <string name="input_birthday_pre_input">dd/mm/yyyy</string>
-    <string name="input_hint_birthday">Date</string>
-    <string name="input_hint_email">Email</string>
-    <string name="input_hint_first_name">Prénom</string>
-    <string name="input_hint_last_name">Nom</string>
-    <string name="input_hint_note">Note</string>
-    <string name="input_hint_phone">Téléphone</string>
-    <string name="input_hint_salary">Prétentions salariales</string>
-    <string name="input_hint_search">Rechercher un candidat</string>
-    <string name="toast_media_permission_denied">Permission d\'accès à la Gallerie refusée</string>
-    <string name="error_invalid_email">Format d\'email invalide</string>
-    <string name="error_invalid_phone">Format de numéro invalide</string>
-    <string name="error_invalid_birthday_format">Format de date invalide</string>
-    <string name="error_invalid_birthday_future_date">Cette date ne doit pas être dans le futur</string>
-    <string name="label_call">Appel</string>
-    <string name="label_sms">SMS</string>
-    <string name="label_email">E-mail</string>
-    <string name="converted_salary_text">soit £</string>
+    <string name="app_name">P8_Vitesse</string>
+
+    <!-- Home Screen -->
+    <string name="home_screen_empty_state_message">Aucun candidat</string>
+    <string name="home_screen_error_state_message">Une erreur s\'est produite, veuillez réessayer</string>
+
+    <string name="home_screen_tab_title_all">Tous</string>
+    <string name="home_screen_tab_title_favorites">Favoris</string>
+    <string name="home_screen_search_bar_hint">Rechercher un candidat</string>
+    <string name="home_screen_search_icon_description">Icone de recherche</string>
+    <string name="home_screen_add_button_description">Bouton Ajouter un candidat</string>
+
+    <!-- Home Screen RecyclerView -->
+    <string name="item_candidate_avatar_description">Photo du candidat</string>
+
+    <!-- Add Or Edit Screen -->
+    <string name="add_screen_top_bar_title_text">Ajouter candidat</string>
+    <string name="edit_screen_top_bar_title_text">Modifier un candidat</string> <!-- A revoir -->
+
+    <string name="add_or_edit_screen_back_button_description">Bouton retour</string>
+
+    <string name="add_or_edit_screen_media_permission_denied_toast">Permission d\'accès à la Gallerie refusée</string>
+
+    <string name="add_or_edit_screen_people_icon_description">Icone prénom et nom du candidat</string>
+    <string name="add_or_edit_screen_first_name_field_hint">Prénom</string>
+    <string name="add_or_edit_screen_first_name_empty_error">Le champ -prénom- ne doit pas être vide</string>
+    <string name="add_or_edit_screen_last_name_field_hint">Nom</string>
+    <string name="add_or_edit_screen_last_name_empty_error">Le champ -nom- ne doit pas être vide</string>
+
+    <string name="add_or_edit_screen_phone_icon_description">Icone téléphone</string>
+    <string name="add_or_edit_screen_phone_field_hint">Téléphone</string>
+    <string name="add_or_edit_screen_phone_empty_error">Le champ -numéro de téléphone- ne doit pas être vide</string>
+    <string name="add_or_edit_screen_phone_invalid_format">Format invalide</string>
+
+    <string name="add_or_edit_screen_email_icon_description">Icone email</string>
+    <string name="add_or_edit_screen_email_field_hint">Email</string>
+    <string name="add_or_edit_screen_email_empty_error">Le champ -email- ne doit pas être vide</string>
+    <string name="add_or_edit_screen_email_invalid_format">Format invalide</string>
+
+    <string name="add_or_edit_screen_cake_icon_description">Icone gâteau</string>
+    <string name="add_or_edit_screen_calendar_button_description">Icone calendrier</string>
+    <string name="add_or_edit_screen_birthday_field_hint">Date</string>
+    <string name="add_or_edit_screen_birthday_field_pre_input">jj/mm/aaaa</string>
+    <string name="add_or_edit_screen_birthday_title_text">Selectionner une date</string>
+    <string name="add_or_edit_screen_birthday_title2_text">Enter une date</string>
+    <string name="add_or_edit_screen_birthday_empty_error">Le champ -date de naissance- ne doit pas être vide</string>
+    <string name="add_or_edit_screen_birthday_invalid_format">Format invalide</string>
+    <string name="add_or_edit_screen_birthday_not_existing_error">Erreur, la date entrée n\'existe pas</string>
+    <string name="add_or_edit_screen_birthday_future_error">Cette date ne doit pas être dans le futur</string>
+    <string name="add_or_edit_screen_cancel_button_description">Bouton annuler</string>
+    <string name="add_or_edit_screen_validate_button_description">Bouton valider</string>
+
+    <string name="add_or_edit_screen_salary_icon_description">Icone salaire</string>
+    <string name="add_or_edit_screen_salary_field_hint">Prétentions salariales</string>
+
+    <string name="add_or_edit_screen_note_icon_description">Icone notes</string>
+    <string name="add_or_edit_screen_note_field_hint">Notes</string>
+
+    <string name="add_or_edit_screen_save_button_description">Bouton sauvegarder</string>
+    <string name="add_or_edit_screen_save_button_text">Sauvegarder</string>
+    <string name="add_or_edit_screen_save_button_error_snack_bar">"Champ obligatoire"</string>
+
+    <!-- Detail Screen -->
+    <string name="detail_screen_top_bar_candidate_name">%1$s %2$s</string>
+    <string name="detail_screen_top_bar_name_text">Detail screen</string>
+
+    <string name="detail_screen_back_button_description">Bouton retour</string>
+
+    <string name="detail_screen_favorite_button_description">Bouton favoris</string>
+    <string name="detail_screen_favorite_button_toast">Favoris</string>
+
+    <string name="detail_screen_edit_button_description">Bouton modifier</string>
+    <string name="detail_screen_edit_button_toast">Modifier</string>
+
+    <string name="detail_screen_delete_button_description">Bouton supprimer</string>
+    <string name="detail_screen_delete_button_toast">Supprimer</string>
+
+    <string name="detail_screen_dialog_title">Suppression</string>
+    <string name="detail_screen_dialog_content_text">Etes-vous sûr de vouloir supprimer ce candidat? Cette action est irréversible</string>
+    <string name="detail_screen_dialog_component_description">Confirmation de suppression</string>
+    <string name="detail_screen_dialog_confirm_button_text">Confirmer</string>
+    <string name="detail_screen_dialog_cancel_button_text">Annuler</string>
+
+    <string name="detail_screen_avatar_description">Photo du candidat</string>
+
+    <string name="detail_screen_call_label_text">Appel</string>
+    <string name="detail_screen_call_button_description">Bouton pour appeler le candidat affiché</string>
+
+    <string name="detail_screen_sms_label_text">SMS</string>
+    <string name="detail_screen_sms_button_description">Bouton pour envoyer un sms au candidat affiché</string>
+
+    <string name="detail_screen_unavailable_phone_number_toast">Numéro de téléphone non disponible</string>
+
+    <string name="detail_screen_email_label_text">E-mail</string>
+    <string name="detail_screen_email_button_description">Bouton pour envoyer un email au candidat affiché</string>
+    <string name="detail_screen_no_email_app_found_toast">Aucune application de messagerie trouvée</string>
+    <string name="detail_screen_unavailable_email_address_toast">Adresse e-mail non disponible</string>
+
+    <string name="detail_screen_about_component_text">A propos</string>
+    <string name="detail_screen_birthday_format">ans</string>
+    <string name="detail_screen_date_of_birth_format">dd/MM/yyyy</string>
+    <string name="detail_screen_birthday_text">Anniversaire</string>
+
+    <string name="detail_screen_salary_component_text">Prétentions salariales</string>
+    <string name="candidate_salary">%1$d €</string> <!-- Placeholders -->
+    <string name="converted_salary">soit £ %s</string><!-- Placeholders -->
+
+    <string name="detail_screen_note_component_text">Notes</string>
 
 </resources>

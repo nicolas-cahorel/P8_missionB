@@ -23,10 +23,11 @@ import java.lang.Boolean.TRUE
 
 
 /**
- * Fragment responsible for handling the home screen UI.
+ * Fragment responsible for managing the Home Screen UI.
  *
- * This fragment manages the display of all and favorite candidates using tabs and observes
- * the [HomeScreenViewModel] to update the UI based on the state.
+ * This fragment handles displaying all and favorite candidates using a tab system. It observes
+ * the [HomeScreenViewModel] to update the UI based on the current state, such as loading, empty,
+ * or error states.
  */
 class HomeScreenFragment : Fragment() {
 
@@ -37,13 +38,13 @@ class HomeScreenFragment : Fragment() {
     private val binding get() = _binding!!
 
     /**
-     * ViewModel for managing the state of the Home Screen.
+     * ViewModel for handling candidate data and UI state.
      */
     private val viewModel: HomeScreenViewModel by viewModel()
 
     /**
-     * Adapter for displaying candidates in the RecyclerView. It handles item clicks
-     * and triggers navigation to the detail screen.
+     * Adapter for displaying the list of candidates in the RecyclerView.
+     * It handles item clicks and navigates to the candidate detail screen.
      */
     private val homeScreenAdapter = HomeScreenAdapter(emptyList()) { candidateId ->
         // Call ViewModel's onItemClicked with the clicked candidate ID
@@ -51,18 +52,23 @@ class HomeScreenFragment : Fragment() {
         navigateToDetailScreen()
     }
 
+    /**
+     * Holds the current query from the search bar.
+     */
     private var currentQuery: String? = null
 
+    /**
+     * Tracks if the "Favorites" tab is selected.
+     */
     private var isFavoritesTabSelected = false
 
-
     /**
-     * Creates and returns the view hierarchy associated with this fragment.
+     * Inflates and returns the view associated with this fragment.
      *
-     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment.
-     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
-     * @return The View for the fragment's UI, or null.
+     * @param inflater The LayoutInflater object to inflate views in the fragment.
+     * @param container The parent view group.
+     * @param savedInstanceState Saved instance state for restoring the fragment state.
+     * @return The View representing the fragment's layout.
      */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,39 +80,52 @@ class HomeScreenFragment : Fragment() {
     }
 
     /**
-     * Called when the fragment's activity has been created and the fragment's view hierarchy instantiated.
+     * Called when the fragment's activity has been created.
+     * Sets up the UI components like RecyclerView, TabLayout, and search bar, and observes the ViewModel.
      *
-     * Sets up the TabLayout with custom tabs, observes the ViewModel for state updates,
-     * and initializes RecyclerView and search bar.
-     *
-     * @param view The View returned by [onCreateView].
-     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
+     * @param view The view returned by [onCreateView].
+     * @param savedInstanceState The saved state of the fragment, if any.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.homeScreenStateState.collect() { state ->
-                // Check if the state is DisplayCandidates
-                if (state is HomeScreenState.DisplayCandidates) {
-                    // Update the adapter with the list of candidates from the state
-                    homeScreenAdapter.updateData(state.candidates)
-                }
+        setupSearchBar()
+        setupTabLayout()
+        setupAddButton()
+        getHomeScreenState()
+        updateUIWithState()
+        setupRecyclerView()
+
+    }
+
+    /**
+     * Sets up the search bar to filter candidates based on user input.
+     * Listens for text changes and triggers the candidate fetching logic.
+     */
+    private fun setupSearchBar() {
+        binding.homeScreenSearchBarField.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun afterTextChanged(s: Editable?) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                currentQuery = s.toString()
+                viewModel.fetchCandidates(favorite = isFavoritesTabSelected, currentQuery)
             }
-        }
+        })
+    }
 
-        // Set up the RecyclerView for displaying the list of candidates.
-        binding.homeScreenRecyclerview.layoutManager =
-            LinearLayoutManager(context)
-        binding.homeScreenRecyclerview.adapter = homeScreenAdapter
-
+    /**
+     * Sets up the TabLayout with custom tabs for viewing all candidates or favorite candidates.
+     * Includes a listener for tab selection to fetch the relevant candidates.
+     */
+    private fun setupTabLayout() {
         // Setup TabLayout with custom tabs
         binding.homeScreenTabLayout.addTab(
-            binding.homeScreenTabLayout.newTab().setText(getString(R.string.display_tab_title_all))
+            binding.homeScreenTabLayout.newTab()
+                .setText(getString(R.string.home_screen_tab_title_all))
         )
         binding.homeScreenTabLayout.addTab(
             binding.homeScreenTabLayout.newTab()
-                .setText(getString(R.string.display_tab_title_favorites))
+                .setText(getString(R.string.home_screen_tab_title_favorites))
         )
 
         // Set a listener for tab selection
@@ -114,12 +133,12 @@ class HomeScreenFragment : Fragment() {
             TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
-                    // Trigger state to display all candidates when "All" tab is selected
+                    // "All" tab selected
                     0 -> {
                         isFavoritesTabSelected = false
                         viewModel.fetchCandidates(favorite = false, currentQuery)
                     }
-                    // Trigger state to display favorites candidates when "Favorites" tab is selected
+                    // "Favorites" tab selected
                     1 -> {
                         isFavoritesTabSelected = true
                         viewModel.fetchCandidates(favorite = true, currentQuery)
@@ -130,71 +149,87 @@ class HomeScreenFragment : Fragment() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
+    }
 
-        // Update the ViewModel with changes in the search bar field
-        binding.inputHomeScreenSearchBar.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                currentQuery = s.toString()
-                viewModel.fetchCandidates(favorite = isFavoritesTabSelected, currentQuery)
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
-        // Set up a click listener for the "Add" button.
-        binding.buttonHomeScreenAdd.setOnClickListener {
-            navigateToAddScreen()
+    /**
+     * Sets up the click listener for the "Add" button, which navigates to the Add or Edit screen.
+     */
+    private fun setupAddButton() {
+        binding.homeScreenAddButton.setOnClickListener {
+            navigateToAddOrEditScreen()
         }
+    }
 
+    /**
+     * Observes state updates from the ViewModel and updates the UI based on the current state.
+     * Handles different states like DisplayCandidates, Loading, Empty, and Error.
+     */
+    private fun getHomeScreenState() {
+        // Observe state updates from the ViewModel
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.homeScreenState.collect { state ->
+                // Check if the state is DisplayCandidates
+                if (state is HomeScreenState.DisplayCandidates) {
+                    // Update the adapter with the list of candidates from the state
+                    homeScreenAdapter.updateData(state.candidates)
+                }
+            }
+        }
+    }
+
+    /**
+     * Updates the UI based on the current state collected from the ViewModel.
+     * Displays loading indicators, candidate lists, empty messages, or error messages as needed.
+     */
+    private fun updateUIWithState() {
         // Observe the state flow from the ViewModel and update the UI accordingly
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.homeScreenStateState.collect { state ->
+                viewModel.homeScreenState.collect { state ->
                     when (state) {
 
                         // Show loading state
                         is HomeScreenState.Loading -> {
                             binding.homeScreenStateProgressBar.visibility = View.VISIBLE
                             binding.homeScreenStateMessage.visibility = View.GONE
-                            binding.inputHomeScreenSearchBar.isEnabled = FALSE
+                            binding.homeScreenSearchBarField.isEnabled = FALSE
                             binding.homeScreenRecyclerview.visibility = View.GONE
-                            binding.buttonHomeScreenAdd.visibility = View.GONE
+                            binding.homeScreenAddButton.visibility = View.GONE
                         }
 
-                        // Show all candidates state
+                        // Show list of candidates
                         is HomeScreenState.DisplayCandidates -> {
                             binding.homeScreenStateProgressBar.visibility = View.GONE
                             binding.homeScreenStateMessage.visibility = View.GONE
-                            binding.inputHomeScreenSearchBar.isEnabled = TRUE
+                            binding.homeScreenSearchBarField.isEnabled = TRUE
                             binding.homeScreenRecyclerview.adapter = homeScreenAdapter
                             homeScreenAdapter.updateData(state.candidates)
                             binding.homeScreenRecyclerview.visibility = View.VISIBLE
-                            binding.buttonHomeScreenAdd.visibility = View.VISIBLE
+                            binding.homeScreenAddButton.visibility = View.VISIBLE
                         }
 
-                        // Show empty state with a message
+                        // Show empty state message
                         is HomeScreenState.Empty -> {
                             binding.homeScreenStateProgressBar.visibility = View.GONE
                             binding.homeScreenStateMessage.apply {
                                 visibility = View.VISIBLE
                                 text = state.stateMessage // Display the message for empty state
                             }
-                            binding.inputHomeScreenSearchBar.isEnabled = TRUE
+                            binding.homeScreenSearchBarField.isEnabled = TRUE
                             binding.homeScreenRecyclerview.visibility = View.GONE
-                            binding.buttonHomeScreenAdd.visibility = View.VISIBLE
+                            binding.homeScreenAddButton.visibility = View.VISIBLE
                         }
 
-                        // Show error state with a message
+                        // Show error state message
                         is HomeScreenState.Error -> {
                             binding.homeScreenStateProgressBar.visibility = View.GONE
                             binding.homeScreenStateMessage.apply {
                                 visibility = View.VISIBLE
                                 text = state.stateMessage // Display the error message
                             }
-                            binding.inputHomeScreenSearchBar.isEnabled = TRUE
+                            binding.homeScreenSearchBarField.isEnabled = TRUE
                             binding.homeScreenRecyclerview.visibility = View.GONE
-                            binding.buttonHomeScreenAdd.visibility = View.VISIBLE
+                            binding.homeScreenAddButton.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -203,9 +238,22 @@ class HomeScreenFragment : Fragment() {
     }
 
     /**
-     * Navigate to the AddScreenFragment.
+     * Sets up the RecyclerView for displaying the list of candidates.
+     * Configures the layout manager and assigns the adapter for the RecyclerView.
      */
-    private fun navigateToAddScreen() {
+    private fun setupRecyclerView() {
+        binding.homeScreenRecyclerview.layoutManager =
+            LinearLayoutManager(context)
+        binding.homeScreenRecyclerview.adapter = homeScreenAdapter
+    }
+
+    /**
+     * Navigate to the AddOrEditScreenFragment for adding or editing a candidate.
+     *
+     * This method replaces the current fragment with the [AddOrEditScreenFragment].
+     * It adds the transaction to the back stack to allow users to return to the previous fragment.
+     */
+    private fun navigateToAddOrEditScreen() {
         val fragmentManager = parentFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val addOrEditScreenFragment = AddOrEditScreenFragment()
@@ -215,7 +263,10 @@ class HomeScreenFragment : Fragment() {
     }
 
     /**
-     * Navigate to the DetailScreenFragment.
+     * Navigate to the DetailScreenFragment to view candidate details.
+     *
+     * This method replaces the current fragment with the [DetailScreenFragment].
+     * It adds the transaction to the back stack to allow users to navigate back.
      */
     private fun navigateToDetailScreen() {
         val fragmentManager = parentFragmentManager
@@ -229,7 +280,9 @@ class HomeScreenFragment : Fragment() {
     /**
      * Called when the view previously created by [onCreateView] has been detached from the fragment.
      *
-     * This method clears the binding reference to avoid memory leaks.
+     * This method clears the view binding reference to avoid memory leaks by setting `_binding` to null.
+     * Always ensure that `_binding` is set to null in [onDestroyView] to avoid holding references
+     * to views that are no longer in use.
      */
     override fun onDestroyView() {
         super.onDestroyView()

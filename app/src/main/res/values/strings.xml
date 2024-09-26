@@ -1,85 +1,112 @@
 <resources>
+
     <string name="app_name">P8_Vitesse</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- A VERIFIER AVEC FIGMA + KANBAN-->
-    <string name="button_description_add">Add candidate</string>
-    <string name="button_description_back">back button</string>
-    <string name="button_description_calendar">Calendar icon</string>
-    <string name="button_description_email">button email to send an email to the displayed candidate</string>
-    <string name="button_description_phone">Phone button to call the displayed candidate</string>
-    <string name="button_description_save">Save button</string>
-    <string name="button_description_sms">sms button to send a message to the displayed candidate</string>
-    <string name="button_title_save">Save</string>
-    <string name="candidate_full_name">%1$s %2$s</string>
-    <string name="display_description_avatar">Candidate Photo</string>
-    <string name="display_message_error">An error has occurred, please try again</string>
-    <string name="display_message_no_result">No candidate</string>
-    <string name="display_tab_title_all">All</string>
-    <string name="display_tab_title_favorites">Favorites</string>
-    <string name="display_title_add_screen">Add a candidate</string>
-    <string name="display_title_add_screen_about">About</string>
-    <string name="display_title_add_screen_notes">Notes</string>
-    <string name="display_title_add_screen_salary">Expected salary</string>
-    <string name="display_title_birthday">Pick a date</string>
-    <string name="display_title_birthday2">Enter a date</string>
-    <string name="display_title_detail_screen">Detail screen</string>
-    <string name="display_title_detail_screen_birthday">Birthday</string>
-    <string name="display_title_edit_screen">Edit screen</string>
-    <string name="icon_description_cake">Cake icon</string>
-    <string name="icon_description_delete">delete button</string>
-    <string name="icon_description_edit">edit button</string>
-    <string name="icon_description_email">Mail icon</string>
-    <string name="icon_description_favorite_false">favorite button : candidate is favorite = false</string>
-    <string name="icon_description_favorite_true">favorite button : candidate is favorite = true</string>
-    <string name="icon_description_note">note icon</string>
-    <string name="icon_description_phone">Phone icon</string>
-    <string name="icon_description_salary">Salary icon</string>
-    <string name="icon_description_search">Search icon</string>
-    <string name="icon_description_people">Candidate first name and last name icon</string>
-    <string name="input_birthday_pre_input">dd/mm/yyyy</string>
-    <string name="input_hint_birthday">Date</string>
-    <string name="input_hint_email">Email</string>
-    <string name="input_hint_first_name">First name</string>
-    <string name="input_hint_last_name">Last name</string>
-    <string name="input_hint_note">Note</string>
-    <string name="input_hint_phone">Phone</string>
-    <string name="input_hint_salary">Expected salary</string>
-    <string name="input_hint_search">Search</string>
-    <string name="toast_media_permission_denied">Permission to access Gallery denied</string>
-    <string name="error_invalid_format">Invalid format</string>
-    <string name="error_empty_phone">Phone number field should not be empty</string>
-    <string name="error_invalid_birthday_future_date">Date should not be in the future</string>
-    <string name="button_description_cancel">Cancel button</string>
-    <string name="icon_description_validate">Validate button</string>
-    <string name="error_empty_first_name">First name field should not be empty</string>
-    <string name="error_empty_last_name">Last name field should not be empty</string>
-    <string name="error_invalid_birthday_date">Error, the entered date does not exist</string>
-    <string name="button_validate_error_message">"Mandatory field"</string>
-    <string name="error_empty_email">Email field should not be empty</string>
-    <string name="error_empty_birthday">Birthday field should not be empty</string>
-    <string name="years">years</string>
-    <string name="now_favorite">Candidate is now favorite</string>
-    <string name="toast_favorite">Favorites</string>
-    <string name="toast_edit">Edit</string>
-    <string name="toast_delete">Delete</string>
-    <string name="display_title_detail_screen_dialog">Deletion</string>
-    <string name="display_content_detail_screen_dialog">Are you sure you want to delete this candidate? This action cannot be undone.</string>
-    <string name="detail_screen_dialog_component_description">Detail screen dialog component</string>
-    <string name="button_title_confirm">Confirm</string>
-    <string name="button_title_cancel">Cancel</string>
-    <string name="label_call">Call</string>
-    <string name="label_sms">SMS</string>
-    <string name="label_email">E-mail</string>
-    <string name="converted_salary_text">or £</string>
-    <string name="toast_unavailable_phone_number">Phone number not available</string>
-    <string name="toast_no_email_app_found">No email application found</string>
-    <string name="toast_unavailable_email_adress">Email address not available</string>
+    <!-- Home Screen -->
+    <string name="home_screen_empty_state_message">No candidate</string>
+    <string name="home_screen_error_state_message">An error has occurred, please try again</string>
 
-    <!-- Placeholders for displaying candidate details -->
-    <string name="candidate_name">%1$s %2$s</string>
-    <string name="candidate_salary">%1$d €</string>
-    <string name="converted_salary">or £ %s</string>
-    <string name="edit_screen_top_bar_title">Edit a candidate</string>
-    <string name="add_screen_top_bar_title">Add a candidate</string>
+    <string name="home_screen_tab_title_all">All</string>
+    <string name="home_screen_tab_title_favorites">Favorites</string>
+    <string name="home_screen_search_bar_hint">Search</string>
+    <string name="home_screen_search_icon_description">Search icon</string>
+    <string name="home_screen_add_button_description">Add candidate button</string>
+
+    <!-- Home Screen RecyclerView -->
+    <string name="item_candidate_avatar_description">Candidate Photo</string>
+
+    <!-- Add Or Edit Screen -->
+    <string name="add_screen_top_bar_title_text">Add a candidate</string>
+    <string name="edit_screen_top_bar_title_text">Edit a candidate</string>
+
+    <string name="add_or_edit_screen_back_button_description">back button</string>
+
+    <string name="add_or_edit_screen_media_permission_denied_toast">Permission to access Gallery denied</string>
+
+    <string name="add_or_edit_screen_people_icon_description">Candidate first name and last name icon</string>
+    <string name="add_or_edit_screen_first_name_field_hint">First name</string>
+    <string name="add_or_edit_screen_first_name_empty_error">First name field should not be empty</string>
+    <string name="add_or_edit_screen_last_name_field_hint">Last name</string>
+    <string name="add_or_edit_screen_last_name_empty_error">Last name field should not be empty</string>
+
+    <string name="add_or_edit_screen_phone_icon_description">Phone icon</string>
+    <string name="add_or_edit_screen_phone_field_hint">Phone</string>
+    <string name="add_or_edit_screen_phone_empty_error">Phone number field should not be empty</string>
+    <string name="add_or_edit_screen_phone_invalid_format">Invalid format</string>
+
+    <string name="add_or_edit_screen_email_icon_description">Email icon</string>
+    <string name="add_or_edit_screen_email_field_hint">Email</string>
+    <string name="add_or_edit_screen_email_empty_error">Email field should not be empty</string>
+    <string name="add_or_edit_screen_email_invalid_format">Invalid format</string>
+
+    <string name="add_or_edit_screen_cake_icon_description">Cake icon</string>
+    <string name="add_or_edit_screen_calendar_button_description">Calendar icon</string>
+    <string name="add_or_edit_screen_birthday_field_hint">Date</string>
+    <string name="add_or_edit_screen_birthday_field_pre_input">dd/mm/yyyy</string>
+    <string name="add_or_edit_screen_birthday_title_text">Pick a date</string>
+    <string name="add_or_edit_screen_birthday_title2_text">Enter a date</string>
+    <string name="add_or_edit_screen_birthday_empty_error">Birthday field should not be empty</string>
+    <string name="add_or_edit_screen_birthday_invalid_format">Invalid format</string>
+    <string name="add_or_edit_screen_birthday_not_existing_error">Error, the entered date does not exist</string>
+    <string name="add_or_edit_screen_birthday_future_error">Date should not be in the future</string>
+    <string name="add_or_edit_screen_cancel_button_description">Cancel button</string>
+    <string name="add_or_edit_screen_validate_button_description">Validate button</string>
+
+    <string name="add_or_edit_screen_salary_icon_description">Salary icon</string>
+    <string name="add_or_edit_screen_salary_field_hint">Expected salary</string>
+
+    <string name="add_or_edit_screen_note_icon_description">Notes icon</string>
+    <string name="add_or_edit_screen_note_field_hint">Notes</string>
+
+    <string name="add_or_edit_screen_save_button_description">Save button</string>
+    <string name="add_or_edit_screen_save_button_text">Save</string>
+    <string name="add_or_edit_screen_save_button_error_snack_bar">"Mandatory field"</string>
+
+    <!-- Detail Screen -->
+    <string name="detail_screen_top_bar_candidate_name">%1$s %2$s</string>
+    <string name="detail_screen_top_bar_name_text">Detail screen</string>
+
+    <string name="detail_screen_back_button_description">Back button</string>
+
+    <string name="detail_screen_favorite_button_description">Favorite button</string>
+    <string name="detail_screen_favorite_button_toast">Favorites</string>
+
+    <string name="detail_screen_edit_button_description">Edit button</string>
+    <string name="detail_screen_edit_button_toast">Edit</string>
+
+    <string name="detail_screen_delete_button_description">delete button</string>
+    <string name="detail_screen_delete_button_toast">Delete</string>
+
+    <string name="detail_screen_dialog_title">Deletion</string>
+    <string name="detail_screen_dialog_content_text">Are you sure you want to delete this candidate? This action cannot be undone</string>
+    <string name="detail_screen_dialog_component_description">Deletion confirmation</string>
+    <string name="detail_screen_dialog_confirm_button_text">Confirm</string>
+    <string name="detail_screen_dialog_cancel_button_text">Cancel</string>
+
+    <string name="detail_screen_avatar_description">Candidates photo</string>
+
+    <string name="detail_screen_call_label_text">Call</string>
+    <string name="detail_screen_call_button_description">Phone button to call the displayed candidate</string>
+
+    <string name="detail_screen_sms_label_text">SMS</string>
+    <string name="detail_screen_sms_button_description">sms button to send a message to the displayed candidate</string>
+
+    <string name="detail_screen_unavailable_phone_number_toast">Phone number not available</string>
+
+    <string name="detail_screen_email_label_text">E-mail</string>
+    <string name="detail_screen_email_button_description">button email to send an email to the displayed candidate</string>
+    <string name="detail_screen_no_email_app_found_toast">No email application found</string>
+    <string name="detail_screen_unavailable_email_address_toast">Email address not available</string>
+
+    <string name="detail_screen_about_component_text">About</string>
+    <string name="detail_screen_birthday_format">years old</string>
+    <string name="detail_screen_date_of_birth_format">MM/dd/yyyy</string>
+    <string name="detail_screen_birthday_text">Birthday</string>
+
+    <string name="detail_screen_salary_component_text">Expected salary</string>
+    <string name="candidate_salary">%1$d €</string> <!-- Placeholders -->
+    <string name="converted_salary">or £ %s</string><!-- Placeholders -->
+
+    <string name="detail_screen_note_component_text">Notes</string>
+
 </resources>

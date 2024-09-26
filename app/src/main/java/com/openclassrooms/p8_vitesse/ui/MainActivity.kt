@@ -10,12 +10,17 @@ import com.openclassrooms.p8_vitesse.ui.homeScreen.HomeScreenFragment
  *
  * This activity is responsible for hosting the fragment container where the
  * application's primary content is displayed. It initializes the initial fragment
- * and manages fragment transactions.
+ * and manages fragment transactions. This ensures that the [HomeScreenFragment] is
+ * the default UI the user interacts with when the app is launched.
  */
 class MainActivity : AppCompatActivity() {
 
     /**
      * Called when the activity is first created.
+     *
+     * This method sets up the content view for the activity and, if this is the first time
+     * the activity is created (i.e., `savedInstanceState` is null), it will load the
+     * [HomeScreenFragment] into the fragment container.
      *
      * @param savedInstanceState If the activity is being re-initialized after
      * previously being shut down, this Bundle contains the data it most recently

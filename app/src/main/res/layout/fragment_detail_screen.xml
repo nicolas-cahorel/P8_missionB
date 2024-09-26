@@ -7,83 +7,81 @@
     android:layout_height="match_parent"
     tools:context=".ui.detailScreen.DetailScreenFragment">
 
-
     <ImageView
         android:id="@+id/detailScreenDialogComponent"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_margin="16dp"
         android:contentDescription="@string/detail_screen_dialog_component_description"
+        android:elevation="10dp"
         android:src="@drawable/background_24dp_rounded_clear_purple_shadowed"
         android:visibility="gone"
-        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/displayDetailScreenScreenDialogTitle"
+        android:id="@+id/detailScreenScreenDialogTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:visibility="gone"
-        android:elevation="10dp"
         android:layout_weight="1"
-        android:text="@string/display_title_detail_screen_dialog"
+        android:elevation="10dp"
+        android:text="@string/detail_screen_dialog_title"
         android:textColor="@android:color/black"
         android:textSize="24sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/detailScreenDialogComponent"
         app:layout_constraintStart_toStartOf="@id/detailScreenDialogComponent"
-        app:layout_constraintTop_toTopOf="@id/detailScreenDialogComponent"/>
+        app:layout_constraintTop_toTopOf="@id/detailScreenDialogComponent" />
 
     <TextView
-        android:id="@+id/displayDetailScreenScreenDialogContent"
+        android:id="@+id/detailScreenScreenDialogContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:visibility="gone"
-        android:elevation="10dp"
         android:layout_weight="1"
-        android:text="@string/display_content_detail_screen_dialog"
+        android:elevation="10dp"
+        android:text="@string/detail_screen_dialog_content_text"
         android:textColor="@android:color/black"
         android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/detailScreenDialogComponent"
         app:layout_constraintStart_toStartOf="@id/detailScreenDialogComponent"
-        app:layout_constraintTop_toBottomOf="@id/displayDetailScreenScreenDialogTitle"/>
+        app:layout_constraintTop_toBottomOf="@id/detailScreenScreenDialogTitle" />
 
     <Button
-        android:id="@+id/buttonDetailScreenScreenDialogConfirm"
-        android:layout_margin="16dp"
+        android:id="@+id/detailScreenScreenDialogConfirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:elevation="20dp"
+        android:layout_margin="16dp"
         android:background="@android:color/transparent"
-        android:text="@string/button_title_confirm"
+        android:elevation="20dp"
+        android:text="@string/detail_screen_dialog_confirm_button_text"
         android:textColor="@color/openClassroomsDarkPurple"
-        app:layout_constraintEnd_toEndOf="@id/detailScreenDialogComponent"
-        app:layout_constraintBottom_toBottomOf="@id/detailScreenDialogComponent"/>
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/detailScreenDialogComponent"
+        app:layout_constraintEnd_toEndOf="@id/detailScreenDialogComponent" />
 
     <Button
-        android:id="@+id/buttonDetailScreenScreenDialogCancel"
-        android:layout_margin="16dp"
+        android:id="@+id/detailScreenScreenDialogCancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:elevation="20dp"
+        android:layout_margin="16dp"
         android:background="@android:color/transparent"
-        android:text="@string/button_title_cancel"
+        android:elevation="20dp"
+        android:text="@string/detail_screen_dialog_cancel_button_text"
         android:textColor="@color/openClassroomsDarkPurple"
-        app:layout_constraintEnd_toStartOf="@id/buttonDetailScreenScreenDialogConfirm"
-        app:layout_constraintBottom_toBottomOf="@id/detailScreenDialogComponent"/>
-
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/detailScreenDialogComponent"
+        app:layout_constraintEnd_toStartOf="@id/detailScreenScreenDialogConfirmButton" />
 
     <LinearLayout
-        android:id="@+id/detailScreenTopComponent"
+        android:id="@+id/detailScreenTopBarComponent"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="0dp"
@@ -97,71 +95,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/buttonDetailScreenBack"
+        <ImageButton
+            android:id="@+id/detailScreenBackButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
+            android:background="@drawable/icon_back"
             android:clickable="true"
-            android:contentDescription="@string/button_description_back"
-            android:focusable="true"
-            android:src="@drawable/icon_back" />
+            android:contentDescription="@string/detail_screen_back_button_description"
+            android:focusable="true" />
 
         <TextView
-            android:id="@+id/displayDetailScreenScreenName"
+            android:id="@+id/detailScreenScreenName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:hint="@string/display_title_detail_screen"
-            android:text="Full NAME"
+            android:text="@string/detail_screen_top_bar_name_text"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/buttonDetailScreenFavoriteFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:clickable="true"
-            android:contentDescription="@string/icon_description_favorite_false"
-            android:focusable="true"
-            android:src="@drawable/icon_favorite_false" />
-
-        <ImageView
-            android:id="@+id/buttonDetailScreenFavoriteTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:clickable="true"
-            android:contentDescription="@string/icon_description_favorite_true"
-            android:focusable="true"
-            android:src="@drawable/icon_favorite_true"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/buttonDetailScreenEdit"
+        <ImageButton
+            android:id="@+id/detailScreenFavoriteButton"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/icon_favorite_false"
+            android:clickable="true"
+            android:contentDescription="@string/detail_screen_favorite_button_description"
+            android:focusable="true"
+            android:scaleX="2"
+            android:scaleY="2" />
+
+        <ImageButton
+            android:id="@+id/detailScreenEditButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
             android:layout_margin="16dp"
-            android:padding="4dp"
-            android:layout_gravity="center_vertical"
+            android:background="@drawable/icon_edit"
             android:clickable="true"
-            android:contentDescription="@string/icon_description_edit"
-            android:focusable="true"
-            android:src="@drawable/icon_edit" />
+            android:contentDescription="@string/detail_screen_edit_button_description"
+            android:focusable="true" />
 
         <ImageView
-            android:id="@+id/buttonDetailScreenDelete"
+            android:id="@+id/detailScreenDeleteButton"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginEnd="16dp"
-            android:padding="4dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
             android:clickable="true"
-            android:contentDescription="@string/icon_description_delete"
+            android:contentDescription="@string/detail_screen_delete_button_description"
             android:focusable="true"
             android:src="@drawable/icon_delete" />
 
@@ -172,7 +158,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detailScreenTopComponent">
+        app:layout_constraintTop_toBottomOf="@id/detailScreenTopBarComponent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/detailScreenScrollViewComponent"
@@ -180,88 +166,89 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/displayDetailScreenAvatar"
+                android:id="@+id/detailScreenAvatar"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="16dp"
                 android:clickable="true"
-                android:contentDescription="@string/icon_description_people"
+                android:contentDescription="@string/detail_screen_avatar_description"
                 android:focusable="true"
                 android:src="@drawable/default_avatar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/detailScreenScrollViewComponent" />
 
-
-                <ImageButton
-                    android:id="@+id/buttonDetailScreenMakeCall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="16dp"
-                    android:clickable="true"
-                    android:contentDescription="@string/button_description_phone"
-                    android:focusable="true"
-                    android:src="@drawable/icon_phone_circle"
-                    android:background="@android:color/transparent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/buttonDetailScreenSendSms"
-                    app:layout_constraintTop_toBottomOf="@id/displayDetailScreenAvatar"/>
-                <TextView
-                    android:id="@+id/buttonDetailScreenMakeCallLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_call"
-                    app:layout_constraintStart_toStartOf="@id/buttonDetailScreenMakeCall"
-                    app:layout_constraintEnd_toEndOf="@id/buttonDetailScreenMakeCall"
-                    app:layout_constraintTop_toBottomOf="@id/buttonDetailScreenMakeCall"/>
-
-                <ImageButton
-                    android:id="@+id/buttonDetailScreenSendSms"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="16dp"
-                    android:clickable="true"
-                    android:contentDescription="@string/button_description_sms"
-                    android:focusable="true"
-                    android:src="@drawable/icon_sms_circle"
-                    android:background="@android:color/transparent"
-                    app:layout_constraintStart_toEndOf="@id/buttonDetailScreenMakeCall"
-                    app:layout_constraintEnd_toStartOf="@id/buttonDetailScreenSendEmail"
-                    app:layout_constraintTop_toBottomOf="@id/displayDetailScreenAvatar"/>
-            <TextView
-                android:id="@+id/buttonDetailScreenSendSmsLabel"
+            <ImageButton
+                android:id="@+id/detailScreenCallButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_sms"
-                app:layout_constraintStart_toStartOf="@id/buttonDetailScreenSendSms"
-                app:layout_constraintEnd_toEndOf="@id/buttonDetailScreenSendSms"
-                app:layout_constraintTop_toBottomOf="@id/buttonDetailScreenSendSms"/>
+                android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:contentDescription="@string/detail_screen_call_button_description"
+                android:focusable="true"
+                android:src="@drawable/icon_phone_circle"
+                app:layout_constraintEnd_toStartOf="@id/detailScreenSmsButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailScreenAvatar" />
 
-                <ImageButton
-                    android:id="@+id/buttonDetailScreenSendEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="16dp"
-                    android:clickable="true"
-                    android:contentDescription="@string/button_description_email"
-                    android:focusable="true"
-                    android:src="@drawable/icon_email_circle"
-                    android:background="@android:color/transparent"
-                    app:layout_constraintStart_toEndOf="@id/buttonDetailScreenSendSms"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/displayDetailScreenAvatar"/>
             <TextView
-                android:id="@+id/buttonDetailScreenSendEmailLabel"
+                android:id="@+id/detailScreenCallLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_email"
-                app:layout_constraintStart_toStartOf="@id/buttonDetailScreenSendEmail"
-                app:layout_constraintEnd_toEndOf="@id/buttonDetailScreenSendEmail"
-                app:layout_constraintTop_toBottomOf="@id/buttonDetailScreenSendEmail"/>
+                android:text="@string/detail_screen_call_label_text"
+                app:layout_constraintEnd_toEndOf="@id/detailScreenCallButton"
+                app:layout_constraintStart_toStartOf="@id/detailScreenCallButton"
+                app:layout_constraintTop_toBottomOf="@id/detailScreenCallButton" />
 
+            <ImageButton
+                android:id="@+id/detailScreenSmsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:contentDescription="@string/detail_screen_sms_button_description"
+                android:focusable="true"
+                android:src="@drawable/icon_sms_circle"
+                app:layout_constraintEnd_toStartOf="@id/detailScreenEmailButton"
+                app:layout_constraintStart_toEndOf="@id/detailScreenCallButton"
+                app:layout_constraintTop_toBottomOf="@id/detailScreenAvatar" />
+
+            <TextView
+                android:id="@+id/detailScreenSmsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_screen_sms_label_text"
+                app:layout_constraintEnd_toEndOf="@id/detailScreenSmsButton"
+                app:layout_constraintStart_toStartOf="@id/detailScreenSmsButton"
+                app:layout_constraintTop_toBottomOf="@id/detailScreenSmsButton" />
+
+            <ImageButton
+                android:id="@+id/detailScreenEmailButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:contentDescription="@string/detail_screen_email_button_description"
+                android:focusable="true"
+                android:src="@drawable/icon_email_circle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/detailScreenSmsButton"
+                app:layout_constraintTop_toBottomOf="@id/detailScreenAvatar" />
+
+            <TextView
+                android:id="@+id/detailScreenEmailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_screen_email_label_text"
+                app:layout_constraintEnd_toEndOf="@id/detailScreenEmailButton"
+                app:layout_constraintStart_toStartOf="@id/detailScreenEmailButton"
+                app:layout_constraintTop_toBottomOf="@id/detailScreenEmailButton" />
 
             <TextView
                 android:id="@+id/detailScreenAboutComponent"
@@ -272,28 +259,28 @@
                 android:background="@drawable/background_24dp_rounded_clear_purple"
                 android:gravity="start"
                 android:padding="16dp"
-                android:text="@string/display_title_add_screen_about"
+                android:text="@string/detail_screen_about_component_text"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonDetailScreenMakeCallLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/detailScreenCallLabel" />
 
             <TextView
-                android:id="@+id/displayDetailScreenBirthday"
+                android:id="@+id/detailScreenBirthdayDetails"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="80dp"
                 android:gravity="start"
-                android:text="dd/mm/yyyy (xx years)"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/detailScreenAboutComponent"
                 app:layout_constraintStart_toStartOf="@id/detailScreenAboutComponent"
-                app:layout_constraintTop_toTopOf="@id/detailScreenAboutComponent" />
+                app:layout_constraintTop_toTopOf="@id/detailScreenAboutComponent"
+                tools:text="dd/mm/yyyy (xx years)" />
 
             <TextView
                 android:id="@+id/detailScreenBirthdayText"
@@ -302,12 +289,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:gravity="start"
-                android:text="@string/display_title_detail_screen_birthday"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/detailScreenAboutComponent"
                 app:layout_constraintStart_toStartOf="@id/detailScreenAboutComponent"
-                app:layout_constraintTop_toBottomOf="@id/displayDetailScreenBirthday" />
+                app:layout_constraintTop_toBottomOf="@id/detailScreenBirthdayDetails"
+                tools:text="@string/detail_screen_birthday_text" />
 
             <TextView
                 android:id="@+id/detailScreenSalaryComponent"
@@ -318,7 +305,7 @@
                 android:background="@drawable/background_24dp_rounded_clear_purple"
                 android:gravity="start"
                 android:padding="16dp"
-                android:text="@string/display_title_add_screen_salary"
+                android:text="@string/detail_screen_salary_component_text"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -327,33 +314,33 @@
                 app:layout_constraintTop_toBottomOf="@+id/detailScreenAboutComponent" />
 
             <TextView
-                android:id="@+id/displayDetailScreenSalary"
+                android:id="@+id/detailScreenSalary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="80dp"
                 android:gravity="start"
-                android:text="3500€"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/detailScreenSalaryComponent"
                 app:layout_constraintStart_toStartOf="@id/detailScreenSalaryComponent"
-                app:layout_constraintTop_toTopOf="@id/detailScreenSalaryComponent" />
+                app:layout_constraintTop_toTopOf="@id/detailScreenSalaryComponent"
+                tools:text="3500€" />
 
             <TextView
-                android:id="@+id/displayDetailScreenConvertedSalary"
+                android:id="@+id/detailScreenConvertedSalary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:gravity="start"
-                android:text="soit 3026.99 livres"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/detailScreenSalaryComponent"
                 app:layout_constraintStart_toStartOf="@id/detailScreenSalaryComponent"
-                app:layout_constraintTop_toBottomOf="@id/displayDetailScreenSalary" />
+                app:layout_constraintTop_toBottomOf="@id/detailScreenSalary"
+                tools:text="Or £ 3026.99" />
 
             <TextView
                 android:id="@+id/detailScreenNoteComponent"
@@ -364,34 +351,33 @@
                 android:background="@drawable/background_24dp_rounded_clear_purple"
                 android:gravity="start"
                 android:padding="16dp"
-                android:text="@string/display_title_add_screen_notes"
+                android:text="@string/detail_screen_note_component_text"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailScreenSalaryComponent"/>
+                app:layout_constraintTop_toBottomOf="@+id/detailScreenSalaryComponent" />
 
             <TextView
-                android:id="@+id/displayDetailScreenNote"
+                android:id="@+id/detailScreenNote"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:padding="16dp"
                 android:layout_marginTop="80dp"
                 android:background="@drawable/background_24dp_rounded_clear_purple"
                 android:gravity="start"
-                android:text="loreum ...."
+                android:padding="16dp"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/detailScreenNoteComponent"
                 app:layout_constraintStart_toStartOf="@id/detailScreenNoteComponent"
-                app:layout_constraintTop_toTopOf="@id/detailScreenNoteComponent" />
+                app:layout_constraintTop_toTopOf="@id/detailScreenNoteComponent"
+                tools:text="loreum ...." />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

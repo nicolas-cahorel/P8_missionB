@@ -10,7 +10,8 @@ import org.koin.core.context.startKoin
  * MainApplication class that initializes application-wide settings and dependencies.
  *
  * This class extends [Application] and is responsible for setting up the dependency
- * injection framework Koin. It starts Koin and sets the application context and modules.
+ * injection framework Koin. It starts Koin, sets the application context, and loads
+ * the necessary dependency injection modules.
  */
 class MainApplication : Application() {
 
@@ -19,7 +20,8 @@ class MainApplication : Application() {
      * (excluding content providers) have been created.
      *
      * This is where the Koin dependency injection framework is initialized, setting the application
-     * context and loading the defined modules.
+     * context and loading the defined modules. Koin will manage dependency injection throughout
+     * the app's lifecycle.
      */
     override fun onCreate() {
         super.onCreate()
@@ -29,10 +31,10 @@ class MainApplication : Application() {
             // Provide the application context to Koin
             androidContext(this@MainApplication)
 
-            // Load the Koin modules, including appModule which defines dependencies
+            // Load the Koin modules that define dependencies
             modules(appModule, dataModule)
 
-            // Enable Koin logging
+            // Enable logging for Koin, useful for debugging purposes
             printLogger()
         }
     }

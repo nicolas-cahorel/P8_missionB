@@ -1,14 +1,12 @@
 package com.openclassrooms.p8_vitesse.ui.homeScreen
 
-import android.content.Context
+import android.app.Application
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.openclassrooms.p8_vitesse.R
 import com.openclassrooms.p8_vitesse.data.repository.CandidateRepository
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
@@ -24,7 +22,7 @@ import kotlinx.coroutines.launch
  */
 class HomeScreenViewModel(
     private val candidateRepository: CandidateRepository,
-    private val context: Context,
+    private val context: Application,
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
@@ -33,92 +31,61 @@ class HomeScreenViewModel(
     }
 
     /**
-     * Event to trigger navigation to [DetailScreenFragment].
-     * Emitted when a candidate item is clicked and should navigate to the detail screen.
-     */
-    private val _navigateToDetailScreenEvent = MutableSharedFlow<Unit>()
-    val navigateToDetailScreenEvent: SharedFlow<Unit> get() = _navigateToDetailScreenEvent
-
-    /**
-     * Event to trigger navigation to [AddScreenFragment].
-     * Emitted when navigating to the add screen is required.
-     */
-    private val _navigateToAddScreenEvent = MutableSharedFlow<Unit>()
-    val navigateToAddScreenEvent: SharedFlow<Unit> get() = _navigateToAddScreenEvent
-
-    /**
      * MutableStateFlow representing the current state of the Home Screen.
-     * It can be in different states like Loading, DisplayCandidates, Empty, or Error.
+     * The state can be one of the following:
+     * - [HomeScreenState.Loading]: when data is being loaded.
+     * - [HomeScreenState.DisplayCandidates]: when candidates are successfully loaded and displayed.
+     * - [HomeScreenState.Empty]: when no candidates match the current filter.
+     * - [HomeScreenState.Error]: when an error occurs during data fetching.
      */
     private val _homeScreenState = MutableStateFlow<HomeScreenState>(HomeScreenState.Loading)
-    val homeScreenStateState: StateFlow<HomeScreenState> = _homeScreenState
+    val homeScreenState: StateFlow<HomeScreenState> = _homeScreenState
 
     /**
-     * SharedFlow for sending messages to the UI, such as error messages or notifications.
-     */
-    private val _stateMessage = MutableSharedFlow<String>()
-    val stateMessage: SharedFlow<String> get() = _stateMessage
-
-    /**
-     * The candidate identifier accessed from SharedPreferences.
-     * This identifier is used to keep track of the selected candidate.
-     */
-//    private var candidateIdentifier: Long
-
-    /**
-     * MutableStateFlow to hold the current search query.
-     */
-    private val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String> get() = _searchQuery
-
-    /**
-     * Initializes the ViewModel and fetches the initial list of candidates.
-     * Also retrieves the candidate identifier from SharedPreferences.
+     * Initializes the ViewModel by fetching the list of candidates without filters.
      */
     init {
         fetchCandidates(favorite = false, query = null)
-//        candidateIdentifier =
-//            sharedPreferences.getLong(KEY_CANDIDATE_IDENTIFIER, -1) // Provide a default value
     }
 
     /**
-     * Fetches candidates from the repository and updates the UI state.
-     * Displays filtered candidates or shows appropriate messages based on the result.
+     * Fetches candidates from the repository based on favorite filter and search query.
+     * Updates the UI state based on the result.
      *
-     * @param favorite Whether to filter candidates based on favorites.
-     * @param query The search query to filter candidates.
+     * @param favorite Boolean flag to filter candidates by favorite status.
+     * @param query Optional search query to filter candidates by name or other attributes.
      */
     fun fetchCandidates(favorite: Boolean, query: String?) {
         viewModelScope.launch {
             _homeScreenState.value = HomeScreenState.Loading
 
             try {
-                // Fetch all filtered candidates from the repository
+                // Fetch candidates from the repository with optional filtering
                 val candidates = candidateRepository.getCandidates(favorite, query)
 
 
-                // Update state based on whether candidates were found or not
+                // Update state depending on the candidates list
                 if (candidates.isEmpty()) {
                     _homeScreenState.value =
-                        HomeScreenState.Empty(context.getString(R.string.display_message_no_result))
+                        HomeScreenState.Empty(context.getString(R.string.home_screen_empty_state_message))
                 } else {
                     _homeScreenState.value = HomeScreenState.DisplayCandidates(candidates)
                 }
             } catch (e: Exception) {
                 _homeScreenState.value =
-                    HomeScreenState.Error(context.getString(R.string.display_message_error))
+                    HomeScreenState.Error(context.getString(R.string.home_screen_error_state_message))
             }
         }
     }
 
     /**
-     * Handles the event when an item is clicked.
-     * Stores the clicked candidate's ID in SharedPreferences.
+     * Handles the event of selecting a candidate from the list.
+     * Saves the selected candidate's ID in SharedPreferences for later retrieval.
      *
-     * @param candidateId The ID of the clicked candidate.
+     * @param candidateId The ID of the selected candidate.
      */
     fun onItemClicked(candidateId: Long) {
-        sharedPreferences.edit().putLong(KEY_CANDIDATE_IDENTIFIER, candidateId).apply()
+        sharedPreferences.edit().putLong(KEY_CANDIDATE_IDENTIFIER, candidateId)
+            .apply() // Store the candidate ID
     }
-
 }

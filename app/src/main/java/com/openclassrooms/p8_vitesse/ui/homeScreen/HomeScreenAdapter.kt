@@ -1,5 +1,6 @@
 package com.openclassrooms.p8_vitesse.ui.homeScreen
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +30,7 @@ class HomeScreenAdapter(
     inner class CandidateViewHolder(private val binding: ItemCandidateBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-            /**
+        /**
          * Binds the candidate data to the views and sets up click listener.
          *
          * @param candidate The candidate data to be bound to the views.
@@ -39,20 +40,21 @@ class HomeScreenAdapter(
             Glide.with(binding.root.context)
                 .load(candidate.photo)
                 .error(R.drawable.default_avatar)
-                .into(binding.displayItemCandidateAvatar)
+                .into(binding.itemCandidateAvatar)
 
             // Set other fields
-            binding.displayItemCandidateFullName.text =
-                "${candidate.firstName} ${candidate.lastName}"
-            binding.displayItemCandidateNote.text = candidate.informationNote
+            binding.itemCandidateFullName.text = binding.root.context.getString(
+                R.string.detail_screen_top_bar_candidate_name,
+                candidate.firstName,
+                candidate.lastName
+            )
+            binding.itemCandidateNote.text = candidate.informationNote
 
             binding.constraintLayout.setOnClickListener {
                 onItemClicked(candidate.id)
             }
         }
     }
-
-//    init { }
 
     /**
      * Creates a new ViewHolder for a candidate item.
@@ -90,11 +92,7 @@ class HomeScreenAdapter(
      *
      * @param newCandidates The new list of candidates to display.
      */
-    /**
-     * Updates the list of candidates and notifies the adapter of data changes.
-     *
-     * @param newCandidates The new list of candidates to display.
-     */
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newCandidates: List<Candidate>) {
         this.candidates = newCandidates
         notifyDataSetChanged()

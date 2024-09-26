@@ -46,7 +46,6 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-
     companion object {
         // Volatile variable to ensure the instance is updated across all threads
         @Volatile
@@ -74,7 +73,6 @@ abstract class AppDatabase : RoomDatabase() {
                 instance
             }
         }
-
 
         /**
          * Populates the database with initial sample data.

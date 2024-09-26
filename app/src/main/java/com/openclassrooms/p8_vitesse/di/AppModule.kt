@@ -30,8 +30,6 @@ val appModule = module {
     /**
      * Provides the AppDatabase instance.
      *
-     * @param context The application context.
-     * @param coroutineScope The CoroutineScope for database operations.
      * @return An instance of AppDatabase.
      */
     single {

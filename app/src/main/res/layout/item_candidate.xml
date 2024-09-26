@@ -19,26 +19,26 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/display_item_candidate_avatar"
+            android:id="@+id/item_candidate_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/background_12dp_rounded_grey"
-            android:contentDescription="@string/display_description_avatar"
+            android:contentDescription="@string/item_candidate_avatar_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/display_item_candidate_full_name"
+            android:id="@+id/item_candidate_full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            app:layout_constraintStart_toEndOf="@+id/display_item_candidate_avatar"
+            app:layout_constraintStart_toEndOf="@+id/item_candidate_avatar"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="First / LAST name" />
 
         <TextView
-            android:id="@+id/display_item_candidate_note"
+            android:id="@+id/item_candidate_note"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -46,8 +46,8 @@
             android:ellipsize="end"
             android:maxLines="2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/display_item_candidate_avatar"
-            app:layout_constraintTop_toBottomOf="@+id/display_item_candidate_full_name"
+            app:layout_constraintStart_toEndOf="@+id/item_candidate_avatar"
+            app:layout_constraintTop_toBottomOf="@+id/item_candidate_full_name"
             tools:text="Candidate description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,12 @@
 package com.openclassrooms.p8_vitesse.ui.detailScreen
 
-import android.content.Context
+import android.app.Application
 import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.openclassrooms.p8_vitesse.data.model.ExchangeRatesResultModel
 import com.openclassrooms.p8_vitesse.data.repository.CandidateRepository
 import com.openclassrooms.p8_vitesse.data.repository.ExchangeRatesRepository
 import com.openclassrooms.p8_vitesse.domain.model.Candidate
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +32,7 @@ import java.net.UnknownHostException
 class DetailScreenViewModel(
     private val candidateRepository: CandidateRepository,
     private val exchangeRatesRepository: ExchangeRatesRepository,
-    private val context: Context,
+    private val context: Application,
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
@@ -46,6 +43,7 @@ class DetailScreenViewModel(
     /**
      * The candidate identifier accessed from SharedPreferences.
      * This identifier is used to keep track of the selected candidate.
+     * It defaults to 0 if not found.
      */
     private var candidateIdentifier: Long =
         sharedPreferences.getLong(KEY_CANDIDATE_IDENTIFIER, 0) // Provide a default value
@@ -58,6 +56,7 @@ class DetailScreenViewModel(
     private var _exchangeRateMessage = MutableSharedFlow<String>()
     val exchangeRateMessage: SharedFlow<String> get() = _exchangeRateMessage.asSharedFlow()
 
+    // Flow to emit converted salary values to the UI
     private var _convertedSalary = MutableSharedFlow<Double>()
     val convertedSalary: SharedFlow<Double> get() = _convertedSalary.asSharedFlow()
 
@@ -66,7 +65,7 @@ class DetailScreenViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             _candidateState.value = candidateRepository.getCurrentCandidate(candidateIdentifier)
             if (_candidateState.value != null) {
-                    loadRateData(_candidateState.value!!.expectedSalary)
+                loadRateData(_candidateState.value!!.expectedSalary)
             } else {
                 _exchangeRateMessage.emit("Candidate could not be loaded")
             }
@@ -113,7 +112,12 @@ class DetailScreenViewModel(
                     val statusCode = rateInformationResult.exchangeRatesStatusCode
 
                     // Handle the API status code and update the exchange rate data
-                    handleApiStatusCode(statusCode, rateEurToGbp, rateInformation.exchangeRatesDate, expectedSalary)
+                    handleApiStatusCode(
+                        statusCode,
+                        rateEurToGbp,
+                        rateInformation.exchangeRatesDate,
+                        expectedSalary
+                    )
                 }
 
             } catch (e: IOException) {
@@ -137,13 +141,18 @@ class DetailScreenViewModel(
      * @param rateDate The date when the exchange rate was retrieved.
      * @param expectedSalary The candidate's expected salary in EUR.
      */
-    private fun handleApiStatusCode(statusCode: Int, rateEurToGbp: Double?, rateDate: String, expectedSalary: Int?) {
+    private fun handleApiStatusCode(
+        statusCode: Int,
+        rateEurToGbp: Double?,
+        rateDate: String,
+        expectedSalary: Int?
+    ) {
         viewModelScope.launch {
             when (statusCode) {
 
                 200 -> if (rateEurToGbp != null && expectedSalary != null) {
                     _exchangeRateMessage.emit("Exchange rate EUR/GBP $rateEurToGbp ($rateDate)")
-                    _convertedSalary.emit(rateEurToGbp*expectedSalary)
+                    _convertedSalary.emit(rateEurToGbp * expectedSalary)
                 } else {
                     _exchangeRateMessage.emit("Error : exchange rate not found.")
                 }
@@ -152,14 +161,14 @@ class DetailScreenViewModel(
                 1 -> _exchangeRateMessage.emit("Error 1: no response from API")
                 2 -> _exchangeRateMessage.emit("Error 2: unexpected error")
 
-                in 3..99 ->_exchangeRateMessage.emit("Error $statusCode: Unknown Error")
-                in 100..199 ->_exchangeRateMessage.emit("Error $statusCode: Information Error")
-                in 201..299 ->_exchangeRateMessage.emit("Error $statusCode: Success Error")
-                in 300..399 ->_exchangeRateMessage.emit("Error $statusCode: Redirection Error")
-                in 400..499 ->_exchangeRateMessage.emit("Error $statusCode: Client Error")
-                in 500..599 ->_exchangeRateMessage.emit("Error $statusCode: Server Error")
-                in 600..999 ->_exchangeRateMessage.emit("Error $statusCode: Unknown Error")
-                else ->_exchangeRateMessage.emit("Unexpected Error. Please try again.")
+                in 3..99 -> _exchangeRateMessage.emit("Error $statusCode: Unknown Error")
+                in 100..199 -> _exchangeRateMessage.emit("Error $statusCode: Information Error")
+                in 201..299 -> _exchangeRateMessage.emit("Error $statusCode: Success Error")
+                in 300..399 -> _exchangeRateMessage.emit("Error $statusCode: Redirection Error")
+                in 400..499 -> _exchangeRateMessage.emit("Error $statusCode: Client Error")
+                in 500..599 -> _exchangeRateMessage.emit("Error $statusCode: Server Error")
+                in 600..999 -> _exchangeRateMessage.emit("Error $statusCode: Unknown Error")
+                else -> _exchangeRateMessage.emit("Unexpected Error. Please try again.")
             }
         }
     }

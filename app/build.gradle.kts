@@ -31,34 +31,39 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding = true
     }
-
-
 }
 
 dependencies {
 
+    // Core Android Libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
-
+    // Room Database
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
     kapt (libs.androidx.room.compiler)
     implementation (libs.androidx.room.runtime)
 
+    // Firebase Functions
     implementation(libs.firebase.functions.ktx)
+
+    // Unit Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,7 +75,6 @@ dependencies {
     implementation (libs.material)
     implementation (libs.androidx.viewpager)
     implementation (libs.androidx.fragment)
-
 
     // DI Koin
     implementation(libs.koin.android)
@@ -92,5 +96,4 @@ dependencies {
     // Coroutine
     implementation (libs.kotlinx.coroutines.core)
     implementation (libs.kotlinx.coroutines.android)
-
 }
