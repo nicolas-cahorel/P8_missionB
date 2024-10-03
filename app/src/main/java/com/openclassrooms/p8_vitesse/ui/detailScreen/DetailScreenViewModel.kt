@@ -1,6 +1,5 @@
 package com.openclassrooms.p8_vitesse.ui.detailScreen
 
-import android.app.Application
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,7 +25,6 @@ import java.net.UnknownHostException
  *
  * @property candidateRepository Repository used to fetch and manage candidate data.
  * @property exchangeRatesRepository Repository used to fetch exchange rate data.
- * @property context Application context used for accessing resources.
  * @property sharedPreferences SharedPreferences used for saving and retrieving user preferences.
  */
 class DetailScreenViewModel(

@@ -86,6 +86,9 @@ dependencies {
     implementation (libs.glide)
     annotationProcessor (libs.compiler)
 
+    // Coil
+    implementation(libs.coil)
+
     // Retrofit for Network Requests
     implementation(libs.retrofit)
     implementation(libs.logging.interceptor)

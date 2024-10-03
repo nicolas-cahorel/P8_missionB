@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
 import com.openclassrooms.p8_vitesse.R
 import com.openclassrooms.p8_vitesse.databinding.ItemCandidateBinding
 import com.openclassrooms.p8_vitesse.domain.model.Candidate
@@ -36,11 +36,10 @@ class HomeScreenAdapter(
          * @param candidate The candidate data to be bound to the views.
          */
         fun bind(candidate: Candidate) {
-            // Load candidate photo using Glide
-            Glide.with(binding.root.context)
-                .load(candidate.photo)
-                .error(R.drawable.default_avatar)
-                .into(binding.itemCandidateAvatar)
+            // Load the candidate's photo using Coil, with a default avatar if not available
+            binding.itemCandidateAvatar.load(candidate.photo) {
+                error(R.drawable.default_avatar)
+            }
 
             // Set other fields
             binding.itemCandidateFullName.text = binding.root.context.getString(

@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
+import coil.load
 import com.openclassrooms.p8_vitesse.R
 import com.openclassrooms.p8_vitesse.databinding.FragmentDetailScreenBinding
 import com.openclassrooms.p8_vitesse.domain.model.Candidate
@@ -369,11 +369,10 @@ class DetailScreenFragment : Fragment() {
         // Display additional candidate information note
         binding.detailScreenNote.text = candidate.informationNote
 
-        // Load the candidate's photo using Glide, with a default avatar if not available
-        Glide.with(binding.root.context)
-            .load(candidate.photo)
-            .error(R.drawable.default_avatar)
-            .into(binding.detailScreenAvatar)
+        // Load the candidate's photo using Coil, with a default avatar if not available
+        binding.detailScreenAvatar.load(candidate.photo) {
+            error(R.drawable.default_avatar)
+        }
 
         // Update the favorite status button based on the candidate's status
         isFavorite = candidate.isFavorite

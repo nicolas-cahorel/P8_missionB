@@ -1,6 +1,5 @@
 package com.openclassrooms.p8_vitesse.ui.homeScreen
 
-import android.app.Application
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,7 +16,6 @@ import kotlinx.coroutines.launch
  * It exposes state as [StateFlow] for UI observation and handles data loading, filtering, and error states.
  *
  * @property candidateRepository The repository used to fetch candidate data.
- * @property context The context used to access resources, such as strings.
  * @property sharedPreferences SharedPreferences for storing candidate data.
  */
 class HomeScreenViewModel(

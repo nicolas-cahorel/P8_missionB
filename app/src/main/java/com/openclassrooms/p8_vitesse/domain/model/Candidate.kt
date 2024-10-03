@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
  * Domain model representing a candidate with various attributes.
  *
  * @property id The unique ID of the candidate.
- * @property photo The URL of the candidate's photo.
+ * @property photo The binary data of the candidate's photo as a ByteArray.
  * @property firstName The candidate's first name.
  * @property lastName The candidate's last name.
  * @property phoneNumber The candidate's phone number.
@@ -21,7 +21,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Candidate(
     var id: Long,
-    var photo: String,
+    var photo: ByteArray,
     var firstName: String,
     var lastName: String,
     var phoneNumber: String,
@@ -43,7 +43,7 @@ data class Candidate(
         fun fromDto(dto: CandidateDto): Candidate {
             return Candidate(
                 id = dto.id,
-                photo = dto.photoUrl,
+                photo = dto.photoData,
                 firstName = dto.firstName,
                 lastName = dto.lastName,
                 phoneNumber = dto.phoneNumber,
@@ -64,7 +64,7 @@ data class Candidate(
     fun toDto(): CandidateDto {
         return CandidateDto(
             id = id,
-            photoUrl = photo,
+            photoData = photo,
             firstName = firstName,
             lastName = lastName,
             phoneNumber = phoneNumber,

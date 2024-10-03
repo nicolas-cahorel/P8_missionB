@@ -3,9 +3,13 @@ package com.openclassrooms.p8_vitesse.ui.addOrEditScreen
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -20,7 +24,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
+import coil.load
 import com.google.android.material.snackbar.Snackbar
 import com.openclassrooms.p8_vitesse.R
 import com.openclassrooms.p8_vitesse.databinding.FragmentAddOrEditScreenBinding
@@ -28,6 +32,8 @@ import com.openclassrooms.p8_vitesse.domain.model.Candidate
 import com.openclassrooms.p8_vitesse.ui.detailScreen.DetailScreenFragment
 import com.openclassrooms.p8_vitesse.ui.homeScreen.HomeScreenFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -59,10 +65,9 @@ class AddOrEditScreenFragment : Fragment() {
     private lateinit var pickImageLauncher: ActivityResultLauncher<Intent>
 
     /**
-     * URL of the selected image. Defaults to a placeholder image.
+     * ByteArray representation of the selected image. Defaults to the default avatar.
      */
-    private var selectedImageUrl: String =
-        "android.resource://com.openclassrooms.p8_vitesse/${R.drawable.default_avatar}"
+    private var selectedImage: ByteArray = ByteArray(0) // Initialize to an empty array
 
     /**
      * Validation flags for user input fields.
@@ -106,6 +111,7 @@ class AddOrEditScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupDefaultAvatar(requireContext())
         setupPickImageLauncher()
         setupAvatarField()
         setupFirstNameField()
@@ -123,6 +129,35 @@ class AddOrEditScreenFragment : Fragment() {
     }
 
     /**
+     * Initializes the default image from the drawable resource as a ByteArray.
+     *
+     * @param context The context used to access resources.
+     * @return ByteArray representation of the default avatar.
+     */
+    private fun setupDefaultAvatar(context: Context) {
+        // Obtain the default drawable
+        val drawable: Drawable? = ContextCompat.getDrawable(context, R.drawable.default_avatar)
+
+        // Convert drawable to Bitmap
+        val bitmap: Bitmap? = drawable?.let {
+            Bitmap.createBitmap(it.intrinsicWidth, it.intrinsicHeight, Bitmap.Config.ARGB_8888).apply {
+                val canvas = android.graphics.Canvas(this)
+                it.setBounds(0, 0, canvas.width, canvas.height)
+                it.draw(canvas)
+            }
+        }
+
+        // Convert Bitmap to ByteArray and assign it to selectedImage
+        selectedImage = bitmap?.let {
+            ByteArrayOutputStream().use { stream ->
+                it.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                stream.toByteArray()
+            }
+        } ?: ByteArray(0) // Default to an empty ByteArray if drawable or bitmap is null
+    }
+
+
+    /**
      * Initializes the launcher for picking an image from the gallery.
      * - Registers the activity result launcher to handle the result of the image selection.
      * - Updates the ImageView with the selected image or displays a default image if an error occurs.
@@ -136,17 +171,44 @@ class AddOrEditScreenFragment : Fragment() {
                     if (data != null && data.data != null) {
                         // Obtain the URI of the selected image
                         val imageUri: Uri = data.data!!
-                        // Save image url as String
-                        selectedImageUrl = imageUri.toString()
 
-                        // Update imageview with the selected image
-                        Glide.with(binding.root.context)
-                            .load(selectedImageUrl)
-                            .error(R.drawable.default_avatar)
-                            .into(binding.addOrEditScreenAvatarField)
+                        // Convert the image to ByteArray
+                        convertImageUriToByteArray(imageUri)?.let { byteArray ->
+                            // Store the byteArray in the database as a BLOB
+                            selectedImage = byteArray // Store the byteArray in the variable
+                        }
+
+                        // Load the image into the ImageView using Coil
+                        binding.addOrEditScreenAvatarField.load(selectedImage) {
+                            error(R.drawable.default_avatar) // Display default image on error
+                        }
                     }
                 }
             }
+    }
+
+    /**
+     * Converts an image URI to a ByteArray.
+     *
+     * @param uri The URI of the image.
+     * @return The ByteArray representation of the image or null if an error occurs.
+     */
+    private fun convertImageUriToByteArray(uri: Uri): ByteArray? {
+        return try {
+            // Open an input stream from the URI
+            val inputStream: InputStream? = requireContext().contentResolver.openInputStream(uri)
+            inputStream?.use { stream ->
+                // Convert the stream to a Bitmap
+                val bitmap: Bitmap = BitmapFactory.decodeStream(stream)
+                // Convert the Bitmap to ByteArray
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+                byteArrayOutputStream.toByteArray()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace() // Handle exception
+            null
+        }
     }
 
     /**
@@ -621,12 +683,11 @@ class AddOrEditScreenFragment : Fragment() {
             navigateToDetailScreen()
         }
 
-        // Load candidate photo using Glide
-        selectedImageUrl = candidate.photo
-        Glide.with(binding.root.context)
-            .load(selectedImageUrl)
-            .error(R.drawable.default_avatar)
-            .into(binding.addOrEditScreenAvatarField)
+        // Load candidate photo using Coil
+        selectedImage = candidate.photo
+        binding.addOrEditScreenAvatarField.load(selectedImage) {
+            error(R.drawable.default_avatar) // Display default image on error
+        }
 
         // Set candidate details to input fields
         binding.addOrEditScreenFirstNameField.setText(candidate.firstName)
@@ -707,7 +768,7 @@ class AddOrEditScreenFragment : Fragment() {
         // Create or update the Candidate object
         val candidate = Candidate(
             id = candidateId,
-            photo = selectedImageUrl,
+            photo = selectedImage,
             firstName = capitalizeWords(
                 binding.addOrEditScreenFirstNameField.text.toString().trim()
             ),

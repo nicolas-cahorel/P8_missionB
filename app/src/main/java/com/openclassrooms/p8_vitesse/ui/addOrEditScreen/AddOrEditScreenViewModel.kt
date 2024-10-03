@@ -1,6 +1,5 @@
 package com.openclassrooms.p8_vitesse.ui.addOrEditScreen
 
-import android.app.Application
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +15,6 @@ import kotlinx.coroutines.launch
  * of candidate data. It also manages the media access permission status through SharedPreferences.
  *
  * @property candidateRepository The repository used to add or update candidate data.
- * @property context The application context used to access resources, such as strings.
  * @property sharedPreferences SharedPreferences for storing and retrieving media access permission status.
  */
 class AddOrEditScreenViewModel(

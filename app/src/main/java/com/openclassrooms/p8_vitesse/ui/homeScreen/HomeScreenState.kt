@@ -26,7 +26,7 @@ sealed interface HomeScreenState {
      * Represents an empty state on the Home Screen, usually indicating that there are no candidates to display.
      * This can occur when a filter yields no results or when there are no candidates in the list.
      *
-     * @property stateMessage The message explaining the absence of candidates, which can be used to guide the user.
+     * @property stateMessageId The message explaining the absence of candidates, which can be used to guide the user.
      */
     data class Empty(val stateMessageId: Int) : HomeScreenState
 
@@ -34,7 +34,7 @@ sealed interface HomeScreenState {
      * Represents an error state with a message explaining why the data loading or processing failed.
      * This state can be shown when there is an issue fetching data, such as network errors or data processing errors.
      *
-     * @property stateMessage The message describing the cause of the failure, helping the user understand what went wrong.
+     * @property stateMessageId The message describing the cause of the failure, helping the user understand what went wrong.
      */
     data class Error(val stateMessageId: Int) : HomeScreenState
 }
