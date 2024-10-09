@@ -96,5 +96,14 @@ class ExchangeRatesRepository(private val dataService: ExchangeRatesClient) {
     }.catch { error ->
         // Handle errors that may occur during the execution of the flow
         Log.e("ExchangeRatesRepository", "Error fetching exchange rates: ${error.message}")
+        // Emit a specific result model for network errors
+        emit(
+            ExchangeRatesInformationResultModel(
+                exchangeRatesStatusCode = 3, // Custom error code for network issues
+                ExchangeRatesResultModel(
+                    "", emptyMap()
+                )
+            )
+        )
     }
 }

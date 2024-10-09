@@ -96,7 +96,7 @@ class DetailScreenViewModel(
      *
      * @param expectedSalary The candidate's expected salary in EUR.
      */
-    private fun loadRateData(expectedSalary: Int?) {
+    fun loadRateData(expectedSalary: Int?) {
 
         viewModelScope.launch {
             try {
@@ -107,6 +107,8 @@ class DetailScreenViewModel(
                     val rateInformation = rateInformationResult.exchangeRatesInformation
                     val rateEurToGbp = rateInformation.exchangeRates["gbp"]
                     val statusCode = rateInformationResult.exchangeRatesStatusCode
+
+                    println("expectedSalary before calling handleApiStatusCode: $expectedSalary")
 
                     // Handle the API status code and update the exchange rate data
                     handleApiStatusCode(
@@ -145,28 +147,35 @@ class DetailScreenViewModel(
         expectedSalary: Int?
     ) {
         viewModelScope.launch {
-            when (statusCode) {
+            val message: String
+            var convertedSalary = 0.0
 
-                200 -> if (rateEurToGbp != null && expectedSalary != null) {
-                    _exchangeRateMessage.emit("Exchange rate EUR/GBP $rateEurToGbp ($rateDate)")
-                    _convertedSalary.emit(rateEurToGbp * expectedSalary)
-                } else {
-                    _exchangeRateMessage.emit("Error : exchange rate not found.")
+            when (statusCode) {
+                200 -> {
+                    if (rateEurToGbp != null && expectedSalary != null) {
+                        message = "Exchange rate EUR/GBP $rateEurToGbp ($rateDate)"
+                        convertedSalary = rateEurToGbp * expectedSalary
+                    } else {
+                        message = "Error: exchange rate not found."
+                    }
                 }
 
-                0 -> _exchangeRateMessage.emit("Error 0: API has not returned HTTP status code")
-                1 -> _exchangeRateMessage.emit("Error 1: no response from API")
-                2 -> _exchangeRateMessage.emit("Error 2: unexpected error")
-
-                in 3..99 -> _exchangeRateMessage.emit("Error $statusCode: Unknown Error")
-                in 100..199 -> _exchangeRateMessage.emit("Error $statusCode: Information Error")
-                in 201..299 -> _exchangeRateMessage.emit("Error $statusCode: Success Error")
-                in 300..399 -> _exchangeRateMessage.emit("Error $statusCode: Redirection Error")
-                in 400..499 -> _exchangeRateMessage.emit("Error $statusCode: Client Error")
-                in 500..599 -> _exchangeRateMessage.emit("Error $statusCode: Server Error")
-                in 600..999 -> _exchangeRateMessage.emit("Error $statusCode: Unknown Error")
-                else -> _exchangeRateMessage.emit("Unexpected Error. Please try again.")
+                0 -> message = "Error 0: API has not returned HTTP status code"
+                1 -> message = "Error 1: no response from API"
+                2 -> message = "Error 2: unexpected error"
+                3 -> message = "Error 3: no internet access"
+                in 3..99 -> message = "Error $statusCode: Unknown Error"
+                in 100..199 -> message = "Error $statusCode: Information Error"
+                in 201..299 -> message = "Error $statusCode: Success Error"
+                in 300..399 -> message = "Error $statusCode: Redirection Error"
+                in 400..499 -> message = "Error $statusCode: Client Error"
+                in 500..599 -> message = "Error $statusCode: Server Error"
+                in 600..999 -> message = "Error $statusCode: Unknown Error"
+                else -> message = "Unexpected Error. Please try again."
             }
+
+            _exchangeRateMessage.emit(message)
+            _convertedSalary.emit(convertedSalary)
         }
     }
 }

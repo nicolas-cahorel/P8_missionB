@@ -51,4 +51,35 @@ data class CandidateDto(
 
     @ColumnInfo(name = "is_favorite")
     var isFavorite: Boolean  // True if the candidate is marked as a favorite.
-)
+) {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CandidateDto) return false
+
+        return id == other.id &&
+                firstName == other.firstName &&
+                lastName == other.lastName &&
+                phoneNumber == other.phoneNumber &&
+                emailAddress == other.emailAddress &&
+                dateOfBirth == other.dateOfBirth &&
+                expectedSalary == other.expectedSalary &&
+                informationNote == other.informationNote &&
+                isFavorite == other.isFavorite &&
+                photoData.contentEquals(other.photoData)  // Use contentEquals to compare the array's content.
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + photoData.contentHashCode()  // Use contentHashCode for the array.
+        result = 31 * result + firstName.hashCode()
+        result = 31 * result + lastName.hashCode()
+        result = 31 * result + phoneNumber.hashCode()
+        result = 31 * result + emailAddress.hashCode()
+        result = 31 * result + dateOfBirth.hashCode()
+        result = 31 * result + expectedSalary
+        result = 31 * result + informationNote.hashCode()
+        result = 31 * result + isFavorite.hashCode()
+        return result
+    }
+}

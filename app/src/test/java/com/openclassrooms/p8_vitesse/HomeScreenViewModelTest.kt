@@ -16,14 +16,18 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.doThrow
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
-import java.io.IOException
 import java.time.LocalDate
 import java.time.ZoneOffset
 
-
+/**
+ * Test class for the [HomeScreenViewModel].
+ *
+ * This class tests the behavior of the [HomeScreenViewModel], including
+ * scenarios where the candidates are successfully retrieved, the list is empty,
+ * or an error occurs.
+ */
 @ExperimentalCoroutinesApi
 class HomeScreenViewModelTest {
 
@@ -40,7 +44,12 @@ class HomeScreenViewModelTest {
 
     private lateinit var viewModel: HomeScreenViewModel
 
-
+    /**
+     * Sets up the test environment before each test.
+     *
+     * This includes initializing the mocks, setting the test dispatcher as the
+     * main dispatcher, and creating an instance of the [HomeScreenViewModel].
+     */
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
@@ -53,79 +62,95 @@ class HomeScreenViewModelTest {
         viewModel = HomeScreenViewModel(mockCandidateRepository, mockSharedPreferences)
     }
 
+    /**
+     * Resets the main dispatcher to its original state after each test.
+     */
     @After
     fun tearDown() {
         Dispatchers.resetMain()
     }
 
     /**
-     * Test the fetchCandidates method to verify successful candidate loading.
+     * Tests the [HomeScreenViewModel.fetchCandidates] method to verify that it correctly handles
+     * the scenario where candidates are successfully retrieved.
+     *
+     * The method is expected to update the [HomeScreenState] to [HomeScreenState.DisplayCandidates]
+     * with the list of retrieved candidates.
      */
     @Test
-    fun fetchCandidates_Success() = runTest {
-        println("test fetchCandidate_Success : ARRANGE")
-        val expectedCandidates = listOf(
+    fun fetchCandidates_success() = runTest {
+        println("test fetchCandidates_success : ARRANGE")
+        val candidates = listOf(
             Candidate(
                 id = 1,
-                photo = "https://xsgames.co/randomusers/assets/avatars/male/0.jpg",
+                photo = ByteArray(0),
                 firstName = "John",
                 lastName = "Doe",
                 phoneNumber = "1234567890",
                 emailAddress = "john.doe@example.com",
-                dateOfBirthStr = LocalDate.of(1985, 5, 15).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                dateOfBirthStr = LocalDate.of(1985, 5, 15).atStartOfDay(ZoneOffset.UTC).toInstant()
+                    .toEpochMilli(),
                 expectedSalary = 50000,
                 informationNote = "TEST : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor...",
-                isFavorite = false),
+                isFavorite = false
+            ),
 
             Candidate(
                 id = 2,
-                photo = "https://xsgames.co/randomusers/assets/avatars/male/1.jpg",
+                photo = ByteArray(0),
                 firstName = "Jim",
                 lastName = "Nastik",
                 phoneNumber = "1234567891",
                 emailAddress = "jim.nastik@example.com",
-                dateOfBirthStr = LocalDate.of(1980, 4, 20).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                dateOfBirthStr = LocalDate.of(1980, 4, 20).atStartOfDay(ZoneOffset.UTC).toInstant()
+                    .toEpochMilli(),
                 expectedSalary = 45000,
                 informationNote = "TEST : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor...",
-                isFavorite = false)
+                isFavorite = false
+            )
         )
         // Expectation for the home screen state
-        val expectedHomeScreenState = HomeScreenState.DisplayCandidates(expectedCandidates)
+        val expectedHomeScreenState = HomeScreenState.DisplayCandidates(candidates)
 
         // Mock repository to return the expected candidates
         `when`(mockCandidateRepository.getCandidates(false, null))
-            .thenReturn(expectedCandidates)
+            .thenReturn(candidates)
 
         // Call the method to be tested
-        println("test fetchCandidates_Success : ACT")
+        println("test fetchCandidates_success : ACT")
         viewModel.fetchCandidates(favorite = false, query = null)
 
         // Simulates time passed and the flow went to the end
         testDispatcher.scheduler.advanceUntilIdle()
 
         // Assert that the homeScreenState is DisplayCandidates
-        println("test fetchCandidates_Success : ASSERT")
+        println("test fetchCandidates_success : ASSERT")
         try {
             assertEquals(expectedHomeScreenState, viewModel.homeScreenState.value)
-            println("test fetchCandidates_Success : SUCCESS, ${viewModel.homeScreenState.value}")
+            println("test fetchCandidates_success : SUCCESS")
         } catch (e: AssertionError) {
-            println("test fetchCandidates_Success : FAIL, ${viewModel.homeScreenState.value}")
+            println("test fetchCandidates_success : FAIL")
             throw e
         }
     }
 
     /**
-     * Test the fetchCandidates method to verify empty handling.
+     * Tests the [HomeScreenViewModel.fetchCandidates] method to verify that it correctly handles
+     * the scenario where no candidates are available.
+     *
+     * The method is expected to update the [HomeScreenState] to [HomeScreenState.Empty].
      */
     @Test
     fun fetchCandidates_empty() = runTest {
         println("test fetchCandidates_empty : ARRANGE")
-        val expectedEmptyMessage = R.string.home_screen_error_state_message
+        val candidates = emptyList<Candidate>()
+
+        // Expectation for the home screen state
+        val expectedHomeScreenState = HomeScreenState.Empty(R.string.home_screen_empty_state_message)
 
         // Mock repository to return an empty list
-//        `when`(mockCandidateRepository.getCandidates(false, null))
-//            .thenThrow(Exception("An error has occurred, please try again"))
-        doThrow(IOException::class.java).`when`(mockCandidateRepository).getCandidates(false, null)
+        `when`(mockCandidateRepository.getCandidates(false, null))
+            .thenReturn(candidates)
 
         // Call the method to be tested
         println("test fetchCandidates_empty : ACT")
@@ -137,10 +162,44 @@ class HomeScreenViewModelTest {
         // Assert that the homeScreenState is Empty
         println("test fetchCandidates_empty : ASSERT")
         try {
-            assertEquals(HomeScreenState.Error(expectedEmptyMessage), viewModel.homeScreenState.value)
-            println("test fetchCandidates_empty : SUCCESS, ${viewModel.homeScreenState.value}")
+            assertEquals(expectedHomeScreenState, viewModel.homeScreenState.value)
+            println("test fetchCandidates_empty : SUCCESS")
         } catch (e: AssertionError) {
-            println("test fetchCandidates_empty : FAIL, ${viewModel.homeScreenState.value}")
+            println("test fetchCandidates_empty : FAIL")
+            throw e
+        }
+    }
+
+    /**
+     * Tests the [HomeScreenViewModel.fetchCandidates] method to verify that it correctly handles
+     * the scenario where an error occurs while fetching candidates.
+     *
+     * The method is expected to update the [HomeScreenState] to [HomeScreenState.Error].
+     */
+    @Test
+    fun fetchCandidates_error() = runTest {
+        println("test fetchCandidates_error : ARRANGE")
+        // Expectation for the home screen state
+        val expectedHomeScreenState = HomeScreenState.Error(R.string.home_screen_error_state_message)
+
+        // Mock repository to return an exception
+        `when`(mockCandidateRepository.getCandidates(false, null)
+        ).thenThrow(RuntimeException("CandidateDao Exception"))
+
+        // Call the method to be tested
+        println("test fetchCandidates_error : ACT")
+        viewModel.fetchCandidates(favorite = false, query = null)
+
+        // Simulates time passed and the flow went to the end
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        // Assert that the homeScreenState is Empty
+        println("test fetchCandidates_error : ASSERT")
+        try {
+            assertEquals(expectedHomeScreenState, viewModel.homeScreenState.value)
+            println("test fetchCandidates_error : SUCCESS")
+        } catch (e: AssertionError) {
+            println("test fetchCandidates_error : FAIL")
             throw e
         }
     }
