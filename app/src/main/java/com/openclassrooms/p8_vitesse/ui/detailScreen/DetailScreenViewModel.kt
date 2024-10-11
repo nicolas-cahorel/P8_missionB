@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.openclassrooms.p8_vitesse.data.repository.CandidateRepository
 import com.openclassrooms.p8_vitesse.data.repository.ExchangeRatesRepository
 import com.openclassrooms.p8_vitesse.domain.model.Candidate
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +31,8 @@ import java.net.UnknownHostException
 class DetailScreenViewModel(
     private val candidateRepository: CandidateRepository,
     private val exchangeRatesRepository: ExchangeRatesRepository,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
     companion object {
@@ -98,7 +100,7 @@ class DetailScreenViewModel(
      */
     fun loadRateData(expectedSalary: Int?) {
 
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             try {
                 // Collect the flow from the exchange rates repository
                 exchangeRatesRepository.fetchExchangeData().collect { rateInformationResult ->
@@ -140,13 +142,12 @@ class DetailScreenViewModel(
      * @param rateDate The date when the exchange rate was retrieved.
      * @param expectedSalary The candidate's expected salary in EUR.
      */
-    private fun handleApiStatusCode(
+    private suspend fun handleApiStatusCode(
         statusCode: Int,
         rateEurToGbp: Double?,
         rateDate: String,
         expectedSalary: Int?
     ) {
-        viewModelScope.launch {
             val message: String
             var convertedSalary = 0.0
 
@@ -176,6 +177,5 @@ class DetailScreenViewModel(
 
             _exchangeRateMessage.emit(message)
             _convertedSalary.emit(convertedSalary)
-        }
     }
 }

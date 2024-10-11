@@ -74,6 +74,6 @@ class CandidateRepository(private val candidateDao: CandidateDtoDao) {
     suspend fun deleteCandidate(candidate: Candidate) {
         candidate.id.let { id ->
             candidateDao.deleteCandidateById(id) // Delete candidate by ID
-        } ?: throw IllegalArgumentException("Candidate ID must not be null for deletion.")
+        }
     }
 }

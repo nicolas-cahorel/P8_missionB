@@ -75,4 +75,38 @@ data class Candidate(
             isFavorite = isFavorite
         )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Candidate
+
+        if (id != other.id) return false
+        if (!photo.contentEquals(other.photo)) return false
+        if (firstName != other.firstName) return false
+        if (lastName != other.lastName) return false
+        if (phoneNumber != other.phoneNumber) return false
+        if (emailAddress != other.emailAddress) return false
+        if (dateOfBirthStr != other.dateOfBirthStr) return false
+        if (expectedSalary != other.expectedSalary) return false
+        if (informationNote != other.informationNote) return false
+        if (isFavorite != other.isFavorite) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + photo.contentHashCode()
+        result = 31 * result + firstName.hashCode()
+        result = 31 * result + lastName.hashCode()
+        result = 31 * result + phoneNumber.hashCode()
+        result = 31 * result + emailAddress.hashCode()
+        result = 31 * result + dateOfBirthStr.hashCode()
+        result = 31 * result + expectedSalary
+        result = 31 * result + informationNote.hashCode()
+        result = 31 * result + isFavorite.hashCode()
+        return result
+    }
 }

@@ -1,6 +1,7 @@
 package com.openclassrooms.p8_vitesse
 
 import android.content.SharedPreferences
+import androidx.lifecycle.viewModelScope
 import com.openclassrooms.p8_vitesse.data.model.ExchangeRatesInformationResultModel
 import com.openclassrooms.p8_vitesse.data.model.ExchangeRatesResultModel
 import com.openclassrooms.p8_vitesse.data.repository.CandidateRepository
@@ -8,10 +9,10 @@ import com.openclassrooms.p8_vitesse.data.repository.ExchangeRatesRepository
 import com.openclassrooms.p8_vitesse.ui.detailScreen.DetailScreenViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -33,7 +34,7 @@ import org.mockito.MockitoAnnotations
 @ExperimentalCoroutinesApi
 class DetailScreenViewModelTest {
 
-    private val testDispatcher = UnconfinedTestDispatcher()
+    private val testDispatcher = StandardTestDispatcher()
 
     @Mock
     private lateinit var mockCandidateRepository: CandidateRepository
@@ -67,7 +68,8 @@ class DetailScreenViewModelTest {
         viewModel = DetailScreenViewModel(
             mockCandidateRepository,
             mockExchangeRatesRepository,
-            mockSharedPreferences
+            mockSharedPreferences,
+            testDispatcher
         )
     }
 
@@ -99,7 +101,7 @@ class DetailScreenViewModelTest {
         val gbpRate = expectedRatesInformationResult.exchangeRatesInformation.exchangeRates["gbp"]
         val expectedExchangeRateMessage =
             "Exchange rate EUR/GBP $gbpRate (${expectedRatesInformationResult.exchangeRatesInformation.exchangeRatesDate})"
-        val expectedConvertedSalary = gbpRate?.let { it * expectedSalary } ?: 0.0
+        val expectedConvertedSalary = 100000.00
 
         // Mock repository to return the expected candidates
         `when`(mockExchangeRatesRepository.fetchExchangeData())
@@ -107,8 +109,7 @@ class DetailScreenViewModelTest {
 
         // Call the method to be tested
         println("test loadRateData_success : ACT")
-        viewModel.loadRateData(expectedSalary)
-
+            viewModel.loadRateData(expectedSalary)
         // Simulates time passed and the flow went to the end
         testDispatcher.scheduler.advanceUntilIdle()
 
@@ -124,6 +125,94 @@ class DetailScreenViewModelTest {
             println("test loadRateData_success : SUCCESS")
         } catch (e: AssertionError) {
             println("test loadRateData_success : FAIL")
+            throw e
+        }
+    }
+
+    @Test
+    fun loadRateData_noApiResponse() = runTest {
+        println("test loadRateData_noApiResponse : ARRANGE")
+        val expectedSalary = 50000
+        val expectedRatesInformationResult = ExchangeRatesInformationResultModel(
+            exchangeRatesStatusCode = 1,
+            exchangeRatesInformation = ExchangeRatesResultModel(
+                exchangeRatesDate = "",
+                exchangeRates = emptyMap()
+            )
+        )
+
+        // Expectation for the result
+        val gbpRate = null
+        val expectedExchangeRateMessage = "Error 1: no response from API"
+        val expectedConvertedSalary = 0.00
+
+        // Mock repository to return the expected candidates
+        `when`(mockExchangeRatesRepository.fetchExchangeData())
+            .thenReturn(flow { emit(expectedRatesInformationResult) })
+
+        // Call the method to be tested
+        println("test loadRateData_noApiResponse : ACT")
+        viewModel.loadRateData(expectedSalary)
+
+        // Simulates time passed and the flow went to the end
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        // Collect actual convertedSalary and exchangeRateMessage from the ViewModel
+        val actualConvertedSalary = viewModel.convertedSalary.firstOrNull() ?: 0.00
+        val actualExchangeRateMessage = viewModel.exchangeRateMessage.firstOrNull()
+
+        // Assert that convertedSalary and exchangeRateMessage are as expected
+        println("test loadRateData_noApiResponse : ASSERT")
+        try {
+            assertEquals(expectedConvertedSalary, actualConvertedSalary, 0.00)
+            assertEquals(expectedExchangeRateMessage, actualExchangeRateMessage)
+            println("test loadRateData_noApiResponse : SUCCESS")
+        } catch (e: AssertionError) {
+            println("test loadRateData_noApiResponse : FAIL")
+            throw e
+        }
+    }
+
+    @Test
+    fun loadRateData_noInternet() = runTest {
+        println("test loadRateData_noInternet : ARRANGE")
+        val expectedSalary = 50000
+        val expectedRatesInformationResult = ExchangeRatesInformationResultModel(
+            exchangeRatesStatusCode = 3,
+            exchangeRatesInformation = ExchangeRatesResultModel(
+                exchangeRatesDate = "",
+                exchangeRates = emptyMap()
+            )
+        )
+
+        // Expectation for the result
+        val gbpRate = null
+        val expectedExchangeRateMessage = "Error 3: no internet access"
+        val expectedConvertedSalary = 0.00
+
+        // Mock repository to return the expected candidates
+        `when`(mockExchangeRatesRepository.fetchExchangeData())
+            .thenReturn(flow { emit(expectedRatesInformationResult) })
+
+        // Call the method to be tested
+        println("test loadRateData_noInternet : ACT")
+        viewModel.loadRateData(expectedSalary)
+
+        // Simulates time passed and the flow went to the end
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        // Collect actual convertedSalary and exchangeRateMessage from the ViewModel
+        val actualConvertedSalary = viewModel.convertedSalary.firstOrNull() ?: 0.00
+        val actualExchangeRateMessage = viewModel.exchangeRateMessage.firstOrNull()
+
+        // Assert that convertedSalary and exchangeRateMessage are as expected
+        println("test loadRateData_noInternet : ASSERT")
+        try {
+            assertEquals(expectedConvertedSalary, actualConvertedSalary, 0.00)
+            assertEquals(expectedExchangeRateMessage, actualExchangeRateMessage)
+            println("test loadRateData_noInternet : SUCCESS")
+        } catch (e: AssertionError) {
+            println("test loadRateData_noInternet : FAIL")
             throw e
         }
     }

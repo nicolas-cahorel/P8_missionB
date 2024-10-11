@@ -7,6 +7,7 @@ import com.openclassrooms.p8_vitesse.ui.homeScreen.HomeScreenState
 import com.openclassrooms.p8_vitesse.ui.homeScreen.HomeScreenViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -31,7 +32,7 @@ import java.time.ZoneOffset
 @ExperimentalCoroutinesApi
 class HomeScreenViewModelTest {
 
-    private val testDispatcher = UnconfinedTestDispatcher()
+    private val testDispatcher = StandardTestDispatcher()
 
     @Mock
     private lateinit var mockCandidateRepository: CandidateRepository
