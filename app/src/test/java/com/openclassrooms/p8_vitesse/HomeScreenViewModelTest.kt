@@ -8,7 +8,6 @@ import com.openclassrooms.p8_vitesse.ui.homeScreen.HomeScreenViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -92,7 +91,7 @@ class HomeScreenViewModelTest {
                 dateOfBirthStr = LocalDate.of(1985, 5, 15).atStartOfDay(ZoneOffset.UTC).toInstant()
                     .toEpochMilli(),
                 expectedSalary = 50000,
-                informationNote = "TEST : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor...",
+                informationNote = "TEST : candidate 1",
                 isFavorite = false
             ),
 
@@ -106,7 +105,7 @@ class HomeScreenViewModelTest {
                 dateOfBirthStr = LocalDate.of(1980, 4, 20).atStartOfDay(ZoneOffset.UTC).toInstant()
                     .toEpochMilli(),
                 expectedSalary = 45000,
-                informationNote = "TEST : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor...",
+                informationNote = "TEST : candidate 2",
                 isFavorite = false
             )
         )
@@ -124,8 +123,13 @@ class HomeScreenViewModelTest {
         // Simulates time passed and the flow went to the end
         testDispatcher.scheduler.advanceUntilIdle()
 
+        // Collect actual homeScreenState from the ViewModel
+        val actualHomeScreenState = viewModel.homeScreenState.value
+
         // Assert that the homeScreenState is DisplayCandidates
         println("test fetchCandidates_success : ASSERT")
+        println("test fetchCandidates_empty : expectedHomeScreenState = $expectedHomeScreenState")
+        println("test fetchCandidates_empty : actualHomeScreenState = ${actualHomeScreenState.toString()}")
         try {
             assertEquals(expectedHomeScreenState, viewModel.homeScreenState.value)
             println("test fetchCandidates_success : SUCCESS")
@@ -147,7 +151,8 @@ class HomeScreenViewModelTest {
         val candidates = emptyList<Candidate>()
 
         // Expectation for the home screen state
-        val expectedHomeScreenState = HomeScreenState.Empty(R.string.home_screen_empty_state_message)
+        val expectedHomeScreenState =
+            HomeScreenState.Empty(R.string.home_screen_empty_state_message)
 
         // Mock repository to return an empty list
         `when`(mockCandidateRepository.getCandidates(false, null))
@@ -160,10 +165,15 @@ class HomeScreenViewModelTest {
         // Simulates time passed and the flow went to the end
         testDispatcher.scheduler.advanceUntilIdle()
 
+        // Collect actual homeScreenState from the ViewModel
+        val actualHomeScreenState = viewModel.homeScreenState.value
+
         // Assert that the homeScreenState is Empty
         println("test fetchCandidates_empty : ASSERT")
+        println("test fetchCandidates_empty : expectedHomeScreenState = $expectedHomeScreenState")
+        println("test fetchCandidates_empty : actualHomeScreenState = ${actualHomeScreenState.toString()}")
         try {
-            assertEquals(expectedHomeScreenState, viewModel.homeScreenState.value)
+            assertEquals(expectedHomeScreenState, actualHomeScreenState)
             println("test fetchCandidates_empty : SUCCESS")
         } catch (e: AssertionError) {
             println("test fetchCandidates_empty : FAIL")
@@ -180,11 +190,14 @@ class HomeScreenViewModelTest {
     @Test
     fun fetchCandidates_error() = runTest {
         println("test fetchCandidates_error : ARRANGE")
+
         // Expectation for the home screen state
-        val expectedHomeScreenState = HomeScreenState.Error(R.string.home_screen_error_state_message)
+        val expectedHomeScreenState =
+            HomeScreenState.Error(R.string.home_screen_error_state_message)
 
         // Mock repository to return an exception
-        `when`(mockCandidateRepository.getCandidates(false, null)
+        `when`(
+            mockCandidateRepository.getCandidates(false, null)
         ).thenThrow(RuntimeException("CandidateDao Exception"))
 
         // Call the method to be tested
@@ -194,8 +207,13 @@ class HomeScreenViewModelTest {
         // Simulates time passed and the flow went to the end
         testDispatcher.scheduler.advanceUntilIdle()
 
+        // Collect actual homeScreenState from the ViewModel
+        val actualHomeScreenState = viewModel.homeScreenState.value
+
         // Assert that the homeScreenState is Empty
         println("test fetchCandidates_error : ASSERT")
+        println("test fetchCandidates_error : expectedHomeScreenState = $expectedHomeScreenState")
+        println("test fetchCandidates_error : actualHomeScreenState = ${actualHomeScreenState.toString()}")
         try {
             assertEquals(expectedHomeScreenState, viewModel.homeScreenState.value)
             println("test fetchCandidates_error : SUCCESS")

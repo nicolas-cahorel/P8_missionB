@@ -110,8 +110,6 @@ class DetailScreenViewModel(
                     val rateEurToGbp = rateInformation.exchangeRates["gbp"]
                     val statusCode = rateInformationResult.exchangeRatesStatusCode
 
-                    println("expectedSalary before calling handleApiStatusCode: $expectedSalary")
-
                     // Handle the API status code and update the exchange rate data
                     handleApiStatusCode(
                         statusCode,
