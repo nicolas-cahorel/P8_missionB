@@ -32,7 +32,8 @@ class AddOrEditScreenViewModel(
      * @param isMediaAccessPermitted The new media access permission status.
      */
     fun setMediaAccessPermissionStatus(isMediaAccessPermitted: Boolean) {
-        sharedPreferences.edit().putBoolean(KEY_IS_MEDIA_ACCESS_PERMITTED, isMediaAccessPermitted).apply()
+        sharedPreferences.edit().putBoolean(KEY_IS_MEDIA_ACCESS_PERMITTED, isMediaAccessPermitted)
+            .apply()
     }
 
     /**
@@ -41,7 +42,10 @@ class AddOrEditScreenViewModel(
      * @return The current status of media access permission.
      */
     fun getMediaAccessPermissionStatus(): Boolean {
-        return sharedPreferences.getBoolean(KEY_IS_MEDIA_ACCESS_PERMITTED, false) // Provide a default value
+        return sharedPreferences.getBoolean(
+            KEY_IS_MEDIA_ACCESS_PERMITTED,
+            false
+        ) // Provide a default value
     }
 
     /**

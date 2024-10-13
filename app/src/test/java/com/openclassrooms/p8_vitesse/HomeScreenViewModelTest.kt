@@ -128,8 +128,8 @@ class HomeScreenViewModelTest {
 
         // Assert that the homeScreenState is DisplayCandidates
         println("test fetchCandidates_success : ASSERT")
-        println("test fetchCandidates_empty : expectedHomeScreenState = $expectedHomeScreenState")
-        println("test fetchCandidates_empty : actualHomeScreenState = ${actualHomeScreenState.toString()}")
+        println("test fetchCandidates_success : expectedHomeScreenState = $expectedHomeScreenState")
+        println("test fetchCandidates_success : actualHomeScreenState = ${actualHomeScreenState.toString()}")
         try {
             assertEquals(expectedHomeScreenState, viewModel.homeScreenState.value)
             println("test fetchCandidates_success : SUCCESS")

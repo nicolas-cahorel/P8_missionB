@@ -185,7 +185,11 @@ class DetailScreenFragment : Fragment() {
             deleteConfirmationDialog()
         }
         binding.detailScreenDeleteButton.setOnLongClickListener {
-            Toast.makeText(context, getString(R.string.detail_screen_delete_button_toast), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                getString(R.string.detail_screen_delete_button_toast),
+                Toast.LENGTH_SHORT
+            ).show()
             true
         }
     }
@@ -352,7 +356,11 @@ class DetailScreenFragment : Fragment() {
     ) {
         // Set the candidate's name
         binding.detailScreenScreenName.text =
-            getString(R.string.detail_screen_top_bar_candidate_name, candidate.firstName, candidate.lastName)
+            getString(
+                R.string.detail_screen_top_bar_candidate_name,
+                candidate.firstName,
+                candidate.lastName
+            )
 
         // Display birthday details with age
         binding.detailScreenBirthdayDetails.text = displayBirthdayDetails(candidate.dateOfBirthStr)
@@ -391,11 +399,6 @@ class DetailScreenFragment : Fragment() {
         val updatedCandidate = viewModel.candidateState.value!!.copy(isFavorite = isFavorite)
         // Update the candidate in the ViewModel
         viewModel.updateCandidate(updatedCandidate)
-        Toast.makeText(
-            context,
-            "candidate updated in DB : message to delete",
-            Toast.LENGTH_SHORT
-        ).show()
     }
 
     /**

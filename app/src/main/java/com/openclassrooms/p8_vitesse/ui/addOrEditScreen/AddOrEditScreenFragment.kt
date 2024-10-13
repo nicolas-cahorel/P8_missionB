@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -140,11 +141,12 @@ class AddOrEditScreenFragment : Fragment() {
 
         // Convert drawable to Bitmap
         val bitmap: Bitmap? = drawable?.let {
-            Bitmap.createBitmap(it.intrinsicWidth, it.intrinsicHeight, Bitmap.Config.ARGB_8888).apply {
-                val canvas = android.graphics.Canvas(this)
-                it.setBounds(0, 0, canvas.width, canvas.height)
-                it.draw(canvas)
-            }
+            Bitmap.createBitmap(it.intrinsicWidth, it.intrinsicHeight, Bitmap.Config.ARGB_8888)
+                .apply {
+                    val canvas = android.graphics.Canvas(this)
+                    it.setBounds(0, 0, canvas.width, canvas.height)
+                    it.draw(canvas)
+                }
         }
 
         // Convert Bitmap to ByteArray and assign it to selectedImage
@@ -155,7 +157,6 @@ class AddOrEditScreenFragment : Fragment() {
             }
         } ?: ByteArray(0) // Default to an empty ByteArray if drawable or bitmap is null
     }
-
 
     /**
      * Initializes the launcher for picking an image from the gallery.
@@ -637,16 +638,16 @@ class AddOrEditScreenFragment : Fragment() {
 
             // Creates a Map associating the validation results of the fields with the corresponding error messages.
             val fields = mapOf(
-                isFirstNameCorrect to getString(R.string.add_or_edit_screen_first_name_field_hint),
-                isLastNameCorrect to getString(R.string.add_or_edit_screen_last_name_field_hint),
-                isPhoneCorrect to getString(R.string.add_or_edit_screen_phone_field_hint),
-                isEmailCorrect to getString(R.string.add_or_edit_screen_email_field_hint),
-                isBirthdayCorrect to getString(R.string.detail_screen_birthday_text)
+                getString(R.string.add_or_edit_screen_first_name_field_hint) to isFirstNameCorrect,
+                getString(R.string.add_or_edit_screen_last_name_field_hint) to isLastNameCorrect,
+                getString(R.string.add_or_edit_screen_phone_field_hint) to isPhoneCorrect,
+                getString(R.string.add_or_edit_screen_email_field_hint) to isEmailCorrect,
+                getString(R.string.detail_screen_birthday_text) to isBirthdayCorrect
             )
 
             // Filters out the incorrect fields. If a field is incorrect (validation value false),
             // its error message is added to the list of incorrect messages.
-            val incorrectFields = fields.filterNot { it.key }.values.joinToString(", ")
+            val incorrectFields = fields.filter { !it.value }.keys.joinToString(", ")
 
             // Checks if the list of incorrect fields is empty.
             if (incorrectFields.isEmpty()) {

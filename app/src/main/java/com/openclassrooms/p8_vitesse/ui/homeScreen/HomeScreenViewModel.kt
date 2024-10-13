@@ -60,7 +60,6 @@ class HomeScreenViewModel(
                 // Fetch candidates from the repository with optional filtering
                 val candidates = candidateRepository.getCandidates(favorite, query)
 
-
                 // Update state depending on the candidates list
                 if (candidates.isEmpty()) {
                     _homeScreenState.value =

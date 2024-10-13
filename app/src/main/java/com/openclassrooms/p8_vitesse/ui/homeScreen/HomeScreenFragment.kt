@@ -21,7 +21,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
-
 /**
  * Fragment responsible for managing the Home Screen UI.
  *
@@ -231,7 +230,8 @@ class HomeScreenFragment : Fragment() {
                             binding.homeScreenStateProgressBar.visibility = View.GONE
                             binding.homeScreenStateMessage.apply {
                                 visibility = View.VISIBLE
-                                text = getString(state.stateMessageId) // Display the message for empty state
+                                text =
+                                    getString(state.stateMessageId) // Display the message for empty state
                             }
                             binding.homeScreenSearchBarField.isEnabled = TRUE
                             binding.homeScreenRecyclerview.visibility = View.GONE
