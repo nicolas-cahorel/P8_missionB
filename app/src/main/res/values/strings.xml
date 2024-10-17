@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">P8_Vitesse</string>
+    <string name="app_name">P8Mb_Vitesse</string>
 
     <!-- Home Screen -->
     <string name="home_screen_empty_state_message">No candidate</string>

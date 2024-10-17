@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "P8_Vitesse"
+rootProject.name = "P8Mb_Vitesse"
 include(":app")
  
